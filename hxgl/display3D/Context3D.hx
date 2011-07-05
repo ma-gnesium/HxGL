@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 package hxgl.display3D;
 import haxe.io.Bytes;
 import hxgl.core.GLenums;

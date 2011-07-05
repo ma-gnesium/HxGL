@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 package hxgl.display3D;
 
 #if flash

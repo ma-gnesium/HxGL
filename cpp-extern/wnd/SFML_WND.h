@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 #ifndef WND_SFML_WND_H
 #define WND_SFML_WND_H
 

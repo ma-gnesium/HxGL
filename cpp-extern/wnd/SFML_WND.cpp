@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
  #include "SFML_WND.h"
  #include <iostream>
  #include "../Log.h"

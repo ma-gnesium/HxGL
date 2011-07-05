@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 package ;
 
 class SuperCube 

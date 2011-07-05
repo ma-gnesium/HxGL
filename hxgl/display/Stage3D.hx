@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 package hxgl.display;
 import hxgl.display3D.Context3D;
 import flash.geom.Rectangle;

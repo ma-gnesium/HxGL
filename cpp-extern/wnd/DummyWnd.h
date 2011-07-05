@@ -1,8 +1,3 @@
-/**
- * ...
- * @author Matthew Spencer
- */
-
 #ifndef WND_DUMMYWND_H
 #define WND_DUMMYWND_H
 
