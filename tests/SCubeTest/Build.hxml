@@ -1,0 +1,4 @@
+-cp ../tools 
+-cp ../.. 
+-cpp bin 
+-main SCubeTest

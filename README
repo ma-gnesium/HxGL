@@ -1,0 +1,49 @@
+IF YOU USE VISUAL STUDIO 2010 YOU MUST COMPILE SFML FROM SOURCE!
+
+All CFFI calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
+
+hxgl.display.*/display3D.* is currently broken. Next upload will be fixed.
+No dispose methods implemented yet.
+
+Android:
+    No template for android builds yet. Ran out of time. Coming soon!
+
+Required libs for hxgl.ndll:
+	sfml-window
+	sfml-system
+	glew
+
+Common Problems:
+	Windows:
+		Window loads and immediately crashes: Compile with vstudio 2008
+		hxgl_*_* not found: Place hxgl.ndll into bin/c++
+	Linux: 
+		SFML 1.6 fails on a symbol error, no fix yet. Use SFML 1.5
+		hxgl_*_* not found: Move hxgl.ndll to /lib
+		        (Still failing? export LD_DEBUG=libs and run again)
+
+NME:
+	Some recent changes heavily break nme support.
+	A fix is coming.
+
+Differences:
+	Vector.ofArray ()  requires  Using hxgl.Vector.Vector_USING;
+
+	stage3DS[n] is not supported use:
+		Using hxgl.display.Stage3D.Stage3DTools;
+		s = Stage3D.getStage3D (n);
+		
+	setVertexBufferAt (... does not support _HINTS_ in flash);
+	
+	Still need HxSL target. Waiting on HxSL extension.
+
+Hinting:
+   	setVertexBufferAt (default_params...., hxgl.core.GLEnums._HINT_);
+   
+   	You can suppply a hint with your buffer binds to tell fixed function
+   	where to place the buffer and whether or not to use it.
+
+   	This method will be obsolete soon.
+	
+Compiling:
+	Use latest HaXe/HXCPP nightlies.
