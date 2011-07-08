@@ -21,6 +21,7 @@
    
    <file name="platform/Android.cpp" if="android"></file>
 
+   <file name="platform/MacOS.cpp" if="macos"></file>
    
    <file name="glwrapper/GLES11.cpp"></file>
    <file name="glwrapper/GLES20.cpp"></file>
@@ -37,6 +38,7 @@
    <outdir name="../ndll/linux" if="linux"/>
    <outdir name="../ndll/windows" if="windows"/>
    <outdir name="../ndll/android" if="android"/>
+   <outdir name="../ndll/macos" if="macos"/>
    <flag value="${LIB_DIR}"/>  
 	
    <lib name="user32.lib" if="windows"/>
@@ -50,6 +52,12 @@
 
    <lib name="-lsfml-window" if="linux"/>
    <lib name="-lGLEW" if="linux"/>
+
+   <lib name="-lGLEW" if="macos"/>
+   <flag value="-framework" if="macos"/>
+   <flag value="OpenGL" if="macos"/>
+   <flag value="-framework" if="macos"/>
+   <flag value="sfml-window" if="macos"/>
 </target>
 
 <target id="default">
