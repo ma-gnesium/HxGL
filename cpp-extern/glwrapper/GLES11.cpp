@@ -4,6 +4,9 @@
 #ifdef ANDROID
 #include <GLES/gl.h>
 #include <GLES/glext.h>
+#elif defined IPHONE
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
 #else
 #include <GL/glew.h>
 #endif

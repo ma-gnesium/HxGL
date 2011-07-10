@@ -3,13 +3,20 @@
 */
 
 
+#ifndef IPHONE
 #define IMPLEMENT_API
+#endif
+
 #include "App.h"
 #include "platform/IPlatform.h"
 #include "Log.h"
 #ifdef ANDROID
     #include <GLES/gl.h>
     #include <GLES/glext.h>
+#elif defined IPHONE
+	#import "platform/IPhone.h"
+	#import <OpenGLES/ES2/gl.h>
+	#import <OpenGLES/ES2/glext.h>
 #else
     #include <GL/glew.h>
 #endif
@@ -35,14 +42,22 @@ DEFINE_PRIM(hxgl_setEnterFrame,1);
 
 value hxgl_init (value forceMajor, value forceMinor)
 {
+	printf("hxgl_init\n");
     pf = platform::IPlatform::platform;
+	#ifdef IPHONE
+	if (NULL == pf)
+	{
+		pf = new platform::IPhone;
+	}
+	#endif
+	
     if (pf->wnd == 0) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
 
     pf->wnd->init ();
     pf->wnd->create ();
     pf->wnd->show (true);
 
-    #ifndef ANDROID
+    #if !(defined IPHONE || defined ANDROID)
         GLenum err = glewInit ();
         if (GLEW_OK != err)
         {
@@ -50,7 +65,7 @@ value hxgl_init (value forceMajor, value forceMinor)
         }
     #endif
 
-    #ifndef ANDROID //FIXME glGetString crashes on android emulator
+    #if !(defined IPHONE || defined ANDROID) //FIXME glGetString crashes on android emulator
         HXGL_NOTIFY ("Attempting to aquire opengl version");
         
         const unsigned char *glVer = glGetString(GL_VERSION);
@@ -248,7 +263,7 @@ value hxgl_disposeProgram (value program)
 DEFINE_PRIM (hxgl_disposeProgram, 1);
 
 
-
+extern "C" int hxgl_register_prims() { return 0; }
 
 
 
