@@ -21,7 +21,7 @@
     #include <GL/glew.h>
 #endif
 
-platform::IPlatform *pf;
+hxgl::platform::IPlatform *pf;
 
 value eframe;
 
@@ -42,14 +42,19 @@ DEFINE_PRIM(hxgl_setEnterFrame,1);
 
 value hxgl_init (value forceMajor, value forceMinor)
 {
-	printf("hxgl_init\n");
-    pf = platform::IPlatform::platform;
+	HXGL_NOTIFY ("hxgl_init\n");
 	#ifdef IPHONE
 	if (NULL == pf)
 	{
-		pf = new platform::IPhone;
+		hxgl::platform::IPlatform::instance = new hxgl::platform::IPhone;
 	}
 	#endif
+    pf = hxgl::platform::IPlatform::instance;
+
+    if (NULL == pf)
+    {
+        HXGL_FATAL_ERROR ("hxgl_init(): Not platform selected");
+    }
 	
     if (pf->wnd == 0) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
 

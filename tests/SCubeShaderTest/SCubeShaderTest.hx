@@ -32,19 +32,21 @@ class SCubeShaderTest
     static var indices:Array<Int> = [0,1,2,0,2,3];
 
     static inline var vshader:String = 
-    "#version 150 core\n" +
-    "in vec3 in_Position;\n" +
+    "#version 110\n" +
+    "attribute vec3 in_Position;\n" +
+    "varying vec3 pass_Position;\n" +
     "void main(void)\n" +
     "{\n" +
     "   gl_Position = vec4(in_Position.x*2.0, in_Position.y * .5, in_Position.z, 1.0);\n" +
+    "   pass_Position = in_Position;"+
     "}\n";
 
     static inline var fshader:String = 
-    "#version 150 core\n" +
-    "out vec4 out_Color;\n" +
+    "#version 110\n" +
+    "varying vec3 pass_Position;\n" +
     "void main(void)\n" +
     "{\n" +
-    "   out_Color = vec4 (1.0,1.0,1.0,1.0);\n" +
+    "   gl_FragColor = vec4 (pass_Position,1.0);\n" +
     "}\n";
 
     var vertexData:haxe.io.BytesData;

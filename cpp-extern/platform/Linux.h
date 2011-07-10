@@ -9,6 +9,8 @@
 #include "../Log.h"
 #include <unistd.h>
 
+namespace hxgl
+{
 namespace platform
 {
 	class Linux : public IPlatform
@@ -21,5 +23,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_LINUX_H

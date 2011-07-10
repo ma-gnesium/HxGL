@@ -164,9 +164,9 @@ static EAGLRenderingAPI api;
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glViewport(0, 0, framebufferWidth, framebufferHeight);
 	
-	if (platform::IPlatform::platform->enterFrameCallback != NULL)
+	if (hxgl::platform::IPlatform::instance->enterFrameCallback != NULL)
     {
-        platform::IPlatform::platform->enterFrameCallback ();
+        hxgl::platform::IPlatform::instance->enterFrameCallback ();
     }
 
     glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
@@ -260,22 +260,24 @@ static EAGLRenderingAPI api;
 @end
 
 
+namespace hxgl
+{
 namespace platform
 {
 	IPhone::IPhone()
 	{
 		printf("iPhone platform\n");
 		HXGL_NOTIFY ("Your platform: [IPhone]. Setting up a [IPhone] environment");
-		wnd = new DummyWnd;
+		wnd = new hxgl::window::DummyWnd;
 		input = wnd->getInputHandle();
 		
-		if (NULL != IPlatform::platform)
+		if (NULL != hxgl::platform::IPlatform::instance)
 		{
 			HXGL_ERROR ("Platform already allocated");
 		}
 		else
 		{
-			IPlatform::platform = this;
+			hxgl::platform::IPlatform::instance = this;
 			IPhone::iphone = this;
 		}
 	}
@@ -295,13 +297,13 @@ namespace platform
         if (major >= 2)
         {
 			[OpenGLView setApi:kEAGLRenderingAPIOpenGLES2];
-            glw = new GLES20;
+            glw = new hxgl::gw::GLES20;
             return;
         }
         if (major >= 1 && minor >= 1)
         {
 			[OpenGLView setApi:kEAGLRenderingAPIOpenGLES1];
-            glw = new GLES11;
+            glw = new hxgl::gw::GLES11;
             return;
         }
         else HXGL_FATAL_ERROR ("IPhone::allocateGLW(): Unable to find a suitable context");
@@ -318,4 +320,7 @@ namespace platform
 	IPhone *IPhone::iphone = new platform::IPhone;
 }
 
-platform::IPhone stevejobs;
+}
+}
+
+hxgl::platform::IPhone stevejobs;

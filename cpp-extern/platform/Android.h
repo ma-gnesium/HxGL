@@ -8,6 +8,8 @@
 #include <iostream>
 #include "../Log.h"
 
+namespace hxgl
+{
 namespace platform
 {
 	class Android : public IPlatform
@@ -20,5 +22,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_WINDOWS_H

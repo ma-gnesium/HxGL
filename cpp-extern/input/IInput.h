@@ -1,6 +1,8 @@
 #ifndef INPUT_IINPUT_H
 #define INPUT_IINPUT_H
 
+namespace hxgl
+{
 namespace input
 {
 
@@ -17,6 +19,7 @@ namespace input
 		virtual bool digitalStatus (const unsigned short &keyCode) = 0;
 		virtual float analogStatus (const unsigned short &keyCode) = 0;
 	};
+}
 }
 
 #endif //INPUT_IINPUT_H

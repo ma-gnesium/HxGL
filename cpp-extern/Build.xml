@@ -24,6 +24,7 @@
 <files id="files">
    <compilerflag value = "-Iinclude"/>
 
+    <file name="platform/IPlatform.cpp"></file>
     <file name="platform/Windows.cpp" if="windows"></file>
 	<file name="platform/IPhone.mm" if="iphone"></file>
 
@@ -31,7 +32,6 @@
 		<depend name="App.h"/>
 	</file>
 
-   <file name="platform/IPlatform.cpp"></file>
    <file name="platform/Linux.cpp" if="linux"></file>
    
    <file name="platform/Android.cpp" if="android"></file>
@@ -39,7 +39,6 @@
    
    <file name="glwrapper/GLES11.cpp"></file>
    <file name="glwrapper/GLES20.cpp"></file>
-   <file name="input/SFML.cpp" unless="mobile"></file>
    <file name="wnd/SFML_WND.cpp" unless="mobile"></file>
    <file name="wnd/DummyWnd.cpp" if="mobile"></file>
 

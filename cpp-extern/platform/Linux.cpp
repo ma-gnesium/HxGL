@@ -1,22 +1,24 @@
 #include "Linux.h"
 #include "../Log.h"
 
+namespace hxgl
+{
 namespace platform
 {
 	Linux::Linux()
 	{
 		HXGL_NOTIFY ("Your platform: [Linux]. Setting up a [Linux] environment");
 
-		wnd = new SFML_WND;
+		wnd = new hxgl::windowSFML_WND;
 		input = wnd->getInputHandle();
 
-		if (NULL != IPlatform::platform)
+		if (NULL != hxgl::platform::IPlatform::instance)
 		{
 			HXGL_ERROR ("Unable to initialize [Linux] platform, a platform already exists.");
 		}
 		else
 		{
-			IPlatform::platform = this;
+			hxgl::platform::IPlatform::instance = this;
 		}
 	}
 
@@ -24,12 +26,12 @@ namespace platform
     {
         if (major >= 2)
         {
-            glw = new GLES20;
+            glw = new hxgl::gw::GLES20;
             return;
         }
         if (major >= 1 && minor >= 5)
         {
-            glw = new GLES11;
+            glw = new hxgl::gw::GLES11;
             return;
         }
         else HXGL_FATAL_ERROR ("Linux::allocateGLW(): Unable to find a suitable context");
@@ -57,5 +59,6 @@ namespace platform
 		delete input;	//FIXME Once wnd->getInputHandle instances input, remove this delete
 	}
 }
+}//NAMESPACE HXGL
 
 platform::Linux lin;

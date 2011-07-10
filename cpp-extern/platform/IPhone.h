@@ -16,6 +16,8 @@
 #include <iostream>
 #include "../Log.h"
 
+namespace hxgl
+{
 namespace platform
 {
 	class IPhone : public IPlatform
@@ -29,6 +31,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
-
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_IPHONE_H
