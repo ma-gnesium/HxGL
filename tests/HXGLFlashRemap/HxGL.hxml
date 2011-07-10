@@ -1,0 +1,4 @@
+-cp ../..
+-cpp bin
+-main Main
+--remap flash:hxgl

@@ -25,11 +25,13 @@ namespace platform
         if (major >= 2)
         {
             glw = new hxgl::gw::GLES20;
+            HXGL_NOTIFY ("Allocated a GLES20");
             return;
         }
         if (major >= 1 && minor >= 5)
         {
             glw = new hxgl::gw::GLES11;
+            HXGL_NOTIFY ("Allocated a GLES11");
             return;
         }
         else HXGL_FATAL_ERROR ("Windows::allocateGLW(): Unable to find a suitable context");

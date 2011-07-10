@@ -1,71 +1,49 @@
 package hxgl.display3D;
-import haxe.io.Bytes;
-import haxe.io.BytesOutput;
-import hxgl.core.GLenums;
+
 
 #if flash
 	typedef VertexBuffer3D = flash.display3D.VertexBuffer3D;
-#elseif cpp
-
-import hxgl.core.GL;
+	
+#else
+import haxe.io.Bytes;
+import haxe.io.BytesData;
+import haxe.io.BytesOutput;
+import hxgl.core.GLenums;
+import hxgl.core.HXGL;
 
 class VertexBuffer3D 
 {
 
 	public function new(numVertices:Int, data32PerVertex:Int) 
 	{
-		_vboID = GL.GenBuffer (); //Get buffer handler
 		_vertNum = numVertices;
-		_vertBytes = data32PerVertex * 4;//FIXME modify to actual 32bpv
+		_vertBytes = data32PerVertex * 4;						//Working with p32 is confusing, convert to bytes
+		_vboID = HXGL.createVertexBuffer (_vertNum*_vertBytes); //Get buffer handler
 	}
 	
 	public function uploadFromByteArray (
-					data:Bytes, byteArrayOffset:Int,
+					data:BytesData, byteArrayOffset:Int,
 					startVertex:Int, numVertices:Int):Void
 	{
-		GL.BindBuffer (GLenums.GL_ARRAY_BUFFER, _vboID);
-		
-		var bufferSize = _vertBytes * _vertNum;
-		
-		//FIXME Extend hxgl_bindBuffer to support an offset
-		var tbuf:Bytes = Bytes.alloc (_vertNum * _vertBytes);		
-		tbuf.blit (0, data, startVertex * _vertBytes, numVertices * _vertBytes);
-		
-		//Synchronous copy to GPU
-		GL.BufferData (
-						GLenums.GL_ARRAY_BUFFER, bufferSize,
-						tbuf.getData (), GLenums.GL_DYNAMIC_DRAW);
-					
-		
-		GL.BindBuffer (GLenums.GL_ARRAY_BUFFER, 0);	//DO NOT REMOVE. 		
+		HXGL.uploadFromByteArrayVertex (_vboID, data, byteArrayOffset, 
+				startVertex * _vertBytes, numVertices*_vertBytes);	//Use care, works in bytes, not numverts
 	}
 	
-	public function uploadFromVector (
-					data:flash.Vector<Float>,
-					startVertex:Int, NumVertices:Int):Void
-	{
+	//public function uploadFromVector (
+					//data:flash.Vector<Float>,
+					//startVertex:Int, NumVertices:Int):Void
+	//{
 		//Cheating here by offloading to upfromba;
-		var bytesOutput = new BytesOutput ();
-		
-		for (j in data)
-		{
-			bytesOutput.writeFloat (j);
-		}
-		uploadFromByteArray (bytesOutput.getBytes (), 0, 0, NumVertices);
-	}
+		//var bytesOutput = new BytesOutput ();
+		//
+		//for (j in data)
+		//{
+			//bytesOutput.writeFloat (j);
+		//}
+		//uploadFromByteArray (bytesOutput.getBytes (), 0, 0, NumVertices);
+	//}
 	
-	public function dispose ():Void
-	{
-		throw "VertexBuffer3D.dispose(): Not yet implemented";
-	}
-	
-	public function _dbg_forceBind ()
-	{
-		GL.BindBuffer (GLenums.GL_ARRAY_BUFFER, _vboID);
-	}
-	
-	var _vboID:Int;
-	
+	var _vboID:Int;				//handle
 	var _vertNum:Int;
 	var _vertBytes:Int;	
 }

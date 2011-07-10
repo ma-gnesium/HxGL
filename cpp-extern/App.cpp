@@ -2,6 +2,7 @@
     If you edit App.cpp make sure to update the binding in GL.hx too!
 */
 
+#define HXGL_VERIFY_GW          //Ensure that pf and glw are in place on each external call
 
 #ifndef IPHONE
 #define IMPLEMENT_API
@@ -35,6 +36,7 @@ void eCallback ()
 
 value hxgl_setEnterFrame(value efnc)
 {
+    HXGL_NOTIFY ("recieved enter frame registration request");
     eframe = efnc;
     return alloc_null();
 }
@@ -56,7 +58,7 @@ value hxgl_init (value forceMajor, value forceMinor)
         HXGL_FATAL_ERROR ("hxgl_init(): Not platform selected");
     }
 	
-    if (pf->wnd == 0) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
+    if (0 == pf->wnd) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
 
     pf->wnd->init ();
     pf->wnd->create ();
@@ -68,6 +70,7 @@ value hxgl_init (value forceMajor, value forceMinor)
         {
             HXGL_FATAL_ERROR ("GLEW failed to init");
         }
+        HXGL_NOTIFY ("GLEW OK!");
     #endif
 
     #if !(defined IPHONE || defined ANDROID) //FIXME glGetString crashes on android emulator
@@ -111,6 +114,12 @@ DEFINE_PRIM(hxgl_init,2);
 value hxgl_clear (value *args, int count)
 {
     if (count != 7) HXGL_ERROR ("hxgl_clear: Invalid param count");
+
+    #ifdef HXGL_VERIFY_GW
+    if (NULL == pf) HXGL_FATAL_ERROR ("hxgl_clear: pf is null");
+    if (NULL == pf->glw) HXGL_FATAL_ERROR ("hxgl_clear: pf is null");
+    #endif
+    
     pf->glw->clear (
         val_float (args[0]), 
         val_float (args[1]),
