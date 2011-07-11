@@ -3,6 +3,8 @@
 
 #include "IPlatform.h"
 
+namespace hxgl
+{
 namespace platform
 {
 	class MacOS : public IPlatform
@@ -15,5 +17,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_MACOS_H
