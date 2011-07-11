@@ -8,29 +8,31 @@ namespace platform
 	{
 		HXGL_NOTIFY ("Your platform: [MacOS]. Setting up a [MacOS] environment");
 
-		wnd = new SFML_WND;
+		wnd = new hxgl::window::SFML_WND;
 		//input = wnd->getInputHandle();
 
-		if (NULL != IPlatform::platform)
+		if (NULL != hxgl::platform::IPlatform::instance)
 		{
-			HXGL_ERROR ("Unable to initialize [MacOS] platform, a platform already exists.");
+			HXGL_ERROR ("Error: Platform already allocated");
 		}
 		else
 		{
-			IPlatform::platform = this;
+			hxgl::platform::IPlatform::instance = this;
 		}
 	}
 
-	void MacOS::allocateGLW(unsigned char major, unsigned char minor)
+    void MacOS::allocateGLW(unsigned char major, unsigned char minor)
     {
         if (major >= 2)
         {
-            glw = new GLES20;
+            glw = new hxgl::gw::GLES20;
+            HXGL_NOTIFY ("Allocated a GLES20");
             return;
         }
         if (major >= 1 && minor >= 5)
         {
-            glw = new GLES11;
+            glw = new hxgl::gw::GLES11;
+            HXGL_NOTIFY ("Allocated a GLES11");
             return;
         }
         else HXGL_FATAL_ERROR ("MacOS::allocateGLW(): Unable to find a suitable context");
@@ -58,6 +60,6 @@ namespace platform
 		delete input;	//FIXME Once wnd->getInputHandle instances input, remove this delete
 	}
 }
-}
+}//NAMESPACE HXGL
 
-platform::MacOS osx;
+hxgl::platform::MacOS osx;
