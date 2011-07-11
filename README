@@ -1,17 +1,14 @@
 IF YOU USE VISUAL STUDIO 2010 YOU MUST COMPILE SFML FROM SOURCE!
 
-All CFFI calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
-
-hxgl.display.*/display3D.* is currently broken. Next upload will be fixed.
-No dispose methods implemented yet.
+All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
 
 Android:
-    No template for android builds yet. Ran out of time. Coming soon!
+    Android templates coming soon!
 
 Required libs for hxgl.ndll:
 	sfml-window
 	sfml-system
-	glew
+	glew32
 
 Common Problems:
 	Windows:

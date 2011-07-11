@@ -5,22 +5,12 @@
 #define HXGL_VERIFY_GW          //Ensure that pf and glw are in place on each external call
 
 #ifndef IPHONE
-#define IMPLEMENT_API
+    #define IMPLEMENT_API
 #endif
 
 #include "App.h"
-#include "platform/IPlatform.h"
-#include "Log.h"
-#ifdef ANDROID
-    #include <GLES/gl.h>
-    #include <GLES/glext.h>
-#elif defined IPHONE
-	#import "platform/IPhone.h"
-	#import <OpenGLES/ES2/gl.h>
-	#import <OpenGLES/ES2/glext.h>
-#else
-    #include <GL/glew.h>
-#endif
+#include "InclGLib.h"
+
 
 hxgl::platform::IPlatform *pf;
 

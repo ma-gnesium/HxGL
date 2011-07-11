@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../Log.h"
 #include <unistd.h>
+#include "../Log.h"
 
 namespace hxgl
 {

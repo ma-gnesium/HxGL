@@ -2,8 +2,9 @@
 #define WND_SFML_WND_H
 
 #include "IWND.h"
-#include <SFML/Window.hpp>
-//#include "../input/SFML.h"
+#include "../InclGLib.h"
+#include <iostream>
+#include "../Log.h"
 
 namespace hxgl
 {

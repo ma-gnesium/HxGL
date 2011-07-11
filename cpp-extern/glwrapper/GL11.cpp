@@ -1,7 +1,6 @@
 //CURRENTLY BROKEN
 
 #include "GL11.h"
-#include "../Log.h"
 
 GL11::GL11 ()
 {

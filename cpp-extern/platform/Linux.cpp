@@ -1,5 +1,4 @@
 #include "Linux.h"
-#include "../Log.h"
 
 namespace hxgl
 {

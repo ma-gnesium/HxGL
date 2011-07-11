@@ -5,4 +5,7 @@
 
 #include <iostream>
 
+#include "platform/IPlatform.h"
+#include "Log.h"
+
 #endif

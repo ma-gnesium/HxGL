@@ -1,6 +1,4 @@
 #include "SFML_WND.h"
-#include <iostream>
-#include "../Log.h"
 
 namespace hxgl
 {

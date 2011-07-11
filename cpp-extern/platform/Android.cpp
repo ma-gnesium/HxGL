@@ -1,8 +1,4 @@
 #include "Android.h"
-#include <jni.h>
-#include <android/log.h>
-#include <GLES/gl.h>
-#include <GLES/glext.h>
 
 namespace hxgl
 {

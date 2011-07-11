@@ -16,6 +16,15 @@
 #include <iostream>
 #include "../Log.h"
 
+#import <UIKit/UIKit.h>
+#import <OpenGLES/EAGL.h>
+
+#import <OpenGLES/ES1/gl.h>
+#import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
+#import <QuartzCore/QuartzCore.h>
+
 namespace hxgl
 {
 namespace platform

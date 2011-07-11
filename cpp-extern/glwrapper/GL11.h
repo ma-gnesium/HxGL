@@ -2,13 +2,7 @@
 #define GL11_H
 
 #include "IGL_D.h"
-#include <cstring> //So memcpy works on gcc 4.3
-#include <iostream>
-
-#ifdef ANDROID
-    #include <GLES/gl.h>
-    #include <GLES/glext.h>
-#endif
+#include "../Log.h"
 
 #ifndef NULL
 #define NULL 0

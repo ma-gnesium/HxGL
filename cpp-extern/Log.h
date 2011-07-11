@@ -13,6 +13,7 @@
     #define HXGL_WARNING(e) {}
     #define HXGL_NOTIFY(e) {}
 #else
+    #include <iostream>
     #define HXGL_FATAL_ERROR(e) { std::cerr << "Error(Fatal): " << e << std::endl; exit(0);}
     #define HXGL_ERROR(e) std::cerr << "Error: " << e << std::endl;
     #define HXGL_WARNING(e) std::cout << "Warning: " << e << std::endl;

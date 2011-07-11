@@ -1,15 +1,4 @@
 #include "GLES11.h"
-#include "../Log.h"
-
-#ifdef ANDROID
-#include <GLES/gl.h>
-#include <GLES/glext.h>
-#elif defined IPHONE
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
-#else
-#include <GL/glew.h>
-#endif
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
