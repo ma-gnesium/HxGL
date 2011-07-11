@@ -50,7 +50,7 @@ namespace platform
 }//END NAMESPACE PLATFORM
 }//END NAMESPACE HXGL
 
-platform::Android andy;
+hxgl::platform::Android andy;
 
 extern "C"
 {

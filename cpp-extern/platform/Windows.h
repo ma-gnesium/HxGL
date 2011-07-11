@@ -7,7 +7,6 @@
 #include "../glwrapper/GLES11.h"
 #include <iostream>
 #include "../Log.h"
-#include "Windows.h"
 
 namespace hxgl
 {

@@ -2,6 +2,7 @@
 #define GLES11_H
 
 #include "IGL.h"
+#include <cstring>
 #include "../Log.h"
 
 #ifdef ANDROID
