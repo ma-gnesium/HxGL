@@ -21,6 +21,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
-}
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_MACOS_H
