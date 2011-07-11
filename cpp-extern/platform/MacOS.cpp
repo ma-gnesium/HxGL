@@ -1,9 +1,7 @@
 #include "MacOS.h"
-#include "../wnd/SFML_WND.h"
-#include "../glwrapper/GLES11.h"
-#include "../glwrapper/GLES20.h"
-#include "../Log.h"
 
+namespace hxgl
+{
 namespace platform
 {
 	MacOS::MacOS()
@@ -59,6 +57,7 @@ namespace platform
 		delete glw;
 		delete input;	//FIXME Once wnd->getInputHandle instances input, remove this delete
 	}
+}
 }
 
 platform::MacOS osx;

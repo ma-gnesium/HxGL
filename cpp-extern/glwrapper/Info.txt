@@ -1,4 +1,0 @@
-GLES20 will handle both GLES20 and GL20
-GLES11 will handle both GLES11 and GL15
-
-Once fixed, GL11 should handle both GLES10 and GL11
