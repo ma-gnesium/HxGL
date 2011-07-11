@@ -25,13 +25,10 @@ NME:
 	Some recent changes heavily break nme support.
 	A fix is coming.
 
-Differences:
-	Vector.ofArray ()  requires  Using hxgl.Vector.Vector_USING;
+flash.display3D.*:
+    Functional, but very limited.
 
-	stage3DS[n] is not supported use:
-		Using hxgl.display.Stage3D.Stage3DTools;
-		s = Stage3D.getStage3D (n);
-		
+Differences:
 	setVertexBufferAt (... does not support _HINTS_ in flash);
 	
 	Still need HxSL target. Waiting on HxSL extension.

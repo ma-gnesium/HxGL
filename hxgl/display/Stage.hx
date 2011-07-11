@@ -4,6 +4,11 @@ package hxgl.display;
 typedef Stage = flash.display.Stage;
 #else
 import hxgl.core.HXGL;
+#if cpp
+import cpp.Sys;
+#else
+import neko.Sys;
+#end
 
 class Stage 
 {
@@ -11,11 +16,11 @@ class Stage
 	function new() 
 	{		
 		_evthash = new Hash ();
-		stage3Ds = new flash.Vector ();
+		stage3Ds = new hxgl.Vector ();
 	    stage3Ds.push (untyped new Stage3D ());  
 	}
 
-    public var stage3Ds:flash.Vector<Stage3D>; 
+    public var stage3Ds:hxgl.Vector<Stage3D>; 
 	
 	public function addEventListener (e:String, cb:Dynamic->Void)
 	{
@@ -58,6 +63,8 @@ class Stage
 			}
 			if (e != hxgl.events.Event.ENTER_FRAME) _evthash.remove(e);	//hack to stop all events from firing forever
 		}
+
+		if(e == hxgl.events.Event.ENTER_FRAME) Sys.sleep (1/60);
 	}
     
 	function extern_registerOnEnterFrame ()

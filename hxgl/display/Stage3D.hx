@@ -44,14 +44,14 @@ class Stage3D
 	public function requestContext3D ()
 	{
 		context3D = untyped new Context3D ();
-		flash.Lib.stage.dispatchEvent (flash.events.Event.CONTEXT3D_CREATE);
+		hxgl.Lib.stage.dispatchEvent (hxgl.events.Event.CONTEXT3D_CREATE);
 	}
 	
 	public var context3D:Context3D;
 	
 	public function addEventListener (t,e)
 	{
-		flash.Lib.stage.addEventListener (t,e);
+		hxgl.Lib.stage.addEventListener (t,e);
 	}
 
 	static var init:Bool = false;
