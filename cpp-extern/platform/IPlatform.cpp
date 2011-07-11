@@ -1,6 +1,9 @@
 #include "IPlatform.h"
 
+namespace hxgl
+{
 namespace platform
 {
-	IPlatform *IPlatform::platform = 0;
+	IPlatform *IPlatform::instance = 0;
+}
 }

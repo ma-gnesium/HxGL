@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1EEEBA9B121AF1C60048A9DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEEBA9A121AF1C60048A9DF /* UIKit.framework */; };
+		1EEEBAA5121AF2210048A9DF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEEBAA4121AF2210048A9DF /* OpenGLES.framework */; };
+		1EEEBAA7121AF2210048A9DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEEBAA6121AF2210048A9DF /* QuartzCore.framework */; };
+		1EEEBB00121BE2B30048A9DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEEBAFF121BE2B30048A9DF /* Foundation.framework */; };
+		1EF0A83A121ADB8E003F2F59 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1EF0A839121ADB8E003F2F59 /* Main.cpp */; };
+		1EF0A888121AE2F0003F2F59 /* lib/IPhoneMain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EF0A887121AE2F0003F2F59 /* lib/IPhoneMain.a */; };
+		B123147613C9A3130025A026 /* libregexp.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147313C9A3130025A026 /* libregexp.iphoneos.a */; };
+		B123147713C9A3130025A026 /* libstd.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147413C9A3130025A026 /* libstd.iphoneos.a */; };
+		B123147813C9A3130025A026 /* libzlib.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147513C9A3130025A026 /* libzlib.iphoneos.a */; };
+		B123147C13C9A31C0025A026 /* libregexp.iphonesim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147913C9A31C0025A026 /* libregexp.iphonesim.a */; };
+		B123147D13C9A31C0025A026 /* libstd.iphonesim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147A13C9A31C0025A026 /* libstd.iphonesim.a */; };
+		B123147E13C9A31C0025A026 /* libzlib.iphonesim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B123147B13C9A31C0025A026 /* libzlib.iphonesim.a */; };
+		B12314A313C9A8680025A026 /* hxgl.iphoneos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B12314A213C9A8680025A026 /* hxgl.iphoneos.a */; };
+		B12314A513C9A86E0025A026 /* hxgl.iphonesim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B12314A413C9A86E0025A026 /* hxgl.iphonesim.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1EF0A882121AE1D2003F2F59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1EF0A87F121AE1CE003F2F59;
+			remoteInfo = "Build Haxe";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D6058910D05DD3D006BFB54 /* v1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EEEBA9A121AF1C60048A9DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1EEEBAA4121AF2210048A9DF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1EEEBAA6121AF2210048A9DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1EEEBAFF121BE2B30048A9DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1EF0A839121ADB8E003F2F59 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = Classes/Main.cpp; sourceTree = SOURCE_ROOT; };
+		1EF0A887121AE2F0003F2F59 /* lib/IPhoneMain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = lib/IPhoneMain.a; sourceTree = SOURCE_ROOT; };
+		8D1107310486CEB800E47090 /* v1-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "v1-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		B123147313C9A3130025A026 /* libregexp.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libregexp.iphoneos.a; sourceTree = "<group>"; };
+		B123147413C9A3130025A026 /* libstd.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstd.iphoneos.a; sourceTree = "<group>"; };
+		B123147513C9A3130025A026 /* libzlib.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.iphoneos.a; sourceTree = "<group>"; };
+		B123147913C9A31C0025A026 /* libregexp.iphonesim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libregexp.iphonesim.a; sourceTree = "<group>"; };
+		B123147A13C9A31C0025A026 /* libstd.iphonesim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstd.iphonesim.a; sourceTree = "<group>"; };
+		B123147B13C9A31C0025A026 /* libzlib.iphonesim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.iphonesim.a; sourceTree = "<group>"; };
+		B12314A213C9A8680025A026 /* hxgl.iphoneos.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = hxgl.iphoneos.a; path = lib/hxgl.iphoneos.a; sourceTree = "<group>"; };
+		B12314A413C9A86E0025A026 /* hxgl.iphonesim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = hxgl.iphonesim.a; path = lib/hxgl.iphonesim.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EF0A888121AE2F0003F2F59 /* lib/IPhoneMain.a in Frameworks */,
+				1EEEBA9B121AF1C60048A9DF /* UIKit.framework in Frameworks */,
+				1EEEBAA5121AF2210048A9DF /* OpenGLES.framework in Frameworks */,
+				1EEEBAA7121AF2210048A9DF /* QuartzCore.framework in Frameworks */,
+				1EEEBB00121BE2B30048A9DF /* Foundation.framework in Frameworks */,
+				B123147613C9A3130025A026 /* libregexp.iphoneos.a in Frameworks */,
+				B123147713C9A3130025A026 /* libstd.iphoneos.a in Frameworks */,
+				B123147813C9A3130025A026 /* libzlib.iphoneos.a in Frameworks */,
+				B123147C13C9A31C0025A026 /* libregexp.iphonesim.a in Frameworks */,
+				B123147D13C9A31C0025A026 /* libstd.iphonesim.a in Frameworks */,
+				B123147E13C9A31C0025A026 /* libzlib.iphonesim.a in Frameworks */,
+				B12314A313C9A8680025A026 /* hxgl.iphoneos.a in Frameworks */,
+				B12314A513C9A86E0025A026 /* hxgl.iphonesim.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1EF0A839121ADB8E003F2F59 /* Main.cpp */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* v1.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1EEEBA99121AF18B0048A9DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EEEBA9A121AF1C60048A9DF /* UIKit.framework */,
+				1EEEBAA4121AF2210048A9DF /* OpenGLES.framework */,
+				1EEEBAA6121AF2210048A9DF /* QuartzCore.framework */,
+				1EEEBAFF121BE2B30048A9DF /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1EF0A83C121ADC15003F2F59 /* Device Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B123147313C9A3130025A026 /* libregexp.iphoneos.a */,
+				B12314A213C9A8680025A026 /* hxgl.iphoneos.a */,
+				B123147413C9A3130025A026 /* libstd.iphoneos.a */,
+				B123147513C9A3130025A026 /* libzlib.iphoneos.a */,
+			);
+			name = "Device Libraries";
+			sourceTree = SOURCE_ROOT;
+		};
+		1EF0A847121ADCE0003F2F59 /* Simulator Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B12314A413C9A86E0025A026 /* hxgl.iphonesim.a */,
+				B123147913C9A31C0025A026 /* libregexp.iphonesim.a */,
+				B123147A13C9A31C0025A026 /* libstd.iphonesim.a */,
+				B123147B13C9A31C0025A026 /* libzlib.iphonesim.a */,
+			);
+			name = "Simulator Libraries";
+			sourceTree = "<group>";
+		};
+		1EF0A886121AE22D003F2F59 /* Haxe Code */ = {
+			isa = PBXGroup;
+			children = (
+				1EF0A887121AE2F0003F2F59 /* lib/IPhoneMain.a */,
+			);
+			name = "Haxe Code";
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				1EEEBA99121AF18B0048A9DF /* Frameworks */,
+				1EF0A886121AE22D003F2F59 /* Haxe Code */,
+				1EF0A847121ADCE0003F2F59 /* Simulator Libraries */,
+				1EF0A83C121ADC15003F2F59 /* Device Libraries */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107310486CEB800E47090 /* v1-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		1EF0A87F121AE1CE003F2F59 /* Build Haxe */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "";
+			buildConfigurationList = 1EF0A885121AE21C003F2F59 /* Build configuration list for PBXLegacyTarget "Build Haxe" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = haxe;
+			dependencies = (
+			);
+			name = "Build Haxe";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Build Haxe";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* v1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "v1" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1EF0A883121AE1D2003F2F59 /* PBXTargetDependency */,
+			);
+			name = v1;
+			productName = v1;
+			productReference = 1D6058910D05DD3D006BFB54 /* v1.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "v1" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* v1 */,
+				1EF0A87F121AE1CE003F2F59 /* Build Haxe */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EF0A83A121ADB8E003F2F59 /* Main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1EF0A883121AE1D2003F2F59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1EF0A87F121AE1CE003F2F59 /* Build Haxe */;
+			targetProxy = 1EF0A882121AE1D2003F2F59 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "v1-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = v1;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				INFOPLIST_FILE = "v1-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/lib\"",
+					"\"$(SRCROOT)\"",
+				);
+				PRODUCT_NAME = v1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1EF0A880121AE1CE003F2F59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Build Haxe";
+			};
+			name = Debug;
+		};
+		1EF0A881121AE1CE003F2F59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Build Haxe";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_SYMBOL_SEPARATION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "v1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1EF0A885121AE21C003F2F59 /* Build configuration list for PBXLegacyTarget "Build Haxe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EF0A880121AE1CE003F2F59 /* Debug */,
+				1EF0A881121AE1CE003F2F59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "v1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

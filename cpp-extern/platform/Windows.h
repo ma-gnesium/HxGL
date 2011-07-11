@@ -9,7 +9,8 @@
 #include "../Log.h"
 #include "Windows.h"
 
-
+namespace hxgl
+{
 namespace platform
 {
 	class Windows : public IPlatform
@@ -22,5 +23,6 @@ namespace platform
 		void allocateGLW(unsigned char major, unsigned char minor);
 	};
 }
+}//NAMESPACE HXGL
 
 #endif //PLATFORM_WINDOWS_H

@@ -3,24 +3,32 @@
 
 #include "IWND.h"
 #include <SFML/Window.hpp>
-#include "../input/SFML.h"
+//#include "../input/SFML.h"
 
-class SFML_WND: public IWND
+namespace hxgl
 {
-public:
-	void init ();
-	void terminate ();
-	bool create ();
-	void show (bool isVisible);
-	void resize ();
-	void setTitle (const char *title);
-	void getGLVersion (unsigned int &major, unsigned int &minor);
-	void swapBuffers ();
-	bool process ();
-	input::IInput *getInputHandle ();
+namespace window
+{
 
-private:
-	sf::Window *wnd;
-};
+    class SFML_WND: public IWND
+    {
+    public:
+	    void init ();
+	    void terminate ();
+	    bool create ();
+	    void show (bool isVisible);
+	    void resize ();
+	    void setTitle (const char *title);
+	    void getGLVersion (unsigned int &major, unsigned int &minor);
+	    void swapBuffers ();
+	    bool process ();
+	    input::IInput *getInputHandle ();
+
+    private:
+	    sf::Window *wnd;
+    };
+
+}
+}
 
 #endif

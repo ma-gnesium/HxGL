@@ -2,19 +2,27 @@
     If you edit App.cpp make sure to update the binding in GL.hx too!
 */
 
+#define HXGL_VERIFY_GW          //Ensure that pf and glw are in place on each external call
 
+#ifndef IPHONE
 #define IMPLEMENT_API
+#endif
+
 #include "App.h"
 #include "platform/IPlatform.h"
 #include "Log.h"
 #ifdef ANDROID
     #include <GLES/gl.h>
     #include <GLES/glext.h>
+#elif defined IPHONE
+	#import "platform/IPhone.h"
+	#import <OpenGLES/ES2/gl.h>
+	#import <OpenGLES/ES2/glext.h>
 #else
     #include <GL/glew.h>
 #endif
 
-platform::IPlatform *pf;
+hxgl::platform::IPlatform *pf;
 
 value eframe;
 
@@ -28,6 +36,7 @@ void eCallback ()
 
 value hxgl_setEnterFrame(value efnc)
 {
+    HXGL_NOTIFY ("recieved enter frame registration request");
     eframe = efnc;
     return alloc_null();
 }
@@ -35,22 +44,36 @@ DEFINE_PRIM(hxgl_setEnterFrame,1);
 
 value hxgl_init (value forceMajor, value forceMinor)
 {
-    pf = platform::IPlatform::platform;
-    if (pf->wnd == 0) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
+	HXGL_NOTIFY ("hxgl_init\n");
+	#ifdef IPHONE
+	if (NULL == pf)
+	{
+		hxgl::platform::IPlatform::instance = new hxgl::platform::IPhone;
+	}
+	#endif
+    pf = hxgl::platform::IPlatform::instance;
+
+    if (NULL == pf)
+    {
+        HXGL_FATAL_ERROR ("hxgl_init(): Not platform selected");
+    }
+	
+    if (0 == pf->wnd) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");
 
     pf->wnd->init ();
     pf->wnd->create ();
     pf->wnd->show (true);
 
-    #ifndef ANDROID
+    #if !(defined IPHONE || defined ANDROID)
         GLenum err = glewInit ();
         if (GLEW_OK != err)
         {
             HXGL_FATAL_ERROR ("GLEW failed to init");
         }
+        HXGL_NOTIFY ("GLEW OK!");
     #endif
 
-    #ifndef ANDROID //FIXME glGetString crashes on android emulator
+    #if !(defined IPHONE || defined ANDROID) //FIXME glGetString crashes on android emulator
         HXGL_NOTIFY ("Attempting to aquire opengl version");
         
         const unsigned char *glVer = glGetString(GL_VERSION);
@@ -91,6 +114,12 @@ DEFINE_PRIM(hxgl_init,2);
 value hxgl_clear (value *args, int count)
 {
     if (count != 7) HXGL_ERROR ("hxgl_clear: Invalid param count");
+
+    #ifdef HXGL_VERIFY_GW
+    if (NULL == pf) HXGL_FATAL_ERROR ("hxgl_clear: pf is null");
+    if (NULL == pf->glw) HXGL_FATAL_ERROR ("hxgl_clear: pf is null");
+    #endif
+    
     pf->glw->clear (
         val_float (args[0]), 
         val_float (args[1]),
@@ -248,7 +277,7 @@ value hxgl_disposeProgram (value program)
 DEFINE_PRIM (hxgl_disposeProgram, 1);
 
 
-
+extern "C" int hxgl_register_prims() { return 0; }
 
 
 

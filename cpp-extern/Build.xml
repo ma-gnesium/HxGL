@@ -6,17 +6,32 @@
 <include name="${HXCPP}/build-tool/BuildCommon.xml"/>
 
 <set name="DBG" value="d" if="debug"/>
+<set name="mobile" value="1" if="iphone"/>
+<set name="mobile" value="1" if="android"/>
+
+<set name="tool" value="static" if="iphone"/>
+<set name="ndll-tool" value="dll" unless="iphone"/>
+<set name="ndll-tool" value="static" if="iphone"/>
+<set name="name_extra" value=".iphoneos" if="iphoneos"/>
+<set name="name_extra" value=".iphonesim" if="iphonesim"/>
+
+<vflag name="-framework" value="OpenGLES" if="iphone"/>
+<vflag name="-framework" value="UIKit" if="iphone"/>
+<vflag name="-framework" value="Foundation" if="iphone"/>
+<vflag name="-framework" value="QuartzCore" if="iphone"/>
+
 
 <files id="files">
    <compilerflag value = "-Iinclude"/>
 
+    <file name="platform/IPlatform.cpp"></file>
     <file name="platform/Windows.cpp" if="windows"></file>
+	<file name="platform/IPhone.mm" if="iphone"></file>
 
    <file name="App.cpp">
 		<depend name="App.h"/>
 	</file>
 
-   <file name="platform/IPlatform.cpp"></file>
    <file name="platform/Linux.cpp" if="linux"></file>
    
    <file name="platform/Android.cpp" if="android"></file>
@@ -25,20 +40,20 @@
    
    <file name="glwrapper/GLES11.cpp"></file>
    <file name="glwrapper/GLES20.cpp"></file>
-   <file name="input/SFML.cpp" unless="android"></file>
-   <file name="wnd/SFML_WND.cpp" unless="android"></file>
-   <file name="wnd/DummyWnd.cpp" if="android"></file>
+   <file name="wnd/SFML_WND.cpp" unless="mobile"></file>
+   <file name="wnd/DummyWnd.cpp" if="mobile"></file>
 
    
 </files>
 
-<target id="hxgl.ndll" tool="linker" toolid="dll" output="hxgl">
+<target id="hxgl.ndll" tool="linker" toolid="${ndll-tool}" output="hxgl${name_extra}">
    <files id="files"/>
-   <ext value=".ndll" unless="android"/>
+   <ext value=".ndll" unless="mobile"/>
    <outdir name="../ndll/linux" if="linux"/>
    <outdir name="../ndll/windows" if="windows"/>
    <outdir name="../ndll/android" if="android"/>
    <outdir name="../ndll/macos" if="macos"/>
+   <outdir name="../ndll/iphoneos" if="iphone"/>
    <flag value="${LIB_DIR}"/>  
 	
    <lib name="user32.lib" if="windows"/>

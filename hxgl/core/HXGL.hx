@@ -31,7 +31,7 @@ class HXGL
     public static inline function setEnterFrame (fnc:Void->Void){
         extSetEnterFrame (fnc);
     }
-    public static inline function init (?major:Int = 0, ?minor:Int = 0){
+    public static inline function init (major:Int = 0, minor:Int = 0){
         extInit (major,minor);
     }
     public static inline function clear(red:Float, green:Float, blue:Float, 

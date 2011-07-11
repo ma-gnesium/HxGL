@@ -4,21 +4,23 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 
+namespace hxgl
+{
 namespace platform
 {
 	Android::Android()
 	{
 		HXGL_NOTIFY ("Your platform: [Android]. Setting up a [Android] environment");
-		wnd = new DummyWnd;
+		wnd = new hxgl::window::DummyWnd;
 		input = wnd->getInputHandle();
 
-		if (NULL != IPlatform::platform)
+		if (NULL != hxgl::platform::IPlatform::instance)
 		{
 			HXGL_ERROR ("Platform already allocated");
 		}
 		else
 		{
-			IPlatform::platform = this;
+			hxgl::platform::IPlatform::instance = this;
 		}
 	}
 
@@ -31,12 +33,12 @@ namespace platform
     {
         if (major >= 2)
         {
-            glw = new GLES20;
+            glw = new hxgl::gw::GLES20;
             return;
         }
         if (major >= 1 && minor >= 1)
         {
-            glw = new GLES11;
+            glw = new hxgl::gw::GLES11;
             return;
         }
         else HXGL_FATAL_ERROR ("Android::allocateGLW(): Unable to find a suitable context");
@@ -49,7 +51,8 @@ namespace platform
 		delete glw;
 		delete input;	//FIXME Once wnd->getInputHandle instances input, remove this delete
 	}
-}
+}//END NAMESPACE PLATFORM
+}//END NAMESPACE HXGL
 
 platform::Android andy;
 
@@ -65,9 +68,9 @@ extern "C"
 //OnRender delegate
 JAVA_EXPORT int JNICALL Java_com_hxgl_HXGL_onEnterFrame(JNIEnv *env, jobject obj)
 {
-    if (platform::IPlatform::platform->enterFrameCallback != NULL)
+    if (hxgl::platform::IPlatform::instance->enterFrameCallback != NULL)
     {
-        platform::IPlatform::platform->enterFrameCallback ();
+        hxgl::platform::IPlatform::instance->enterFrameCallback ();
     }
     
     return 0;

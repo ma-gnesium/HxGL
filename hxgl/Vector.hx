@@ -1,5 +1,9 @@
 package hxgl;
 
+#if flash
+	typedef Vector<T> = flash.Vector<T>;
+#else
+
 class Vector_USING
 {
 	#if cpp
@@ -9,3 +13,6 @@ class Vector_USING
 	}
 	#end
 }
+
+typedef Vector<T> = Array<T>;
+#end
