@@ -54,6 +54,8 @@ value hxgl_init (value forceMajor, value forceMinor)
     pf->wnd->create ();
     pf->wnd->show (true);
 
+    pf->input = pf->wnd->getInputHandle ();
+
     #if !(defined IPHONE || defined ANDROID)
         GLenum err = glewInit ();
         if (GLEW_OK != err)
@@ -88,7 +90,9 @@ value hxgl_init (value forceMajor, value forceMinor)
 
     pf->allocateGLW (major, minor);
     
-    if (pf->glw == 0) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");    
+    if (NULL == pf->glw) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");    
+    if (NULL == pf->input) HXGL_FATAL_ERROR ("hxgl_init(): inp is null");    
+
 
     pf->enterFrameCallback = eCallback;
     pf->beginMain ();
@@ -266,6 +270,21 @@ value hxgl_disposeProgram (value program)
 }
 DEFINE_PRIM (hxgl_disposeProgram, 1);
 
+value hxgl_getDigital (value id)
+{
+    unsigned int status = pf->input->getDigital (val_int(id));
+    
+    return alloc_int (status);
+}
+DEFINE_PRIM (hxgl_getDigital,1);
+
+value hxgl_getToggle (value id)
+{
+    bool status = pf->input->getToggle (val_int(id));
+    
+    return alloc_bool (status);
+}
+DEFINE_PRIM (hxgl_getToggle,1);
 
 extern "C" int hxgl_register_prims() { return 0; }
 

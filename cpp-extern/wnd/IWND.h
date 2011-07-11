@@ -20,7 +20,9 @@ namespace window
 	    virtual void getGLVersion (unsigned int &major, unsigned int &minor) = 0; //STUB
 	    virtual void swapBuffers() = 0; 
 	    virtual bool process() = 0;
-	    virtual input::IInput *getInputHandle () = 0;
+	    virtual hxgl::input::IInput *getInputHandle () = 0;
+    protected:
+        hxgl::input::IInput *input;
     };
 
 }

@@ -260,7 +260,7 @@ namespace platform
 	{
 		printf("iPhone platform\n");
 		HXGL_NOTIFY ("Your platform: [IPhone]. Setting up a [IPhone] environment");
-		wnd = new hxgl::window::DummyWnd;
+		wnd = new hxgl::window::Dummy;
 		input = wnd->getInputHandle();
 		
 		if (NULL != hxgl::platform::IPlatform::instance)

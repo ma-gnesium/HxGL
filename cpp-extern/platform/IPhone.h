@@ -10,7 +10,7 @@
 #ifndef PLATFORM_IPHONE_H
 #define PLATFORM_IPHONE_H
 #include "IPlatform.h"
-#include "../wnd/DummyWnd.h"
+#include "../wnd/Dummy.h"
 #include "../glwrapper/GLES20.h"
 #include "../glwrapper/GLES11.h"
 #include <iostream>

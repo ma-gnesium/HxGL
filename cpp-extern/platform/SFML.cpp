@@ -1,14 +1,26 @@
-#include "Windows.h"
+#include "SFML.h"
+
+#include "../wnd/SFML.h"
+#include <SFML/System.hpp>
+#include "../glwrapper/GLES20.h"
+#include "../glwrapper/GLES11.h"
+#include <iostream>
+#include "../Log.h"
+
+#ifdef LINUX
+    #include <unistd.h>
+#endif
 
 namespace hxgl
 {
 namespace platform
 {
-	Windows::Windows()
+	SFML::SFML()
 	{
-		HXGL_NOTIFY ("Your platform: [Windows]. Setting up a [Windows] environment");
-		wnd = new hxgl::window::SFML_WND;
-		//input = wnd->getInputHandle();
+		HXGL_NOTIFY ("Setting up a [SFML] environment");
+		wnd = new hxgl::window::SFML;
+		input = NULL;
+		glw = NULL;
 
 		if (NULL != hxgl::platform::IPlatform::instance)
 		{
@@ -20,7 +32,7 @@ namespace platform
 		}
 	}
 
-    void Windows::allocateGLW(unsigned char major, unsigned char minor)
+    void SFML::allocateGLW(unsigned char major, unsigned char minor)
     {
         if (major >= 2)
         {
@@ -34,10 +46,10 @@ namespace platform
             HXGL_NOTIFY ("Allocated a GLES11");
             return;
         }
-        else HXGL_FATAL_ERROR ("Windows::allocateGLW(): Unable to find a suitable context");
+        else HXGL_FATAL_ERROR ("SFML::allocateGLW(): Unable to find a suitable context");
     }
 
-    void Windows::beginMain()
+    void SFML::beginMain()
     {
         while (wnd->process ())
         {
@@ -47,13 +59,17 @@ namespace platform
             }
 
             wnd->swapBuffers ();
-            Sleep (1/60);
+            #ifdef WIN32
+                //Sleep (1/60);
+            #else
+                //sleep (1/60);
+            #endif
         }
     }
 
-	Windows::~Windows ()
+	SFML::~SFML ()
 	{
-		HXGL_NOTIFY ("Cleaning up [Windows] environment");
+		HXGL_NOTIFY ("Cleaning up [SFML] environment");
 		delete wnd;
 		delete glw;
 		delete input;	//FIXME Once wnd->getInputHandle instances input, remove this delete
@@ -61,5 +77,5 @@ namespace platform
 }
 }//NAMESPACE HXGL
 
-hxgl::platform::Windows win;
+hxgl::platform::SFML sfml;
 

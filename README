@@ -1,5 +1,7 @@
 IF YOU USE VISUAL STUDIO 2010 YOU MUST COMPILE SFML FROM SOURCE!
 
+GLES20.cpp/h is currently the only supported graphics wrapper.
+
 All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
 
 Android:

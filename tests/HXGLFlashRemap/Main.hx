@@ -1,6 +1,7 @@
 package ;
 import haxe.io.BytesData;
 import haxe.io.BytesOutput;
+import hxgl.core.HXGL;
 
 import flash.display.Stage3D;
 import flash.display3D.Context3DVertexBufferFormat;
@@ -74,7 +75,15 @@ class Main
 	
 	private function onEnterFrame (e:Event)
 	{		
-		context3D.clear ( 0.4, 0.6, 0.9, 0.0, 0, 0);
+		var r:Float = 0;
+		var g:Float = 0;
+		var b:Float = 0;
+		
+	    if (HXGL.getToggle (0)) r = 1.0;		//w
+		g = HXGL.getDigital (0) / 1000;			//mousex
+		b = HXGL.getDigital (1) / 1000;			//mousey
+		
+		context3D.clear ( r, g, b, 0.0, 0, 0);
 		
 		context3D.setVertexBufferAt (0, vbo, 0, Context3DVertexBufferFormat.FLOAT_3);
 		context3D.drawTriangles (ibo, 0, 1);

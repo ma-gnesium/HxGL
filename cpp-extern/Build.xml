@@ -22,28 +22,26 @@
 
 
 <files id="files">
-   <compilerflag value = "-Iinclude"/> 
-   <compilerflag value = "-DGLEW_STATIC" if="windows"/>
+    <compilerflag value = "-Iinclude"/> 
+    <compilerflag value = "-DGLEW_STATIC" if="windows"/>
 
-   <file name="wnd/SFML_WND.cpp" unless="mobile"></file>
+    
 
-   <file name="glwrapper/GLES11.cpp"></file>
-   <file name="glwrapper/GLES20.cpp"></file>
+    <file name="glwrapper/GLES11.cpp"/>
+    <file name="glwrapper/GLES20.cpp"/>
 
-    <file name="platform/IPlatform.cpp"></file>
-    <file name="platform/Windows.cpp" if="windows"></file>
-	<file name="platform/IPhone.mm" if="iphone"></file>
+    <file name="platform/IPlatform.cpp"/>
+    <file name="platform/SFML.cpp" unless="mobile"/>
+    <file name="platform/Android.cpp" if="android"/>
+    <file name="platform/MacOS.cpp" if="macos"/>
 
-   <file name="App.cpp"></file>
+    <file name="App.cpp"/>
 
-   <file name="platform/Linux.cpp" if="linux"></file>
-   
-   <file name="platform/Android.cpp" if="android"></file>
+    <file name="wnd/Dummy.cpp" if="mobile"/>
+    <file name="wnd/SFML.cpp" unless="mobile"/>
 
-   <file name="platform/MacOS.cpp" if="macos"></file>
-   
-   
-   <file name="wnd/DummyWnd.cpp" if="mobile"></file>
+    <file name="input/SFML.cpp" unless="mobile"/>
+    
 
    
 </files>

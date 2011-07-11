@@ -9,15 +9,11 @@ namespace input
 	class IInput
 	{
 	public:
-		//FIXME Refactor for componental device support 
-		//(Eg: be able to combine touch-screen/keyboard/mouse for whatever is actually supported)
-		virtual int pollKeyEvent () = 0;	//NOTE returns keycode with 32bit set if down, or unset if up.
-		virtual bool checkKeyStatus (const int &keyCode) = 0;
-		virtual int mouseX () = 0;
-		virtual int mouseY () = 0;
-		virtual bool isMouseLeftDown () = 0;
-		virtual bool digitalStatus (const unsigned short &keyCode) = 0;
-		virtual float analogStatus (const unsigned short &keyCode) = 0;
+		virtual float getAnalog (unsigned int id)=0;
+		virtual unsigned int getDigital (unsigned int id)=0;
+		virtual bool getToggle (unsigned int id)=0;
+		virtual int getMultiState (unsigned int id)=0;
+		//virtual void *getEventList (unsigned int &size)=0;
 	};
 }
 }

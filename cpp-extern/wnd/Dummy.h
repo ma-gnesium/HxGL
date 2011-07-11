@@ -1,16 +1,19 @@
-#ifndef WND_DUMMYWND_H
-#define WND_DUMMYWND_H
+#ifndef WND_DUMMY_H
+#define WND_DUMMY_H
 
 #include "IWND.h"
+#include "../input/Dummy.h"
 
 namespace hxgl
 {
 namespace window
 {
 
-    class DummyWnd: public IWND
+    class Dummy: public IWND
     {
     public:
+        Dummy();
+        ~Dummy();
 	    void init ();
 	    void terminate ();
 	    bool create ();
@@ -20,7 +23,9 @@ namespace window
 	    void getGLVersion (unsigned int &major, unsigned int &minor);
 	    void swapBuffers ();
 	    bool process ();
-	    input::IInput *getInputHandle ();
+	    hxgl::input::IInput *getInputHandle ();
+	private:
+	    hxgl::input::Dummy *_inp;
     };
 
 }

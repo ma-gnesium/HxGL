@@ -94,6 +94,15 @@ class HXGL
         extDisposeProgram (program);
     }
 
+
+    public static inline function getDigital (id:Int):Int{
+        return extGetDigital (id);
+    }
+
+    public static inline function getToggle (id:Int):Bool{
+        return extGetToggle (id);
+    }
+
     public static function LINK_LIB ()
     {
             extSetEnterFrame = Lib.load (DOMAIN,EXT("setEnterFrame"), 1);
@@ -113,9 +122,11 @@ class HXGL
             extUploadProgram = Lib.load (DOMAIN,EXT("uploadProgram"),3);
             extSetProgram = Lib.load (DOMAIN,EXT("setProgram"),1);
             extDisposeProgram = Lib.load (DOMAIN,EXT("disposeProgram"),1);
+
+            extGetDigital = Lib.load (DOMAIN,EXT("getDigital"),1);
+            extGetToggle = Lib.load (DOMAIN,EXT("getToggle"),1);
     }
     
-
     static inline var DOMAIN:String = "hxgl";
     static inline var EXTENSION:String = "hxgl_";
     static inline function EXT(s:String){
@@ -138,4 +149,7 @@ class HXGL
     static var extUploadProgram;
     static var extSetProgram;
     static var extDisposeProgram;
+
+    static var extGetDigital;
+    static var extGetToggle;
 }

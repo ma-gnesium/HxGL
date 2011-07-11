@@ -10,7 +10,11 @@ namespace gw
     void GLES11::clear (float red, float green, float blue, float alpha, float depth, unsigned int stencil, unsigned int mask)
     {
         glClearColor (red,green,blue,alpha);
+        #ifdef ANDROID
         glClearDepthf (depth);
+        #else
+        glClearDepth (depth);
+        #endif
         //TODO implement stencil and mask clear values
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	

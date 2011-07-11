@@ -1,23 +1,25 @@
-#include "SFML_WND.h"
+#include "SFML.h"
 
 namespace hxgl
 {
 namespace window
 {
-
-    //FIXME ADD CONSTRUCTOR/DESTRUCTOR
-    void SFML_WND::init ()
+    SFML::SFML()
+    {
+        input = NULL;
+    }
+    void SFML::init ()
     {
     }
 
-    void SFML_WND::terminate ()
+    void SFML::terminate ()
     {
      
     }
 
     //FIXME SUPPORT MULTIPLE WINDOWS
     //FIXME Support specified window size
-    bool SFML_WND::create()
+    bool SFML::create()
     {
         //FIXME fix memory leak
         sf::WindowSettings s;		
@@ -33,31 +35,31 @@ namespace window
         return true;	//FIXME check if window creation was successful
     }
 
-    void SFML_WND::show (bool isVisible)
+    void SFML::show (bool isVisible)
     {
 	    wnd->Show (isVisible);
     }
 
-    void SFML_WND::resize()
+    void SFML::resize()
     {
     }
 
-    void SFML_WND::setTitle (const char *title)
+    void SFML::setTitle (const char *title)
     {
     }
 
     //NOTE obsolete
-    void SFML_WND::getGLVersion (unsigned int &major, unsigned int &minor)
+    void SFML::getGLVersion (unsigned int &major, unsigned int &minor)
     {
 
     }
 
-    void SFML_WND::swapBuffers ()
+    void SFML::swapBuffers ()
     {
         wnd->Display();
     }
 
-    bool SFML_WND::process ()
+    bool SFML::process ()
     {
         sf::Event evt;
         while (wnd->GetEvent (evt)) 
@@ -72,9 +74,12 @@ namespace window
 
     //FIXME make input an single instance per window.
     //FIXME fix memory leak
-    input::IInput *SFML_WND::getInputHandle ()
+    hxgl::input::IInput *SFML::getInputHandle ()
     {
-	    return 0; //new input::SFML (wnd);
+        if(NULL != input) delete input;
+        if(NULL == wnd) HXGL_FATAL_ERROR ("SFML::wnd is null, cannot get input handle");
+        input = new hxgl::input::SFML(wnd);
+	    return input;
     }
 
 }

@@ -1,19 +1,23 @@
-#ifndef WND_SFML_WND_H
-#define WND_SFML_WND_H
+#ifndef WND_SFML_H
+#define WND_SFML_H
 
 #include "IWND.h"
 #include "../InclGLib.h"
 #include <iostream>
 #include "../Log.h"
+#include "../input/SFML.h"
+#include "../input/Dummy.h"
+#include "../input/IInput.h"
 
 namespace hxgl
 {
 namespace window
 {
 
-    class SFML_WND: public IWND
+    class SFML: public IWND
     {
     public:
+        SFML();
 	    void init ();
 	    void terminate ();
 	    bool create ();
@@ -23,7 +27,7 @@ namespace window
 	    void getGLVersion (unsigned int &major, unsigned int &minor);
 	    void swapBuffers ();
 	    bool process ();
-	    input::IInput *getInputHandle ();
+	    hxgl::input::IInput *getInputHandle ();
 
     private:
 	    sf::Window *wnd;
