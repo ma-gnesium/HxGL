@@ -15,6 +15,7 @@ class Stage
 
 	function new() 
 	{		
+		frameRate = 30;
 		_evthash = new Hash ();
 		stage3Ds = new hxgl.Vector ();
 	    stage3Ds.push (untyped new Stage3D ());  
@@ -52,8 +53,24 @@ class Stage
 		}
 	}
 	
+	public var frameRate:Int;
+	static var ltime:Float = 0;
+	static var nframes:Int = 0;
 	public function dispatchEvent (e:String)
 	{
+		var dt:Float = 0;
+		if (e == hxgl.events.Event.ENTER_FRAME) 
+		{
+			var ct = Sys.cpuTime ();
+			dt = ct - ltime;
+			ltime = ct;
+			
+			if (frameRate < 0) frameRate = 1;
+			if (frameRate > 120) frameRate = 120;
+			
+			dt = (1 / frameRate) - dt;
+		}
+				
 		if (_evthash.exists (e))
 		{
 			var cbs = _evthash.get (e);
@@ -63,8 +80,14 @@ class Stage
 			}
 			if (e != hxgl.events.Event.ENTER_FRAME) _evthash.remove(e);	//hack to stop all events from firing forever
 		}
-
-		if(e == hxgl.events.Event.ENTER_FRAME) Sys.sleep (1/60);
+		
+		if (e == hxgl.events.Event.ENTER_FRAME) 
+		{
+			if (dt > 0)
+			{
+				Sys.sleep (dt);
+			}
+		}
 	}
     
 	function extern_registerOnEnterFrame ()

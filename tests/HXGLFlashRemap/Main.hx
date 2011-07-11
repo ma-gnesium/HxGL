@@ -1,4 +1,5 @@
 package ;
+import cpp.Sys;
 import haxe.io.BytesData;
 import haxe.io.BytesOutput;
 import hxgl.core.HXGL;
@@ -32,6 +33,7 @@ class Main
 	var context3D:Context3D;
 	private function new ()
 	{
+		Lib.stage.frameRate = 60;
 		stage3D = Lib.stage.stage3Ds[0];
 		stage3D.addEventListener (Event.CONTEXT3D_CREATE, initialize);		
 		stage3D.viewPort = new Rectangle (0, 0, 512, 512);
@@ -83,7 +85,7 @@ class Main
 		g = HXGL.getDigital (0) / 1000;			//mousex
 		b = HXGL.getDigital (1) / 1000;			//mousey
 		
-		context3D.clear ( r, g, b, 0.0, 0, 0);
+		context3D.clear (r, g, b, 0, 0, 0, 0);
 		
 		context3D.setVertexBufferAt (0, vbo, 0, Context3DVertexBufferFormat.FLOAT_3);
 		context3D.drawTriangles (ibo, 0, 1);
