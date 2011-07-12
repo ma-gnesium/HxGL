@@ -31,6 +31,11 @@ class Lib
 		untyped stage.extern_registerOnEnterFrame ();		//Assign extern enterframe handler to event "system"
 		stage.dispatchEvent ("__INIT__");					//Resume execution via cb:Dynamic->Void
 	}
+
+	public static function getTimer ()
+	{
+        return Std.int (Sys.cpuTime ()*1000);
+	}
 }
 
 #end

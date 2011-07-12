@@ -216,11 +216,52 @@ value hxgl_uploadFromByteArrayVertex (value vboID, value data,
 }
 DEFINE_PRIM (hxgl_uploadFromByteArrayVertex, 5);
 
+//Please note, this is passed in as double, and must
+//be reprocessed to float. sigh.
+//IMPORTANT numEntries is number of floats, NOT number of vertexes
+value hxgl_uploadFromVectorVertex (value vboID, value data, 
+                                   value startOffset, 
+                                   value numEntries)
+{
+    int l = val_int (numEntries);
+    int ost = val_int (startOffset);
+    int al = val_array_size (data);
+
+    if (l+ost <= al ) 
+    {
+        double *_data = val_array_double (data);
+        float *_fdata = new float [l]; //We only want what is useful
+        float *_fptr = _fdata;
+        for (int i=0;i<l;i++)
+        {
+            *(_fptr++) = (float)*(_data++);
+        }
+        /*
+        for (int i=0;i<l;i++)
+        {
+            _fdata[i] = (float)_data[i+ost];
+        }
+        */
+
+        pf->glw->uploadFromByteArrayVertex (
+            val_int (vboID),
+            _fdata,
+            0,
+            0,
+            l*4);
+        
+        delete []_fdata;
+    }else HXGL_ERROR ("uploadFromVectorVertex sizing error");
+    
+    return alloc_null();
+}
+DEFINE_PRIM (hxgl_uploadFromVectorVertex, 4);
+
 value hxgl_uploadFromByteArrayIndex (value iboID, value data, 
                                       value byteArrayOffset, value startOffset, 
                                       value totalBytes)
 {
-    pf->glw->uploadFromByteArrayVertex (
+    pf->glw->uploadFromByteArrayIndex (
         val_int (iboID),
         buffer_data(val_to_buffer (data)),
         val_int (byteArrayOffset),

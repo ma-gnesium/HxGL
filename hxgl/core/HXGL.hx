@@ -8,6 +8,7 @@ package hxgl.core;
 
 import hxgl.core.GLenums;
 import haxe.io.BytesData;
+import hxgl.Vector;
 
 #if flash
     #error
@@ -72,6 +73,13 @@ class HXGL
         extUploadFromByteArrayVertex (vboID,data,byteArrayOffset,
                                       startOffset,totalBytes);
     }
+	public static inline function uploadFromVectorVertex(vboID:Int, 
+														 data:Vector<Float>, 
+														 startEntry:Int, 	//Entry, not vertex
+														 numEntries:Int){	//Entry, not vertex
+        extUploadFromVectorVertex (vboID,data,
+                                      startEntry,numEntries);
+    }	
     public static inline function uploadFromByteArrayIndex(iboID:Int, 
                                                             data:BytesData, 
                                                             byteArrayOffset:Int, 
@@ -115,7 +123,8 @@ class HXGL
             extSetCulling = Lib.load (DOMAIN,EXT("setCulling"), 1);
             extSetDepthTest = Lib.load (DOMAIN,EXT("setDepthTest"), 2);
             extSetVertexBufferAt = Lib.load (DOMAIN,EXT("setVertexBufferAt"), 5);
-            extUploadFromByteArrayVertex = Lib.load (DOMAIN,EXT("uploadFromByteArrayVertex"), 5);
+            extUploadFromByteArrayVertex = Lib.load (DOMAIN, EXT("uploadFromByteArrayVertex"), 5);
+			extUploadFromVectorVertex = Lib.load (DOMAIN, EXT("uploadFromVectorVertex"), 4);
             extUploadFromByteArrayIndex = Lib.load (DOMAIN,EXT("uploadFromByteArrayIndex"), 5);
 
             extCreateProgram = Lib.load (DOMAIN,EXT("createProgram"),0);
@@ -143,6 +152,7 @@ class HXGL
     static var extSetDepthTest;
     static var extSetVertexBufferAt;
     static var extUploadFromByteArrayVertex;
+	static var extUploadFromVectorVertex;
     static var extUploadFromByteArrayIndex;
 
     static var extCreateProgram;

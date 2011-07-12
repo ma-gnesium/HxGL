@@ -10,6 +10,7 @@ import haxe.io.BytesData;
 import haxe.io.BytesOutput;
 import hxgl.core.GLenums;
 import hxgl.core.HXGL;
+import hxgl.Vector;
 
 class VertexBuffer3D 
 {
@@ -25,8 +26,15 @@ class VertexBuffer3D
 					data:BytesData, byteArrayOffset:Int,
 					startVertex:Int, numVertices:Int):Void
 	{
+		if (startVertex + numVertices > _vertNum) throw "Overflow";
 		HXGL.uploadFromByteArrayVertex (_vboID, data, byteArrayOffset, 
 				startVertex * _vertBytes, numVertices*_vertBytes);	//Use care, works in bytes, not numverts
+	}
+	
+	public function uploadFromVector (data:Vector<Float>, startVertex:Int, numVertices:Int)
+	{
+		if (startVertex + numVertices > _vertNum) throw "Overflow";
+		HXGL.uploadFromVectorVertex (_vboID, data, startVertex * (_vertBytes >>> 2), numVertices * (_vertBytes >>> 2)); //we need num entries, not num bytes
 	}
 	
 	//public function uploadFromVector (

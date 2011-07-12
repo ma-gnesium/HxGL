@@ -59,11 +59,6 @@ namespace platform
             }
 
             wnd->swapBuffers ();
-            #ifdef WIN32
-                //Sleep (1/60);
-            #else
-                //sleep (1/60);
-            #endif
         }
     }
 

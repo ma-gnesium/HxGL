@@ -89,11 +89,15 @@ class Stage
 			}
 		}
 	}
+	
+	function callDE ()
+	{
+		dispatchEvent (hxgl.events.Event.ENTER_FRAME);
+	}
     
 	function extern_registerOnEnterFrame ()
 	{
-		var de = dispatchEvent;
-		HXGL.setEnterFrame (function () { de (hxgl.events.Event.ENTER_FRAME); } );
+		HXGL.setEnterFrame (callDE);
 	}
 	
 	

@@ -24,7 +24,8 @@ class IndexBuffer3D
 					data:BytesData, byteArrayOffset:Int,
 					startOffset:Int, count:Int):Void
 	{
-		HXGL.uploadFromByteArrayIndex (_iboID, data, byteArrayOffset, startOffset, count << 1);//inds to totalsize	
+		if (count+startOffset > _IndNum) throw "Overflow";
+		HXGL.uploadFromByteArrayIndex (_iboID, data, byteArrayOffset, startOffset, count * 2);//inds to totalsize	
 	}
 	
 	//public function uploadFromVector (
