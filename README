@@ -1,3 +1,6 @@
+If you're looking for the engine side of this, visit: http://github.com/sledorze/HIDE
+
+
 IF YOU USE VISUAL STUDIO 2010 YOU MUST COMPILE SFML FROM SOURCE!
 
 GLES20.cpp/h is currently the only supported graphics wrapper.
