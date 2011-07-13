@@ -8,8 +8,10 @@ typedef Context3D = flash.display3D.Context3D;
 import cpp.io.Process;
 import haxe.io.Bytes;
 import hxgl.core.GLenums;
+import hxgl.display3D.textures.Texture;
 import hxgl.geom.Rectangle;
 import hxgl.core.HXGL;
+import hxgl.Vector;
 
 class Context3D 
 {
@@ -106,16 +108,20 @@ class Context3D
 		HXGL.setProgram (untyped program._progID);
 	}
 
-    //public function createTexture(width:Int, height:Int, format:hxgl.display3D.Context3DTextureFormat, optimizeForRenderToTexture:Bool):hx//HXGL.display3D.textures.Texture
-    //{
-        //return new hx//HXGL.display3D.textures.Texture (width, height, format, optimizeForRenderToTexture);    
-    //}
-	//
-    //FIXME Temporarily hacked, needs fix for shaders
-    //public function setTextureAt (sampler:Int, texture:hxgl.display3D.textures.Texture)
-    //{
-        //HXGL.BindTexture (hx//HXGL.core.GLenums.GL_TEXTURE_2D, untyped texture._tID);   //FIXME hack
-    //}
+    public function createTexture(width:Int, height:Int, format:String, optimizeForRenderToTexture:Bool)
+    {
+		return new Texture(width, height, format, optimizeForRenderToTexture);    
+    }
+	
+    public function setTextureAt (sampler:Int, texture:hxgl.display3D.textures.Texture)
+    {
+        HXGL.setTextureAt (sampler, untyped texture._tID);
+    }
+	
+	public function setMatrixAt (location:Int, data:Vector<Float>)
+	{	
+		HXGL.setMatrixAt (location, 1, false, data);
+	}
 	
 	public var enableErrorChecking:Bool;
 	var vp:Rectangle;

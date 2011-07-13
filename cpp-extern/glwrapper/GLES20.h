@@ -55,7 +55,14 @@ namespace gw
         void uploadFromByteArrayVertex(unsigned int vboID, const void *data, int byteArrayOffset, int startOffset, int totalBytes);
 	    void uploadFromByteArrayIndex(unsigned int iboID, const void *data, int byteArrayOffset, int startOffset, int totalBytes);	
 
-
+        //Textures
+        unsigned int createTexture (unsigned int width, unsigned int height, const char *format, bool optimizeForRenderToTexture);
+        void uploadFromByteArrayTexture (unsigned int tID, void *data, unsigned int byteArrayOffset, unsigned int width, unsigned int height);
+		void setTextureAt (unsigned int sampler, unsigned int tID);
+		
+		//Matrix
+		void setMatrixAt (unsigned int location, int count, bool transpose, void *data);
+		
     private:
         void deleteProgram (unsigned int program);
         void allocateProgram (unsigned int program, unsigned int vs, unsigned int fs);

@@ -8,6 +8,8 @@ package hxgl.core;
 
 import hxgl.core.GLenums;
 import haxe.io.BytesData;
+import hxgl.display3D.textures.Texture;
+import hxgl.Vector;
 import hxgl.Vector;
 
 #if flash
@@ -102,7 +104,22 @@ class HXGL
         extDisposeProgram (program);
     }
 
+	public static inline function createTexture (width:Int, height:Int, format:String, 
+												 optimizeForRenderToTexture:Bool):Int {
+		return extCreateTexture (width, height, format, optimizeForRenderToTexture);
+	}
 
+	public static inline function uploadFromByteArrayTexture (tID:Int, data:BytesData, 
+															  byteArrayOffset:Int, 
+												              width:Int, height:Int) {
+		extUploadFromByteArrayTexture (tID, data, byteArrayOffset, width, height);
+	}
+	public static inline function setTextureAt (sampler:Int, texture:Texture) {
+		extSetTextureAt (sampler, texture);
+	}
+	public static inline function setMatrixAt (location:Int, count:Int, transpose:Bool, data:Vector<Float>) {
+		extSetMatrixAt (location, count, transpose, data);
+	}
     public static inline function getDigital (id:Int):Int{
         return extGetDigital (id);
     }
@@ -132,6 +149,12 @@ class HXGL
             extSetProgram = Lib.load (DOMAIN,EXT("setProgram"),1);
             extDisposeProgram = Lib.load (DOMAIN,EXT("disposeProgram"),1);
 
+			extCreateTexture = Lib.load (DOMAIN, EXT("createTexture"), 4);
+			extUploadFromByteArrayTexture = Lib.load (DOMAIN, EXT("uploadFromByteArrayTexture"), 5);
+			extSetTextureAt = Lib.load (DOMAIN, EXT ("setTextureAt"), 2);
+			
+			extSetMatrixAt = Lib.load (DOMAIN, EXT ("setMatrixAt"), 4);
+			
             extGetDigital = Lib.load (DOMAIN,EXT("getDigital"),1);
             extGetToggle = Lib.load (DOMAIN,EXT("getToggle"),1);
     }
@@ -160,6 +183,12 @@ class HXGL
     static var extSetProgram;
     static var extDisposeProgram;
 
+	static var extCreateTexture;
+	static var extUploadFromByteArrayTexture;
+	static var extSetTextureAt;
+	
+	static var extSetMatrixAt;
+	
     static var extGetDigital;
     static var extGetToggle;
 }

@@ -273,6 +273,62 @@ value hxgl_uploadFromByteArrayIndex (value iboID, value data,
 DEFINE_PRIM (hxgl_uploadFromByteArrayIndex, 5);
 
 
+value hxgl_createTexture (value width, value height, value format,
+                          value optimizeForRenderToTexture)
+{
+    unsigned int tID = pf->glw->createTexture (
+                            val_int (width),
+                            val_int (height),
+                            val_string (format),
+                            val_bool (optimizeForRenderToTexture));
+
+    return alloc_int (tID);
+}
+DEFINE_PRIM (hxgl_createTexture, 4);
+
+value hxgl_uploadFromByteArrayTexture (value tID, value data, value byteArrayOffset,
+                                       value width, value height)
+{
+    pf->glw->uploadFromByteArrayTexture (
+                        val_int (tID),
+                        buffer_data(val_to_buffer (data)),
+                        val_int (byteArrayOffset),
+                        val_int (width),
+                        val_int (height));
+    return alloc_null ();
+}
+DEFINE_PRIM (hxgl_uploadFromByteArrayTexture, 5);
+
+value hxgl_setTextureAt (value sampler, value tID)
+{
+	pf->glw->setTextureAt (val_int (sampler), val_int (tID));
+	return alloc_null();
+}
+DEFINE_PRIM (hxgl_setTextureAt,2);
+
+value hxgl_setMatrixAt (value location, value count, value transpose, value data)
+{
+	int al = val_array_size (data);
+    double *_data = val_array_double (data);
+	
+	if (al != 16) HXGL_ERROR ("hxgl.ndll:setMatrixAt () Invalid matrix size");
+	
+	float *_fdata = new float [16];
+	for (int i=0;i<16;i++)
+	{
+		_fdata[i] = (float)_data[i];
+	}
+	
+	pf->glw->setMatrixAt (val_int (location), 
+						  val_int (count), 
+						  val_bool (transpose), 
+						  _fdata);
+
+	delete []_fdata;
+	return alloc_null ();
+}
+DEFINE_PRIM (hxgl_setMatrixAt, 4);
+
 //*************
 //** SHADERS **
 //*************
@@ -310,6 +366,11 @@ value hxgl_disposeProgram (value program)
     return alloc_null ();
 }
 DEFINE_PRIM (hxgl_disposeProgram, 1);
+
+
+//*************
+//**  INPUT  **
+//*************
 
 value hxgl_getDigital (value id)
 {

@@ -4,15 +4,24 @@ GLES20.cpp/h is currently the only supported graphics wrapper.
 
 All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
 
-Android:
-    Android templates coming soon!
-
 Required libs for hxgl.ndll:
 	sfml-window
 	sfml-system
 	glew32
 
 Common Problems:
+	All:
+		Shaders not working correctly?
+			Uniform/Attrib locations are not explicitly bound.
+			If you assign a Uniform and no not use it, that slot
+			will be removed during shader compilation.
+				uniform sampler2D texture1;	//Not used
+				uniform sampler2D texture2; //Assigned at [0]
+				void main ()
+				{
+					gl_FragColor = texture2D (texture2, ...); //Uses slot [0]
+				}
+			So basically, make sure everything declared is used.
 	Windows:
 		Window loads and immediately crashes: Compile with vstudio 2008
 		hxgl_*_* not found: Place hxgl.ndll into bin/c++

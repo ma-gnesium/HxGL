@@ -50,7 +50,14 @@ namespace gw
 	    //Buffer3D Style binds
         void uploadFromByteArrayVertex(unsigned int vboID, const void *data, int byteArrayOffset, int startOffset, int totalBytes);
 	    void uploadFromByteArrayIndex(unsigned int iboID, const void *data, int byteArrayOffset, int startOffset, int totalBytes);	
-    };
+
+        unsigned int createTexture (unsigned int width, unsigned int height, const char *format, bool optimizeForRenderToTexture){return -1;};
+        void uploadFromByteArrayTexture (unsigned int tID, void *data, unsigned int byteArrayOffset, unsigned int width, unsigned int height){};
+		void setTextureAt (unsigned int sampler, unsigned int tID){};
+		
+		//Matrix
+		void setMatrixAt (unsigned int location, int count, bool transpose, void *data){};
+	};
 
 }
 }

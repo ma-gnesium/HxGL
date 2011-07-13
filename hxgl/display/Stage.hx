@@ -56,20 +56,11 @@ class Stage
 	public var frameRate:Int;
 	static var ltime:Float = 0;
 	static var nframes:Int = 0;
+	static var lslp:Float;
 	public function dispatchEvent (e:String)
 	{
 		var dt:Float = 0;
-		if (e == hxgl.events.Event.ENTER_FRAME) 
-		{
-			var ct = Sys.cpuTime ();
-			dt = ct - ltime;
-			ltime = ct;
-			
-			if (frameRate < 0) frameRate = 1;
-			if (frameRate > 120) frameRate = 120;
-			
-			dt = (1 / frameRate) - dt;
-		}
+		dt = Sys.cpuTime ();
 				
 		if (_evthash.exists (e))
 		{
@@ -83,8 +74,17 @@ class Stage
 		
 		if (e == hxgl.events.Event.ENTER_FRAME) 
 		{
+			var ct = Sys.cpuTime ();
+			dt = ct - dt;
+			
+			if (frameRate < 0) frameRate = 1;
+			if (frameRate > 120) frameRate = 120;
+			
+			dt = (1 / frameRate) - dt - lslp;
+			
 			if (dt > 0)
 			{
+				lslp = dt;
 				Sys.sleep (dt);
 			}
 		}
@@ -101,6 +101,6 @@ class Stage
 	}
 	
 	
-	var _evthash:Hash < Array < Dynamic->Void >> ;
+	var _evthash:Hash<Array<Dynamic->Void >> ;
 }
 #end

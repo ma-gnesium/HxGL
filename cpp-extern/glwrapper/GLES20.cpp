@@ -235,7 +235,56 @@ namespace gw
         glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
+    unsigned int GLES20::createTexture (unsigned int width, unsigned int height, const char *format, bool optimizeForRenderToTexture)
+    {
+        unsigned int tID;
+        glGenTextures (1, &tID);
+		
+		glBindTexture (GL_TEXTURE_2D, tID); 
+		glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+				
+        glTexImage2D (GL_TEXTURE_2D, 0, 4, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
+        
+        glBindTexture (GL_TEXTURE_2D, 0);
 
+        return tID;
+    }
+
+    void GLES20::uploadFromByteArrayTexture (unsigned int tID, void *data, unsigned int byteArrayOffset, unsigned int width, unsigned int height)
+    {
+        glBindTexture (GL_TEXTURE_2D, tID); 
+				
+        glTexSubImage2D (GL_TEXTURE_2D, 0, 0, 0, width, height, GL_BGRA, GL_UNSIGNED_BYTE, (char *)data+byteArrayOffset);
+        		
+		glBindTexture (GL_TEXTURE_2D, 0);
+    }
+	
+	void GLES20::setTextureAt (unsigned int sampler, unsigned int tID)
+	{		
+		if (0 == tID)
+		{
+			glBindTexture (GL_TEXTURE_2D, 0);
+		}
+		else
+		{
+			glEnable (GL_TEXTURE_2D);
+			glActiveTexture (GL_TEXTURE0 + sampler);	//TODO Add check for TMU oob
+			glBindTexture (GL_TEXTURE_2D, tID);
+			glUniform1i(sampler, sampler);
+		}
+	}
+	
+	//Matrix
+	void GLES20::setMatrixAt (unsigned int location, int count, bool transpose, void *data)
+	{
+		glUniformMatrix4fv (location, count, transpose, (GLfloat *)data);		
+	}
+	
     //***************************
     //**********  END  **********
     //***************************
@@ -249,6 +298,5 @@ namespace gw
     {
         //TODO implement
     }
-
 }
 }

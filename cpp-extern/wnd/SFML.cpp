@@ -25,7 +25,7 @@ namespace window
         sf::WindowSettings s;		
         s.DepthBits = 24;
         s.StencilBits = 8;
-        s.AntialiasingLevel = 8;        //FIXME Causes crashes on some versions of linux.
+        s.AntialiasingLevel = 8;
         wnd = new sf::Window(sf::VideoMode(512,512,32), "Application", sf::Style::Close, s);
 
         if (NULL == wnd) return false;
@@ -64,7 +64,7 @@ namespace window
         sf::Event evt;
         while (wnd->GetEvent (evt)) 
         {
-	        if (evt.Type == sf::Event::Closed) 
+	        if (sf::Event::Closed == evt.Type) 
 	        {
 		        return false;
 	        }

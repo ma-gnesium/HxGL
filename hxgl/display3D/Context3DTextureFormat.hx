@@ -3,7 +3,7 @@ package hxgl.display3D;
 #if flash
 	typedef Context3DTextureFormat = flash.display3D.Context3DTextureFormat;
 #else
-	enum Context3DTextureFormat {
-		BGRA;
+	class Context3DTextureFormat {
+		public static inline var BGRA:String = "bgra";
 	}
 #end
