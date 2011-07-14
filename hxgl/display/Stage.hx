@@ -4,12 +4,6 @@ package hxgl.display;
 typedef Stage = flash.display.Stage;
 #else
 import hxgl.core.HXGL;
-#if cpp
-import cpp.Sys;
-#else
-import neko.Sys;
-#end
-
 class Stage 
 {
 
@@ -59,8 +53,10 @@ class Stage
 	static var lslp:Float;
 	public function dispatchEvent (e:String)
 	{
+		#if (cpp||neko)
 		var dt:Float = 0;
-		dt = Sys.cpuTime ();
+		dt = cpp.Sys.cpuTime ();
+		#end
 				
 		if (_evthash.exists (e))
 		{
@@ -72,9 +68,10 @@ class Stage
 			if (e != hxgl.events.Event.ENTER_FRAME) _evthash.remove(e);	//hack to stop all events from firing forever
 		}
 		
+		#if (cpp||neko)
 		if (e == hxgl.events.Event.ENTER_FRAME) 
 		{
-			var ct = Sys.cpuTime ();
+			var ct = cpp.Sys.cpuTime ();
 			dt = ct - dt;
 			
 			if (frameRate < 0) frameRate = 1;
@@ -85,9 +82,10 @@ class Stage
 			if (dt > 0)
 			{
 				lslp = dt;
-				Sys.sleep (dt);
+				cpp.Sys.sleep (dt);
 			}
 		}
+		#end
 	}
 	
 	function callDE ()

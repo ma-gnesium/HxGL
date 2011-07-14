@@ -257,6 +257,41 @@ value hxgl_uploadFromVectorVertex (value vboID, value data,
 }
 DEFINE_PRIM (hxgl_uploadFromVectorVertex, 4);
 
+//Please note, this is passed in as double, and must
+//be reprocessed to float. sigh.
+//IMPORTANT numEntries is number of floats, NOT number of vertexes
+value hxgl_uploadFromVectorIndex (value iboID, value data, 
+                                  value startOffset, 
+                                  value numEntries)
+{
+    int l = val_int (numEntries);
+    int ost = val_int (startOffset);
+    int al = val_array_size (data);
+
+    if (l+ost <= al ) 
+    {
+        int *_data = val_array_int (data);
+        unsigned short *_idata = new unsigned short [l]; //We only want what is useful
+        unsigned short *_iptr = _idata;
+        for (int i=0;i<l;i++)
+        {
+            *(_iptr++) = (unsigned short)*(_data++);
+        }
+
+        pf->glw->uploadFromByteArrayIndex (
+            val_int (iboID),
+            _idata,
+            0,
+            0,
+            l*2);
+        
+        delete []_idata;
+    }else HXGL_ERROR ("uploadFromVectorVertex sizing error");
+    
+    return alloc_null();
+}
+DEFINE_PRIM (hxgl_uploadFromVectorIndex, 4);
+
 value hxgl_uploadFromByteArrayIndex (value iboID, value data, 
                                       value byteArrayOffset, value startOffset, 
                                       value totalBytes)
@@ -328,6 +363,20 @@ value hxgl_setMatrixAt (value location, value count, value transpose, value data
 	return alloc_null ();
 }
 DEFINE_PRIM (hxgl_setMatrixAt, 4);
+
+value hxgl_disposeTexture (value tID)
+{
+	pf->glw->disposeTexture (val_int (tID));
+	return alloc_null ();
+}
+DEFINE_PRIM (hxgl_disposeTexture, 1);
+
+value hxgl_disposeBuffer (value boID)
+{
+	pf->glw->disposeBuffer (val_int (boID));
+	return alloc_null ();
+}
+DEFINE_PRIM (hxgl_disposeBuffer, 1);
 
 //*************
 //** SHADERS **

@@ -1,6 +1,7 @@
 /*
-    Rigging for the CFFI to ease in code deployment, and prevent typing errors.
-    Please never directly access externs, use this class instead.    
+    Rigging for externs to ease in code deployment, and prevent typing errors.
+    Please never directly access externs, use this class instead.   
+	It ensures that the external functions are properly loaded and set correctly.
  */
 
 
@@ -12,97 +13,87 @@ import hxgl.display3D.textures.Texture;
 import hxgl.Vector;
 import hxgl.Vector;
 
-#if flash
-    #error
-#elseif cpp
-    import cpp.Lib;
-#elseif neko
-    #error
-#elseif js
-    #error
-#elseif php
-    #error
-#elseif java
-    #error
-#elseif cs
-    #error
-#end
 
 class HXGL
 {
-
-    public static inline function setEnterFrame (fnc:Void->Void){
-        extSetEnterFrame (fnc);
-    }
-    public static inline function init (major:Int = 0, minor:Int = 0){
-        extInit (major,minor);
-    }
-    public static inline function clear(red:Float, green:Float, blue:Float, 
-                                        alpha:Float, depth:Float, stencil:Int, 
-                                        mask:Int){
-        extClear (red,green,blue,alpha,depth,stencil,mask);
-    }
-    public static inline function configureBackBuffer(width:Int, height:Int, 
-                                                      antiAlias:Int, 
-                                                      enableDepthAndStencil:Bool){
-        extConfigureBackBuffer (width,height,antiAlias,enableDepthAndStencil);
-    }
-    public static inline function createVertexBuffer(sizeBytes:Int){
-        return extCreateVertexBuffer (sizeBytes);
-    }
-    public static inline function createIndexBuffer(sizeBytes:Int){
-        return extCreateIndexBuffer (sizeBytes);
-    }
-    public static inline function drawTriangles(iboID:Int, firstIndex:Int, numTriangles:Int){
-        extDrawTriangles (iboID,firstIndex,numTriangles);
-    }
-    public static inline function setCulling(triangleFaceToCull:String){
-        extSetCulling (triangleFaceToCull);
-    }
-    public static inline function setDepthTest(depthMask:Bool, passCompareMode:String){
-        extSetDepthTest (depthMask, passCompareMode);
-    }
-    public static inline function setVertexBufferAt(index:Int, vboID:Int, 
-                                                    bufferOffset:Int, 
-                                                    format:String, hint:String){
-        extSetVertexBufferAt (index,vboID,bufferOffset,format,hint);
-    }
-    public static inline function uploadFromByteArrayVertex(vboID:Int, 
-                                                            data:BytesData, 
-                                                            byteArrayOffset:Int, 
-                                                            startOffset:Int, 
-                                                            totalBytes:Int){
-        extUploadFromByteArrayVertex (vboID,data,byteArrayOffset,
-                                      startOffset,totalBytes);
-    }
+	public static inline function setEnterFrame (fnc:Void->Void){
+		extSetEnterFrame (fnc);
+	}
+	public static inline function init (major:Int = 0, minor:Int = 0){
+		extInit (major,minor);
+	}
+	public static inline function clear(red:Float, green:Float, blue:Float, 
+										alpha:Float, depth:Float, stencil:Int, 
+										mask:Int){
+		extClear (red,green,blue,alpha,depth,stencil,mask);
+	}
+	public static inline function configureBackBuffer(width:Int, height:Int, 
+													  antiAlias:Int, 
+													  enableDepthAndStencil:Bool){
+		extConfigureBackBuffer (width,height,antiAlias,enableDepthAndStencil);
+	}
+	public static inline function createVertexBuffer(sizeBytes:Int){
+		return extCreateVertexBuffer (sizeBytes);
+	}
+	public static inline function createIndexBuffer(sizeBytes:Int){
+		return extCreateIndexBuffer (sizeBytes);
+	}
+	public static inline function drawTriangles(iboID:Int, firstIndex:Int, numTriangles:Int){
+		extDrawTriangles (iboID,firstIndex,numTriangles);
+	}
+	public static inline function setCulling(triangleFaceToCull:String){
+		extSetCulling (triangleFaceToCull);
+	}
+	public static inline function setDepthTest(depthMask:Bool, passCompareMode:String){
+		extSetDepthTest (depthMask, passCompareMode);
+	}
+	public static inline function setVertexBufferAt(index:Int, vboID:Int, 
+													bufferOffset:Int, 
+													format:String, ?hint:String="nohint"){
+		extSetVertexBufferAt (index,vboID,bufferOffset,format,hint);
+	}
+	public static inline function uploadFromByteArrayVertex(vboID:Int, 
+															data:BytesData, 
+															byteArrayOffset:Int, 
+															startOffset:Int, 
+															totalBytes:Int){
+		extUploadFromByteArrayVertex (vboID,data,byteArrayOffset,
+									  startOffset,totalBytes);
+	}
 	public static inline function uploadFromVectorVertex(vboID:Int, 
 														 data:Vector<Float>, 
 														 startEntry:Int, 	//Entry, not vertex
 														 numEntries:Int){	//Entry, not vertex
-        extUploadFromVectorVertex (vboID,data,
-                                      startEntry,numEntries);
-    }	
-    public static inline function uploadFromByteArrayIndex(iboID:Int, 
-                                                            data:BytesData, 
-                                                            byteArrayOffset:Int, 
-                                                            startOffset:Int, 
-                                                            totalBytes:Int){
-        extUploadFromByteArrayIndex (iboID,data,byteArrayOffset,
-                                      startOffset,totalBytes);
-    }
-    public static inline function createProgram (){
-        return extCreateProgram ();
-    }
-    public static inline function uploadProgram (program:Int, vertexProgram:String, 
-                                                 fragmentProgram:String){
-        extUploadProgram (program, vertexProgram, fragmentProgram);
-    }
-    public static inline function setProgram (program:Int){
-        extSetProgram (program);
-    }
-    public static inline function disposeProgram (program:Int){
-        extDisposeProgram (program);
-    }
+		extUploadFromVectorVertex (vboID,data,
+									  startEntry,numEntries);
+	}	
+	public static inline function uploadFromByteArrayIndex(iboID:Int, 
+															data:BytesData, 
+															byteArrayOffset:Int, 
+															startOffset:Int, 
+															totalBytes:Int){
+		extUploadFromByteArrayIndex (iboID,data,byteArrayOffset,
+									  startOffset,totalBytes);
+	}
+	public static inline function uploadFromVectorIndex(iboID:Int, 
+												 data:Vector<Int>, 
+												 startEntry:Int, 	    //Entry, not vertex
+												 numEntries:Int) {    	//Entry, not vertex
+		extUploadFromVectorIndex (iboID, data, startEntry, numEntries);
+	}
+	public static inline function createProgram (){
+		return extCreateProgram ();
+	}
+	public static inline function uploadProgram (program:Int, vertexProgram:String, 
+												 fragmentProgram:String){
+		extUploadProgram (program, vertexProgram, fragmentProgram);
+	}
+	public static inline function setProgram (program:Int){
+		extSetProgram (program);
+	}
+	public static inline function disposeProgram (program:Int){
+		extDisposeProgram (program);
+	}
 
 	public static inline function createTexture (width:Int, height:Int, format:String, 
 												 optimizeForRenderToTexture:Bool):Int {
@@ -111,7 +102,7 @@ class HXGL
 
 	public static inline function uploadFromByteArrayTexture (tID:Int, data:BytesData, 
 															  byteArrayOffset:Int, 
-												              width:Int, height:Int) {
+															  width:Int, height:Int) {
 		extUploadFromByteArrayTexture (tID, data, byteArrayOffset, width, height);
 	}
 	public static inline function setTextureAt (sampler:Int, texture:Texture) {
@@ -120,75 +111,108 @@ class HXGL
 	public static inline function setMatrixAt (location:Int, count:Int, transpose:Bool, data:Vector<Float>) {
 		extSetMatrixAt (location, count, transpose, data);
 	}
-    public static inline function getDigital (id:Int):Int{
-        return extGetDigital (id);
-    }
-
-    public static inline function getToggle (id:Int):Bool{
-        return extGetToggle (id);
-    }
-
-    public static function LINK_LIB ()
-    {
-            extSetEnterFrame = Lib.load (DOMAIN,EXT("setEnterFrame"), 1);
-            extInit = Lib.load (DOMAIN,EXT("init"), 2);
-            extClear = Lib.load (DOMAIN,EXT("clear"), 7);
-            extConfigureBackBuffer = Lib.load (DOMAIN,EXT("configureBackBuffer"), 4);
-            extCreateVertexBuffer = Lib.load (DOMAIN,EXT("createVertexBuffer"), 1);
-            extCreateIndexBuffer = Lib.load (DOMAIN,EXT("createIndexBuffer"), 1);
-            extDrawTriangles = Lib.load (DOMAIN,EXT("drawTriangles"), 3);
-            extSetCulling = Lib.load (DOMAIN,EXT("setCulling"), 1);
-            extSetDepthTest = Lib.load (DOMAIN,EXT("setDepthTest"), 2);
-            extSetVertexBufferAt = Lib.load (DOMAIN,EXT("setVertexBufferAt"), 5);
-            extUploadFromByteArrayVertex = Lib.load (DOMAIN, EXT("uploadFromByteArrayVertex"), 5);
-			extUploadFromVectorVertex = Lib.load (DOMAIN, EXT("uploadFromVectorVertex"), 4);
-            extUploadFromByteArrayIndex = Lib.load (DOMAIN,EXT("uploadFromByteArrayIndex"), 5);
-
-            extCreateProgram = Lib.load (DOMAIN,EXT("createProgram"),0);
-            extUploadProgram = Lib.load (DOMAIN,EXT("uploadProgram"),3);
-            extSetProgram = Lib.load (DOMAIN,EXT("setProgram"),1);
-            extDisposeProgram = Lib.load (DOMAIN,EXT("disposeProgram"),1);
-
-			extCreateTexture = Lib.load (DOMAIN, EXT("createTexture"), 4);
-			extUploadFromByteArrayTexture = Lib.load (DOMAIN, EXT("uploadFromByteArrayTexture"), 5);
-			extSetTextureAt = Lib.load (DOMAIN, EXT ("setTextureAt"), 2);
-			
-			extSetMatrixAt = Lib.load (DOMAIN, EXT ("setMatrixAt"), 4);
-			
-            extGetDigital = Lib.load (DOMAIN,EXT("getDigital"),1);
-            extGetToggle = Lib.load (DOMAIN,EXT("getToggle"),1);
-    }
-    
-    static inline var DOMAIN:String = "hxgl";
-    static inline var EXTENSION:String = "hxgl_";
-    static inline function EXT(s:String){
-        return EXTENSION + s;
-    }
-    static var extSetEnterFrame;
-    static var extInit;
-    static var extClear;
-    static var extConfigureBackBuffer;
-    static var extCreateVertexBuffer;
-    static var extCreateIndexBuffer;
-    static var extDrawTriangles;
-    static var extSetCulling;
-    static var extSetDepthTest;
-    static var extSetVertexBufferAt;
-    static var extUploadFromByteArrayVertex;
-	static var extUploadFromVectorVertex;
-    static var extUploadFromByteArrayIndex;
-
-    static var extCreateProgram;
-    static var extUploadProgram;
-    static var extSetProgram;
-    static var extDisposeProgram;
-
-	static var extCreateTexture;
-	static var extUploadFromByteArrayTexture;
-	static var extSetTextureAt;
+	public static inline function disposeTexture (tID:Int) {
+		extDisposeTexture (tID);
+	}
+	public static inline function disposeBuffer (boID:Int) {
+		extDisposeBuffer (boID);
+	}
 	
-	static var extSetMatrixAt;
+	public static inline function getDigital (id:Int):Int{
+		return extGetDigital (id);
+	}
+
+	public static inline function getToggle (id:Int):Bool{
+		return extGetToggle (id);
+	}
+
+	public static function LINK_LIB ()
+	{
+			extSetEnterFrame = load("setEnterFrame", 1);
+			extInit = load("init", 2);
+			extClear = load("clear", 7);
+			extConfigureBackBuffer = load("configureBackBuffer", 4);
+			extCreateVertexBuffer = load("createVertexBuffer", 1);
+			extCreateIndexBuffer = load("createIndexBuffer", 1);
+			extDrawTriangles = load("drawTriangles", 3);
+			extSetCulling = load("setCulling", 1);
+			extSetDepthTest = load("setDepthTest", 2);
+			extSetVertexBufferAt = load("setVertexBufferAt", 5);
+			extUploadFromByteArrayVertex = load("uploadFromByteArrayVertex", 5);
+			extUploadFromVectorVertex = load("uploadFromVectorVertex", 4);
+			extUploadFromByteArrayIndex = load("uploadFromByteArrayIndex", 5);
+			extUploadFromVectorIndex = load ("uploadFromVectorIndex", 4);
+
+			extCreateProgram = load("createProgram",0);
+			extUploadProgram = load("uploadProgram",3);
+			extSetProgram = load("setProgram",1);
+			extDisposeProgram = load("disposeProgram",1);
+
+			extCreateTexture = load("createTexture", 4);
+			extUploadFromByteArrayTexture = load("uploadFromByteArrayTexture", 5);
+			extSetTextureAt = load ("setTextureAt", 2);
+			
+			extSetMatrixAt = load ("setMatrixAt", 4);
+			
+			extDisposeTexture = load("disposeTexture", 1);
+			extDisposeBuffer = load("disposeBuffer", 1);
+			
+			extGetDigital = load("getDigital",1);
+			extGetToggle = load("getToggle",1);
+	}
+		
+	static var DOMAIN:String = "hxgl";
+	static var EXTENSION:String = "hxgl_";
+	static inline function EXT(s:String){
+		return EXTENSION + s;
+	}
+	static function load (s:String, params:Int)
+	{
+		#if cpp
+			var f:Dynamic = cpp.loadENSION + s, p);
+			#if (debug && !HXGL_LIB_NOVERIFY)
+				if (0 == f) throw "hxgl library is invalid\nMissing extension: " + s;
+			#end
+			return f;
+		#elseif js
+			var f:Dynamic = js.Lib.eval ("HXGL." + s);
+			#if (debug && !HXGL_LIB_NOVERIFY)
+				if (null == f) js.Lib.alert ("hxgl library is invalid\nMissing extension: " + s);
+			#end
+			return f;
+		#else
+			throw "This platform is not currently supported by HxGL.";
+		#end
+	}
+	static var extSetEnterFrame:Dynamic;
+	static var extInit:Dynamic;
+	static var extClear:Dynamic;
+	static var extConfigureBackBuffer:Dynamic;
+	static var extCreateVertexBuffer:Dynamic;
+	static var extCreateIndexBuffer:Dynamic;
+	static var extDrawTriangles:Dynamic;
+	static var extSetCulling:Dynamic;
+	static var extSetDepthTest:Dynamic;
+	static var extSetVertexBufferAt:Dynamic;
+	static var extUploadFromByteArrayVertex:Dynamic;
+	static var extUploadFromVectorVertex:Dynamic;
+	static var extUploadFromByteArrayIndex:Dynamic;
+	static var extUploadFromVectorIndex:Dynamic;
+
+	static var extCreateProgram:Dynamic;
+	static var extUploadProgram:Dynamic;
+	static var extSetProgram:Dynamic;
+	static var extDisposeProgram:Dynamic;
+
+	static var extCreateTexture:Dynamic;
+	static var extUploadFromByteArrayTexture:Dynamic;
+	static var extSetTextureAt:Dynamic;
 	
-    static var extGetDigital;
-    static var extGetToggle;
+	static var extSetMatrixAt:Dynamic;
+	
+	static var extDisposeTexture:Dynamic;
+	static var extDisposeBuffer:Dynamic;
+	
+	static var extGetDigital:Dynamic;
+	static var extGetToggle:Dynamic;
 }

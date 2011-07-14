@@ -5,7 +5,6 @@ package hxgl.display3D;
 typedef Context3D = flash.display3D.Context3D;
 
 #else
-import cpp.io.Process;
 import haxe.io.Bytes;
 import hxgl.core.GLenums;
 import hxgl.display3D.textures.Texture;
@@ -84,11 +83,11 @@ class Context3D
 	{	
 		if (vbuffer == null)
 		{
-			HXGL.setVertexBufferAt (index, 0, bufferOffset, format, "nohint");
+			HXGL.setVertexBufferAt (index, 0, bufferOffset, format);
 		}
 		else
 		{
-			HXGL.setVertexBufferAt (index, untyped vbuffer._vboID, bufferOffset, format, "nohint");
+			HXGL.setVertexBufferAt (index, untyped vbuffer._vboID, bufferOffset, format);
 		}
 	}
 	
@@ -118,7 +117,8 @@ class Context3D
         HXGL.setTextureAt (sampler, untyped texture._tID);
     }
 	
-	public function setMatrixAt (location:Int, data:Vector<Float>)
+	//Temporary function
+	public function _setMatrixAt (location:Int, data:Vector<Float>)
 	{	
 		HXGL.setMatrixAt (location, 1, false, data);
 	}

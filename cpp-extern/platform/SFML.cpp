@@ -3,7 +3,7 @@
 #include "../wnd/SFML.h"
 #include <SFML/System.hpp>
 #include "../glwrapper/GLES20.h"
-#include "../glwrapper/GLES11.h"
+//#include "../glwrapper/GLES11.h"
 #include <iostream>
 #include "../Log.h"
 
@@ -40,12 +40,14 @@ namespace platform
             HXGL_NOTIFY ("Allocated a GLES20");
             return;
         }
-        if (major >= 1 && minor >= 5)
+		/*  Removing support for a while
+        else if (major >= 1 && minor >= 5)
         {
             glw = new hxgl::gw::GLES11;
             HXGL_NOTIFY ("Allocated a GLES11");
             return;
         }
+		*/
         else HXGL_FATAL_ERROR ("SFML::allocateGLW(): Unable to find a suitable context");
     }
 

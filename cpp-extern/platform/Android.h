@@ -4,7 +4,7 @@
 #include "IPlatform.h"
 #include "../wnd/Dummy.h"
 #include "../glwrapper/GLES20.h"
-#include "../glwrapper/GLES11.h"
+//#include "../glwrapper/GLES11.h"
 #include <iostream>
 #include "../Log.h"
 #include <jni.h>

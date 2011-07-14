@@ -3,7 +3,7 @@ package hxgl.display3D.textures;
 #if flash
 typedef Texture = flash.display3D.textures.Texture;
 
-#elseif cpp
+#else
 import haxe.io.BytesData;
 import hxgl.core.HXGL;
 

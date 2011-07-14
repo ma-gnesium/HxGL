@@ -41,6 +41,12 @@ namespace gw
 		
 		//Matrix
 		virtual void setMatrixAt (unsigned int location, int count, bool transpose, void *data) = 0;
+		
+		
+		//Dispose
+		virtual void disposeTexture (unsigned int tID) = 0;
+		virtual void disposeBuffer (unsigned int boID) = 0;
+		
     };
 
 }

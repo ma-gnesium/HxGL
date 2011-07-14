@@ -246,7 +246,6 @@ namespace gw
 		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexEnvf (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 				
         glTexImage2D (GL_TEXTURE_2D, 0, 4, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, NULL);
         
@@ -283,6 +282,16 @@ namespace gw
 	void GLES20::setMatrixAt (unsigned int location, int count, bool transpose, void *data)
 	{
 		glUniformMatrix4fv (location, count, transpose, (GLfloat *)data);		
+	}
+	
+	void GLES20::disposeTexture (unsigned int tID)
+	{
+		glDeleteTextures (1, &tID);
+	}
+	
+	void GLES20::disposeBuffer (unsigned int boID)
+	{
+		glDeleteBuffers (1, &boID);
 	}
 	
     //***************************

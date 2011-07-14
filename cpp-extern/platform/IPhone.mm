@@ -292,12 +292,14 @@ namespace platform
             glw = new hxgl::gw::GLES20;
             return;
         }
-        if (major >= 1 && minor >= 1)
+		/*  Removing support for a while
+        else if (major >= 1 && minor >= 1)
         {
 			[OpenGLView setApi:kEAGLRenderingAPIOpenGLES1];
             glw = new hxgl::gw::GLES11;
             return;
         }
+		*/
         else HXGL_FATAL_ERROR ("IPhone::allocateGLW(): Unable to find a suitable context");
     }
 	

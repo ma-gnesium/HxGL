@@ -28,17 +28,13 @@ class IndexBuffer3D
 		HXGL.uploadFromByteArrayIndex (_iboID, data, byteArrayOffset, startOffset, count * 2);//inds to totalsize	
 	}
 	
-	//public function uploadFromVector (
-					//data:flash.Vector<Int>,
-					//startOffset:Int, count:Int):Void
-	//{
-		//var bytesOutput = new BytesOutput ();
-		//for (j in data)
-		//{
-			//bytesOutput.writeInt16 (j);
-		//}
-		//uploadFromByteArray (bytesOutput.getBytes (), 0, 0, count);
-	//}
+	public function uploadFromVector (
+					data:hxgl.Vector<Int>,
+					startOffset:Int, count:Int):Void
+	{
+		if (startOffset + count > _IndNum) throw "Overflow";
+		HXGL.uploadFromVectorIndex (_iboID, data, startOffset, count);
+	}
 	
 	
 	//public function dispose ():Void

@@ -57,6 +57,10 @@ namespace gw
 		
 		//Matrix
 		void setMatrixAt (unsigned int location, int count, bool transpose, void *data){};
+		
+		//Dispose
+		void disposeTexture (unsigned int tID){};
+		void disposeBuffer (unsigned int boID){};
 	};
 
 }

@@ -3,7 +3,6 @@ package hxgl;
 #if flash
     typedef Lib = flash.Lib;
 #else
-import cpp.Sys;
 import hxgl.display.Stage;
 import hxgl.core.HXGL;
 
@@ -21,7 +20,9 @@ class Lib
 	{
 		trace ("Attempting link");
 		stage.addEventListener ("__INIT__", cb);
+		trace ("Added evt");
 		HXGL.LINK_LIB ();
+		trace ("Linked");
 		HXGL.setEnterFrame (__initdone__);		//Register an enterframe to __initdone__ so execution continues past HXGL_init;
 		HXGL.init (0, 0);	//blocking function	  
 	}
@@ -34,7 +35,9 @@ class Lib
 
 	public static function getTimer ()
 	{
-        return Std.int (Sys.cpuTime ()*1000);
+		#if cpp
+        return Std.int (cpp.Sys.cpuTime () * 1000);
+		#end
 	}
 }
 

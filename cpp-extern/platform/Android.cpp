@@ -32,11 +32,13 @@ namespace platform
             glw = new hxgl::gw::GLES20;
             return;
         }
+		/*  Removing support for a while
         if (major >= 1 && minor >= 1)
         {
             glw = new hxgl::gw::GLES11;
             return;
         }
+		*/
         else HXGL_FATAL_ERROR ("Android::allocateGLW(): Unable to find a suitable context");
     }
 
