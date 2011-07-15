@@ -212,6 +212,7 @@ namespace gw
     }
     void GLES20::setProgram (unsigned int program)
     {
+		current_program = program;
         glUseProgram (program);
     }
 
@@ -263,7 +264,7 @@ namespace gw
 		glBindTexture (GL_TEXTURE_2D, 0);
     }
 	
-	void GLES20::setTextureAt (unsigned int sampler, unsigned int tID)
+	void GLES20::setTextureAt (const char *location, unsigned int sampler, unsigned int tID)
 	{		
 		if (0 == tID)
 		{
@@ -271,17 +272,21 @@ namespace gw
 		}
 		else
 		{
+			GLint loc = glGetUniformLocation (current_program,location);
+			if (-1 == loc) HXGL_ERROR ("Location does not exist");
 			glEnable (GL_TEXTURE_2D);
 			glActiveTexture (GL_TEXTURE0 + sampler);	//TODO Add check for TMU oob
 			glBindTexture (GL_TEXTURE_2D, tID);
-			glUniform1i(sampler, sampler);
+			glUniform1i(loc, sampler);
 		}
 	}
 	
 	//Matrix
-	void GLES20::setMatrixAt (unsigned int location, int count, bool transpose, void *data)
+	void GLES20::setMatrixAt (const char *location, int count, bool transpose, void *data)
 	{
-		glUniformMatrix4fv (location, count, transpose, (GLfloat *)data);		
+		GLint loc = glGetUniformLocation (current_program,location);
+		if (-1 == loc) HXGL_ERROR ("Location does not exist");
+		glUniformMatrix4fv (loc, count, transpose, (GLfloat *)data);		
 	}
 	
 	void GLES20::disposeTexture (unsigned int tID)
@@ -297,7 +302,7 @@ namespace gw
     //***************************
     //**********  END  **********
     //***************************
-
+	
     //Used for disposeProgram
     void GLES20::deleteProgram (unsigned int program)
     {

@@ -58,16 +58,17 @@ namespace gw
         //Textures
         unsigned int createTexture (unsigned int width, unsigned int height, const char *format, bool optimizeForRenderToTexture);
         void uploadFromByteArrayTexture (unsigned int tID, void *data, unsigned int byteArrayOffset, unsigned int width, unsigned int height);
-		void setTextureAt (unsigned int sampler, unsigned int tID);
+		void setTextureAt (const char *location, unsigned int sampler, unsigned int tID);
 		
 		//Matrix
-		void setMatrixAt (unsigned int location, int count, bool transpose, void *data);
+		void setMatrixAt (const char *location, int count, bool transpose, void *data);
 		
 		//Dispose
 		void disposeTexture (unsigned int tID);
 		void disposeBuffer (unsigned int boID);
 		
     private:
+		GLuint current_program;
         void deleteProgram (unsigned int program);
         void allocateProgram (unsigned int program, unsigned int vs, unsigned int fs);
     };

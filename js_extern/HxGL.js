@@ -26,7 +26,7 @@ var HXGL = (function () {
 	{
 		_canvas = document.getElementById ("webGLCanvas");
 		gl = _canvas.getContext("experimental-webgl");
-		if (WebGLDebugUtils != null)
+		if (!(typeof WebGLDebugUtils === 'undefined'))
 		{
 			gl = WebGLDebugUtils.makeDebugContext(gl, throwOnglError);
 		}
@@ -124,7 +124,7 @@ var HXGL = (function () {
 		gl.shaderSource(vertexShader, vertex);
 		gl.compileShader(vertexShader);
 		if(!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-			alert("Couldn't compile the vertex shader");
+			document.write("Couldn't compile the vertex shader\n" + gl.getShaderInfoLog (vertexShader));
 			gl.deleteShader(vertexShader);
 			return;
 		}
@@ -133,7 +133,7 @@ var HXGL = (function () {
 		gl.shaderSource(fragmentShader, fragment);
 		gl.compileShader(fragmentShader);
 		if(!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-			alert("Couldn't compile the fragment shader");
+			document.write("Couldn't compile the fragment shader\n" + gl.getShaderInfoLog (fragmentShader));
 			gl.deleteShader(fragmentShader);
 			return;
 		}
@@ -152,7 +152,7 @@ var HXGL = (function () {
 
 	function setProgram (program)
 	{
-		gl.current_program = program;
+		gl.program = program;
 		gl.useProgram (program);		
 	}
 
@@ -160,6 +160,22 @@ var HXGL = (function () {
 	{
 		var type = gl.FLOAT;
 		var size = 3;
+		
+		switch (format)
+		{
+			case "float1":
+				size = 1;
+				break;	
+			case "float2":
+				size = 2;
+				break;	
+			case "float3":
+				size = 3;
+				break;	
+			case "float4":
+				size = 4;
+				break;			
+		}
 		
 		if (0==vboID)
 		{
@@ -260,17 +276,32 @@ var HXGL = (function () {
 		var view = new Uint8Array (data);
 		gl.bindTexture (gl.TEXTURE_2D, tID);	
 		
-        gl.texImage2D (gl.TEXTURE_2D, 0, gl.RGBA, 32, 32, 0, gl.RGBA, gl.UNSIGNED_BYTE, view);
+        gl.texImage2D (gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, view);
 	}
 	
-	function setTextureAt (sampler,tID)
+	function setTextureAt (loc,sampler,tID)
 	{
-		alert ("hxgl.setTextureAt (): Not yet implemented");
+		if (null == tID)
+		{
+			document.write ("Trying setnull<br>");
+			gl.bindTexture (GL_TEXTURE_2D, null);
+		}
+		else
+		{
+			var li = gl.getUniformLocation (gl.program, loc);
+			if (null == li) alert ("setTextureAt (): No such uniform["+li+"]");
+			
+			gl.activeTexture (gl.TEXTURE0);
+			gl.bindTexture (gl.TEXTURE_2D, tID);
+			gl.uniform1i (li, 0);
+		}
 	}
 	
-	function setMatrixAt (location,count,transpose,data)
+	function setMatrixAt (loc,count,transpose,data)
 	{
-		gl.uniformMatrix4fv (location,count,transpose,data);
+		var li = gl.getUniformLocation (gl.program, loc);
+		if (null == li) alert ("setMatrixAt (): No such uniform["+li+"]");
+		gl.uniformMatrix4fv (li,transpose,data);
 	}
 	
 	function disposeTexture (tID)

@@ -334,12 +334,12 @@ value hxgl_uploadFromByteArrayTexture (value tID, value data, value byteArrayOff
 }
 DEFINE_PRIM (hxgl_uploadFromByteArrayTexture, 5);
 
-value hxgl_setTextureAt (value sampler, value tID)
+value hxgl_setTextureAt (value location, value sampler, value tID)
 {
-	pf->glw->setTextureAt (val_int (sampler), val_int (tID));
+	pf->glw->setTextureAt (val_string(location), val_int (sampler), val_int (tID));
 	return alloc_null();
 }
-DEFINE_PRIM (hxgl_setTextureAt,2);
+DEFINE_PRIM (hxgl_setTextureAt,3);
 
 value hxgl_setMatrixAt (value location, value count, value transpose, value data)
 {
@@ -354,7 +354,7 @@ value hxgl_setMatrixAt (value location, value count, value transpose, value data
 		_fdata[i] = (float)_data[i];
 	}
 	
-	pf->glw->setMatrixAt (val_int (location), 
+	pf->glw->setMatrixAt (val_string (location), 
 						  val_int (count), 
 						  val_bool (transpose), 
 						  _fdata);

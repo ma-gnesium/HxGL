@@ -37,10 +37,10 @@ namespace gw
         //Texture
         virtual unsigned int createTexture (unsigned int width, unsigned int height, const char *format, bool optimizeForRenderToTexture) = 0;
         virtual void uploadFromByteArrayTexture (unsigned int tID, void *data, unsigned int byteArrayOffset, unsigned int width, unsigned int height) = 0;
-		virtual void setTextureAt (unsigned int sampler, unsigned int tID) = 0;
+		virtual void setTextureAt (const char *location, unsigned int sampler, unsigned int tID) = 0;
 		
 		//Matrix
-		virtual void setMatrixAt (unsigned int location, int count, bool transpose, void *data) = 0;
+		virtual void setMatrixAt (const char *location, int count, bool transpose, void *data) = 0;
 		
 		
 		//Dispose
