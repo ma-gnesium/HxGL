@@ -73,10 +73,12 @@ namespace gw
         }
         else if (strcmp(triangleFaceToCull,"front") == 0) 
         {
+			 glEnable(GL_CULL_FACE);
             glCullFace(GL_FRONT);
         }
         else if (strcmp(triangleFaceToCull,"frontAndBack") == 0) 
         {
+			glEnable(GL_CULL_FACE);
             glCullFace(GL_FRONT_AND_BACK);
         }
         else HXGL_ERROR ("GLES20::setDepthTest(): Invalid triangleFaceToCull");
@@ -84,7 +86,6 @@ namespace gw
     void GLES20::setDepthTest (bool depthMask, const char *passCompareMode)
     {
         glDepthMask (depthMask);
-
         if (strcmp(passCompareMode,"always") == 0)
         {
             glDepthFunc(GL_ALWAYS);
@@ -119,7 +120,7 @@ namespace gw
         }
         else HXGL_ERROR ("GLES20::setDepthTest(): Invalid passCompareMode");
     }
-    void GLES20::setVertexBufferAt (int index, unsigned int vboID, int bufferOffset, const char *format, const char *hint)
+    void GLES20::setVertexBufferAt (const char *loc, unsigned int vboID, int bufferOffset, int stride, const char *format)
     {
         GLenum type = GL_FLOAT;
         GLint size = 3;
@@ -148,13 +149,21 @@ namespace gw
 
         if (0 == vboID)
         {
-            glDisableVertexAttribArray (index);
+			GLint li = glGetAttribLocation (current_program, loc);
+			if (NULL == li) HXGL_ERROR ("setVertexBufferAt (): No such attribute");
+            glDisableVertexAttribArray (li);
         }
         else
         {
             glBindBuffer (GL_ARRAY_BUFFER, vboID);
-            glVertexAttribPointer (index, size, type, false, bufferOffset, BUFFER_OFFSET (bufferOffset));  //FIXME add stride support
-            glEnableVertexAttribArray (index);
+            GLint li = glGetAttribLocation (current_program, loc);
+			if (-1 == li){
+				HXGL_ERROR ("setVertexBufferAt (): No such attribute");
+				HXGL_ERROR ("loc");
+			}
+			
+			glVertexAttribPointer (li, size, type, false, stride, BUFFER_OFFSET (bufferOffset));  //FIXME add stride support
+            glEnableVertexAttribArray (li);
             glBindBuffer (GL_ARRAY_BUFFER, 0);
         }
     }

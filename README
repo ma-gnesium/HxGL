@@ -1,8 +1,6 @@
 If you're looking for the engine side of this, visit: http://github.com/sledorze/HIDE
 
 
-IF YOU USE VISUAL STUDIO 2010 YOU MUST COMPILE SFML FROM SOURCE!
-
 GLES20.cpp/h is currently the only supported graphics wrapper.
 
 All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
@@ -10,21 +8,8 @@ All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with
 Required libs for hxgl.ndll:
 	sfml-window
 	sfml-system
-	glew32
 
 Common Problems:
-	All:
-		Shaders not working correctly?
-			Uniform/Attrib locations are not explicitly bound.
-			If you assign a Uniform and no not use it, that slot
-			will be removed during shader compilation.
-				uniform sampler2D texture1;	//Not used
-				uniform sampler2D texture2; //Assigned at [0]
-				void main ()
-				{
-					gl_FragColor = texture2D (texture2, ...); //Uses slot [0]
-				}
-			So basically, make sure everything declared is used.
 	Windows:
 		Window loads and immediately crashes: Compile with vstudio 2008
 		hxgl_*_* not found: Place hxgl.ndll into bin/c++
@@ -41,17 +26,7 @@ flash.display3D.*:
     Functional, but very limited.
 
 Differences:
-	setVertexBufferAt (... does not support _HINTS_ in flash);
-	
-	Still need HxSL target. Waiting on HxSL extension.
-
-Hinting:
-   	setVertexBufferAt (default_params...., hxgl.core.GLEnums._HINT_);
-   
-   	You can suppply a hint with your buffer binds to tell fixed function
-   	where to place the buffer and whether or not to use it.
-
-   	This method will be obsolete soon.
+	Still need GLSL target. Waiting on HxSL extension.
 	
 Compiling:
 	Use latest HaXe/HXCPP nightlies.

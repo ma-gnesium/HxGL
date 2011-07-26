@@ -156,7 +156,7 @@ var HXGL = (function () {
 		gl.useProgram (program);		
 	}
 
-	function setVertexBufferAt (index,vboID,bufferOffset,format)
+	function setVertexBufferAt (loc,vboID,bufferOffset,stride,format)
 	{
 		var type = gl.FLOAT;
 		var size = 3;
@@ -177,15 +177,21 @@ var HXGL = (function () {
 				break;			
 		}
 		
-		if (0==vboID)
+		if (null==vboID)
 		{
-			gl.disableVertexAttribArray (index);
+			var li = gl.getAttribLocation (gl.program, loc);
+			if (null == li) alert ("setVertexBufferAt (): No such attribute["+loc+"]");
+			gl.disableVertexAttribArray (li);
 		}
 		else
 		{
 			gl.bindBuffer (gl.ARRAY_BUFFER,vboID);
-			gl.vertexAttribPointer (index,size,type,false,bufferOffset,bufferOffset);
-			gl.enableVertexAttribArray (index);
+			
+			var li = gl.getAttribLocation (gl.program, loc);
+			if (-1 == li) alert ("setVertexBufferAt (): No such attribute["+loc+"]");
+			
+			gl.vertexAttribPointer (li,size,type,false,stride,bufferOffset);
+			gl.enableVertexAttribArray (li);
 		}
 	}
 	
@@ -206,9 +212,11 @@ var HXGL = (function () {
 				gl.cullFace(gl.BACK);
 				break;
 			case "front":
+				gl.enable(gl.CULL_FACE);
 				gl.cullFace(gl.FRONT);
 				break;
 			case "frontAndBack":
+				gl.enable(gl.CULL_FACE);
 				gl.cullFace(gl.FRONT_AND_BACK);
 				break;
 			default: alert ("HXGL: Invalid triangleFaceToCull");

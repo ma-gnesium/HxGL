@@ -5,6 +5,10 @@ package hxgl.geom;
  * @author Matthew Spencer
  */
 
+#if flash
+	typedef Rectangle = flash.geom.Rectangle;
+#else
+
 class Rectangle 
 {
 
@@ -20,3 +24,4 @@ class Rectangle
 	public var width:Float;
 	public var height:Float;
 }
+#end

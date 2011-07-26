@@ -40,7 +40,7 @@ namespace gw
 	    //void present (); DO NOT IMPLEMENT
 	    void setCulling(const char *triangleFaceToCull);
 	    void setDepthTest (bool depthMask, const char *passCompareMode);
-	    void setVertexBufferAt (int index, unsigned int vboID, int bufferOffset, const char *format, const char *hint);
+	    void setVertexBufferAt (const char *loc, unsigned int vboID, int bufferOffset, int stride, const char *format);
 
         //Shader stuff
 	    unsigned int createProgram();

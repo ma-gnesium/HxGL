@@ -22,7 +22,7 @@ namespace gw
 	    //virtual void present () = 0; DO NOT IMPLEMENT
 	    virtual void setCulling(const char *triangleFaceToCull) = 0;
 	    virtual void setDepthTest (bool depthMask, const char *passCompareMode) = 0;
-	    virtual void setVertexBufferAt (int index, unsigned int vboID, int bufferOffset, const char *format, const char *hint) = 0;
+	    virtual void setVertexBufferAt (const char *loc, unsigned int vboID, int bufferOffset, int stride, const char *format) = 0;
 
 	    //Shader stuff
 	    virtual unsigned int createProgram() = 0;

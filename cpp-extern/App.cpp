@@ -93,6 +93,7 @@ value hxgl_init (value forceMajor, value forceMinor)
     if (NULL == pf->glw) HXGL_FATAL_ERROR ("hxgl_init(): glw is null");    
     if (NULL == pf->input) HXGL_FATAL_ERROR ("hxgl_init(): inp is null");    
 
+	glEnable (GL_DEPTH_TEST);
 
     pf->enterFrameCallback = eCallback;
     pf->beginMain ();
@@ -188,15 +189,15 @@ value hxgl_setDepthTest (value depthMask, value passCompareMode)
 }
 DEFINE_PRIM (hxgl_setDepthTest, 2);
 
-value hxgl_setVertexBufferAt (value index, value vboID, value bufferOffset, 
-                                    value format, value hint)
+value hxgl_setVertexBufferAt (value loc, value vboID, value bufferOffset, 
+                                    value stride, value format)
 {
     pf->glw->setVertexBufferAt (
-        val_int (index),
+        val_string (loc),
         val_int (vboID),
         val_int (bufferOffset),
-        val_string (format),
-        val_string (hint));
+		val_int (stride),
+        val_string (format));
         
     return alloc_null ();
 }

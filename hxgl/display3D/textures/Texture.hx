@@ -22,6 +22,24 @@ class Texture
 
     public function uploadFromByteArray (data:BytesData, byteArrayOffset:Int, ?mipLevel:Int = 0):Void
     {
+		#if js
+			//Temporary
+			var i = 0;
+			var t:Int;
+			while (i < data.length)
+			{
+				var b:Int = data[i];
+				var g:Int = data[i+1];
+				var r:Int = data[i+2];
+				var a:Int = data[i+3];
+				data[i] = r;
+				data[i + 1] = g;
+				data[i + 2] = b;
+				data[i + 3] = a;
+				i += 4;
+			}
+		#end
+		
 		//TODO Add support for mipleve in HXGL."" function
 		HXGL.uploadFromByteArrayTexture (_tID, data, byteArrayOffset, _width, _height);
     }
@@ -30,7 +48,7 @@ class Texture
     var _height:Int;
     var _format:String;
     var _optimizeForRenderToTexture:Bool;
-    var _tID:Int;
+    public var _tID:Int;
 }
 
 #end

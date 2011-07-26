@@ -47,10 +47,10 @@ class HXGL
 	public static inline function setDepthTest(depthMask:Bool, passCompareMode:String){
 		extSetDepthTest (depthMask, passCompareMode);
 	}
-	public static inline function setVertexBufferAt(index:Int, vboID:Int, 
-													bufferOffset:Int, 
-													format:String, ?hint:String="nohint"){
-		extSetVertexBufferAt (index,vboID,bufferOffset,format,hint);
+	public static inline function setVertexBufferAt(location:String, vboID:Int, 
+													bufferOffset:Int, stride:Int,
+													format:String){
+		extSetVertexBufferAt (location,vboID,bufferOffset,stride,format);
 	}
 	public static inline function uploadFromByteArrayVertex(vboID:Int, 
 															data:BytesData, 
@@ -105,10 +105,10 @@ class HXGL
 															  width:Int, height:Int) {
 		extUploadFromByteArrayTexture (tID, data, byteArrayOffset, width, height);
 	}
-	public static inline function setTextureAt (sampler:Int, texture:Texture) {
-		extSetTextureAt (sampler, texture);
+	public static inline function setTextureAt (location:String, sampler:Int, texture:Int) {
+		extSetTextureAt (location, sampler, texture);
 	}
-	public static inline function setMatrixAt (location:Int, count:Int, transpose:Bool, data:Vector<Float>) {
+	public static inline function setMatrixAt (location:String, count:Int, transpose:Bool, data:Vector<Float>) {
 		extSetMatrixAt (location, count, transpose, data);
 	}
 	public static inline function disposeTexture (tID:Int) {
@@ -128,37 +128,38 @@ class HXGL
 
 	public static function LINK_LIB ()
 	{
-			extSetEnterFrame = load("setEnterFrame", 1);
-			extInit = load("init", 2);
-			extClear = load("clear", 7);
-			extConfigureBackBuffer = load("configureBackBuffer", 4);
-			extCreateVertexBuffer = load("createVertexBuffer", 1);
-			extCreateIndexBuffer = load("createIndexBuffer", 1);
-			extDrawTriangles = load("drawTriangles", 3);
-			extSetCulling = load("setCulling", 1);
-			extSetDepthTest = load("setDepthTest", 2);
-			extSetVertexBufferAt = load("setVertexBufferAt", 5);
-			extUploadFromByteArrayVertex = load("uploadFromByteArrayVertex", 5);
-			extUploadFromVectorVertex = load("uploadFromVectorVertex", 4);
-			extUploadFromByteArrayIndex = load("uploadFromByteArrayIndex", 5);
-			extUploadFromVectorIndex = load ("uploadFromVectorIndex", 4);
+		trace ("Linking library");
+		extSetEnterFrame = load("setEnterFrame", 1);
+		extInit = load("init", 2);
+		extClear = load("clear", 7);
+		extConfigureBackBuffer = load("configureBackBuffer", 4);
+		extCreateVertexBuffer = load("createVertexBuffer", 1);
+		extCreateIndexBuffer = load("createIndexBuffer", 1);
+		extDrawTriangles = load("drawTriangles", 3);
+		extSetCulling = load("setCulling", 1);
+		extSetDepthTest = load("setDepthTest", 2);
+		extSetVertexBufferAt = load("setVertexBufferAt", 5);
+		extUploadFromByteArrayVertex = load("uploadFromByteArrayVertex", 5);
+		extUploadFromVectorVertex = load("uploadFromVectorVertex", 4);
+		extUploadFromByteArrayIndex = load("uploadFromByteArrayIndex", 5);
+		extUploadFromVectorIndex = load ("uploadFromVectorIndex", 4);
 
-			extCreateProgram = load("createProgram",0);
-			extUploadProgram = load("uploadProgram",3);
-			extSetProgram = load("setProgram",1);
-			extDisposeProgram = load("disposeProgram",1);
+		extCreateProgram = load("createProgram",0);
+		extUploadProgram = load("uploadProgram",3);
+		extSetProgram = load("setProgram",1);
+		extDisposeProgram = load("disposeProgram",1);
 
-			extCreateTexture = load("createTexture", 4);
-			extUploadFromByteArrayTexture = load("uploadFromByteArrayTexture", 5);
-			extSetTextureAt = load ("setTextureAt", 2);
-			
-			extSetMatrixAt = load ("setMatrixAt", 4);
-			
-			extDisposeTexture = load("disposeTexture", 1);
-			extDisposeBuffer = load("disposeBuffer", 1);
-			
-			extGetDigital = load("getDigital",1);
-			extGetToggle = load("getToggle",1);
+		extCreateTexture = load("createTexture", 4);
+		extUploadFromByteArrayTexture = load("uploadFromByteArrayTexture", 5);
+		extSetTextureAt = load ("setTextureAt", 3);
+		
+		extSetMatrixAt = load ("setMatrixAt", 4);
+		
+		extDisposeTexture = load("disposeTexture", 1);
+		extDisposeBuffer = load("disposeBuffer", 1);
+		
+		extGetDigital = load("getDigital",1);
+		extGetToggle = load("getToggle",1);
 	}
 		
 	static var DOMAIN:String = "hxgl";
@@ -169,16 +170,28 @@ class HXGL
 	static function load (s:String, params:Int)
 	{
 		#if cpp
-			var f:Dynamic = cpp.Lib.load (DOMAIN, EXTENSION + s, params);
+			var f:Dynamic = cpp.Lib.load (DOMAIN,EXT(s), params);
 			#if (debug && !HXGL_LIB_NOVERIFY)
 				if (0 == f) throw "hxgl library is invalid\nMissing extension: " + s;
 			#end
+			if (0 == f) {
+				f = function () { 
+					trace ("Unloaded extension: " + s + " was called. Halting in 10 seconds."); 
+					cpp.Sys.sleep (10); throw "Critical Error"; 
+				}
+			};
 			return f;
 		#elseif js
+			js.Lib.eval ("if (typeof HXGL ==='undefined') alert ('HXGL library not in path');");
 			var f:Dynamic = js.Lib.eval ("HXGL." + s);
 			#if (debug && !HXGL_LIB_NOVERIFY)
 				if (null == f) js.Lib.alert ("hxgl library is invalid\nMissing extension: " + s);
 			#end
+			if (null == f) {
+				f = function () {
+					js.Lib.alert ("Call to unloaded extension: " + s); 
+				}
+			}
 			return f;
 		#else
 			throw "This platform is not currently supported by HxGL.";

@@ -78,23 +78,25 @@ class Context3D
 		//HXGL.UniformMatrix4fv (0, 0, false, bo.getBytes ().getData ());
 	//}
 	//
-	public function setVertexBufferAt (index:Int, vbuffer:VertexBuffer3D, bufferOffset:Int,
+	public function setVertexBufferAt (location:String, vbuffer:VertexBuffer3D, bufferOffset:Int,
 					format : String = "float4")
 	{	
 		if (vbuffer == null)
 		{
-			HXGL.setVertexBufferAt (index, 0, bufferOffset, format);
+			HXGL.setVertexBufferAt (location, 0, bufferOffset, 0, format);
 		}
 		else
 		{
-			HXGL.setVertexBufferAt (index, untyped vbuffer._vboID, bufferOffset, format);
+			var strd = untyped vbuffer._vertBytes;
+			HXGL.setVertexBufferAt (location, untyped vbuffer._vboID, bufferOffset, strd, format);
 		}
 	}
 	
-	public function drawTriangles (ibuffer:IndexBuffer3D, firstIndex:Int, numTriangles:Int)
+	public function drawTriangles (ibuffer:IndexBuffer3D, ?firstIndex:Int = 0, ?numTriangles:Int = -1)
 	{
 		if (ibuffer == null) throw "ibuffer cannot be null";
-		HXGL.drawTriangles (untyped ibuffer._iboID, firstIndex, numTriangles);
+		var ntri = ( -1 == numTriangles) ? Std.int (untyped ibuffer._IndNum / 3) : numTriangles;
+		HXGL.drawTriangles (untyped ibuffer._iboID, firstIndex, ntri);
 	}
 	
 	public function createProgram ():Program3D
@@ -112,13 +114,13 @@ class Context3D
 		return new Texture(width, height, format, optimizeForRenderToTexture);    
     }
 	
-    public function setTextureAt (sampler:Int, texture:hxgl.display3D.textures.Texture)
+    public function setTextureAt (location:String, sampler:Int, texture:hxgl.display3D.textures.Texture)
     {
-        HXGL.setTextureAt (sampler, untyped texture._tID);
+        HXGL.setTextureAt (location, sampler, texture._tID);
     }
 	
 	//Temporary function
-	public function _setMatrixAt (location:Int, data:Vector<Float>)
+	public function _setMatrixAt (location:String, data:Vector<Float>)
 	{	
 		HXGL.setMatrixAt (location, 1, false, data);
 	}

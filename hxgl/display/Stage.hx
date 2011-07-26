@@ -53,9 +53,11 @@ class Stage
 	static var lslp:Float;
 	public function dispatchEvent (e:String)
 	{
-		#if (cpp||neko)
+		#if (cpp || neko)
+		/*
 		var dt:Float = 0;
 		dt = cpp.Sys.cpuTime ();
+		*/
 		#end
 				
 		if (_evthash.exists (e))
@@ -68,7 +70,8 @@ class Stage
 			if (e != hxgl.events.Event.ENTER_FRAME) _evthash.remove(e);	//hack to stop all events from firing forever
 		}
 		
-		#if (cpp||neko)
+		#if (cpp || neko)
+		/*
 		if (e == hxgl.events.Event.ENTER_FRAME) 
 		{
 			var ct = cpp.Sys.cpuTime ();
@@ -85,6 +88,8 @@ class Stage
 				cpp.Sys.sleep (dt);
 			}
 		}
+		*/
+		cpp.Sys.sleep (1/100);
 		#end
 	}
 	
