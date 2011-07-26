@@ -169,7 +169,7 @@ class HXGL
 	static function load (s:String, params:Int)
 	{
 		#if cpp
-			var f:Dynamic = cpp.loadENSION + s, p);
+			var f:Dynamic = cpp.Lib.load (DOMAIN, EXTENSION + s, params);
 			#if (debug && !HXGL_LIB_NOVERIFY)
 				if (0 == f) throw "hxgl library is invalid\nMissing extension: " + s;
 			#end
