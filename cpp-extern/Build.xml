@@ -33,7 +33,6 @@
     <file name="platform/IPlatform.cpp"/>
     <file name="platform/SFML.cpp" unless="mobile"/>
     <file name="platform/Android.cpp" if="android"/>
-    <file name="platform/MacOS.cpp" if="macos"/>
 
     <file name="App.cpp"/>
 
