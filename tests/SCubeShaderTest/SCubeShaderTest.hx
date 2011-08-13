@@ -90,13 +90,13 @@ class SCubeShaderTest
 
     function eframe()
     {
-        HXGL.setVertexBufferAt (0, vboID, 0, "float3", "position");
+        HXGL.setVertexBufferAt ("in_Position", vboID, 0, 12, "float3" ); //location,vboID,offset,stride,type
         HXGL.setProgram (programID);
 
         HXGL.drawTriangles (iboID, 0, Std.int(indexData.length*.5/3));
 
         HXGL.setProgram (0);
-        HXGL.setVertexBufferAt (0, 0, 0, "float3", "position");  //clear state
+        HXGL.setVertexBufferAt (null, vboID, 0, 12, "float3");  //clear state
     }
 
     public static function main ()
