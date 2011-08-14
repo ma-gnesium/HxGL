@@ -4,6 +4,9 @@ class GLenums
 {
 	public static inline var GL_ARRAY_BUFFER = 0x8892;
 	public static inline var GL_ELEMENT_ARRAY_BUFFER = 0x8893;
+
+	public static inline var GL_VERTEX_SHADER = 0x8B31;
+	public static inline var GL_FRAGMENT_SHADER = 0x8B30;
 	
 	public static inline var GL_STREAM_DRAW = 0x88E0;
 	public static inline var GL_STREAM_READ = 0x88E1;

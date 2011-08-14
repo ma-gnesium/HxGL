@@ -40,7 +40,7 @@ namespace window
 	    wnd->Show (isVisible);
     }
 
-    void SFML::resize()
+    void SFML::resize(const int width, const int height)
     {
     }
 

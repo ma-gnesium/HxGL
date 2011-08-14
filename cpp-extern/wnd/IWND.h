@@ -15,7 +15,7 @@ namespace window
 	    virtual void terminate () = 0; //STUB
 	    virtual bool create () = 0;
 	    virtual void show (bool isVisible) = 0;
-	    virtual void resize () = 0;  //STUB
+	    virtual void resize (const int width, const int height) = 0;  //STUB
 	    virtual void setTitle (const char * title) = 0; //STUB
 	    virtual void getGLVersion (unsigned int &major, unsigned int &minor) = 0; //STUB
 	    virtual void swapBuffers() = 0; 

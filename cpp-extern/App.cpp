@@ -136,7 +136,10 @@ value hxgl_configureBackBuffer (value width, value height,
         val_int (height),
         val_int (antiAlias),
         val_bool (enableDepthAndStencil));
-
+        
+    pf->wnd->resize (
+        val_int (width),
+        val_int (height));
 
     return alloc_null ();
 }

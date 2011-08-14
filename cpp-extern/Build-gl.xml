@@ -34,18 +34,15 @@
     <file name="platform/SFML.cpp" unless="mobile"/>
     <file name="platform/Android.cpp" if="android"/>
 
-    <file name="App.cpp"/>
+    <file name="GL.cpp"/>
 
     <file name="wnd/Dummy.cpp" if="mobile"/>
     <file name="wnd/SFML.cpp" unless="mobile"/>
 
     <file name="input/SFML.cpp" unless="mobile"/>
-    
-
-   
 </files>
 
-<target id="hxgl.ndll" tool="linker" toolid="${ndll-tool}" output="hxgl${name_extra}">
+<target id="gl.ndll" tool="linker" toolid="${ndll-tool}" output="gl${name_extra}">
    <files id="files"/>
    <ext value=".ndll" unless="mobile"/>
    <outdir name="../ndll/linux" if="linux"/>
@@ -76,8 +73,7 @@
 </target>
 
 <target id="default">
-   <target id="hxgl.ndll"/>
-	
+   <target id="gl.ndll"/>	
 </target>
 
 

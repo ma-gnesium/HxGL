@@ -1,0 +1,80 @@
+<xml>
+
+<!-- Build file for hxgl.ndll -->
+<!-- Install hxcpp and run with 'haxelib run hxcpp Build.xml' -->
+
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+
+<set name="DBG" value="d" if="debug"/>
+<set name="mobile" value="1" if="iphone"/>
+<set name="mobile" value="1" if="android"/>
+
+<set name="tool" value="static" if="iphone"/>
+<set name="ndll-tool" value="dll" unless="iphone"/>
+<set name="ndll-tool" value="static" if="iphone"/>
+<set name="name_extra" value=".iphoneos" if="iphoneos"/>
+<set name="name_extra" value=".iphonesim" if="iphonesim"/>
+
+<vflag name="-framework" value="OpenGLES" if="iphone"/>
+<vflag name="-framework" value="UIKit" if="iphone"/>
+<vflag name="-framework" value="Foundation" if="iphone"/>
+<vflag name="-framework" value="QuartzCore" if="iphone"/>
+
+
+<files id="files">
+    <compilerflag value = "-Iinclude"/> 
+    <compilerflag value = "-DGLEW_STATIC" if="windows"/>
+
+    
+
+    <file name="glwrapper/GLES11.cpp"/>
+    <file name="glwrapper/GLES20.cpp"/>
+
+    <file name="platform/IPlatform.cpp"/>
+    <file name="platform/SFML.cpp" unless="mobile"/>
+    <file name="platform/Android.cpp" if="android"/>
+
+    <file name="App.cpp"/>
+
+    <file name="wnd/Dummy.cpp" if="mobile"/>
+    <file name="wnd/SFML.cpp" unless="mobile"/>
+
+    <file name="input/SFML.cpp" unless="mobile"/>
+</files>
+
+<target id="hxgl.ndll" tool="linker" toolid="${ndll-tool}" output="hxgl${name_extra}">
+   <files id="files"/>
+   <ext value=".ndll" unless="mobile"/>
+   <outdir name="../ndll/linux" if="linux"/>
+   <outdir name="../ndll/windows" if="windows"/>
+   <outdir name="../ndll/android" if="android"/>
+   <outdir name="../ndll/macos" if="macos"/>
+   <outdir name="../ndll/iphoneos" if="iphone"/>
+   <flag value="${LIB_DIR}"/>  
+
+   <lib name="sfml-system.lib" if="windows"/>
+   <lib name="sfml-window.lib" if="windows"/>
+   <lib name="glew32s.lib" if="windows"/>
+   <lib name="user32.lib" if="windows"/>
+   <lib name="gdi32.lib" if="windows"/>   
+   <lib name="opengl32.lib" if="windows"/>
+
+   <lib name="-lGLESv1_CM" if="android"/>
+   <lib name="-lGLESv2" if="android"/>
+
+   <lib name="-lsfml-window" if="linux"/>
+   <lib name="-lGLEW" if="linux"/>
+
+   <lib name="-lGLEW" if="macos"/>
+   <flag value="-framework" if="macos"/>
+   <flag value="OpenGL" if="macos"/>
+   <flag value="-framework" if="macos"/>
+   <flag value="sfml-window" if="macos"/>
+</target>
+
+<target id="default">
+   <target id="hxgl.ndll"/>	
+</target>
+
+
+</xml>

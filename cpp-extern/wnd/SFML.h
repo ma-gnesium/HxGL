@@ -22,7 +22,7 @@ namespace window
 	    void terminate ();
 	    bool create ();
 	    void show (bool isVisible);
-	    void resize ();
+	    void resize (const int width, const int height);
 	    void setTitle (const char *title);
 	    void getGLVersion (unsigned int &major, unsigned int &minor);
 	    void swapBuffers ();

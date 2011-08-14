@@ -39,7 +39,7 @@ namespace window
     {
     }
 
-    void Dummy::resize()
+    void Dummy::resize(const int width, const int height)
     {
     }
 
