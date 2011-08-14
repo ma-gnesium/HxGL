@@ -8,26 +8,39 @@ class ClearOnly
     public function new ()
     {
         trace ("Begin init");
-
         //@@ Context creation, not abstracted yet
-        #if js
-        var canvas:Dynamic = js.Lib.document.getElementById( "webGLCanvas" );
-        if (null == canvas) throw "Could not aquire canvas";
-        var gl:hxgl.core.GL = canvas.getContext ("experimental-webgl");
-        if (null == gl) throw "Could not aquire context";
-        #elseif cpp
-            cpp.Lib.load("gl","__HXGL_INIT",0)();
-            var flip = cpp.Lib.load("gl","__HXGL_HANDLEFRAME",0);
-            var gl:hxgl.core.GL = new hxgl.core.GL ();
-        #end
-        
-        gl.clearColor (1.0, 0.0, 0.0, 1.0);
-        gl.clear (gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        #if cpp
-            flip ();    //swapBuffers call
-            while (true){}  //This will cause a hang! Sorry! Still need to do Context abstraction
-        #end
+				
+				var wa = hxgl.core.Window.create( "TestA", 800, 600 );
+				var wb = hxgl.core.Window.create( "TestB", 512, 512 );
+				wb.resize( 100, 100 );
+				
+				var opened:Bool = false;
+				#if cpp
+				do {
+				#end
+					opened = false;
+					if (wa.isOpen( ))
+					{
+						wa.activate( );
+						wa.gl.clearColor( 1.0, 0.0, 0.0, 1.0 );
+						wa.gl.clear( wa.gl.COLOR_BUFFER_BIT );
+						wa.process( );
+					}
+					
+					if (wb.isOpen( ))
+					{
+						wb.activate( );
+						wb.gl.clearColor( 0.0, 1.0, 0.0, 1.0 );
+						wb.gl.clear( wb.gl.COLOR_BUFFER_BIT );
+						wb.process( );
+					}
+					
+				#if cpp
+					cpp.Sys.sleep( 1 / 60 );					
+				} while ( wa.isOpen( ) || wb.isOpen( ) );
+				#else
+					//wb.close( );		//Sample of close behavior in javascript
+				#end
 	}
 
     public static function main ()

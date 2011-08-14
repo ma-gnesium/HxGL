@@ -14,24 +14,21 @@ namespace hxgl
 namespace window
 {
 
-    class SFML: public IWND
-    {
-    public:
-        SFML();
-	    void init ();
-	    void terminate ();
-	    bool create ();
-	    void show (bool isVisible);
-	    void resize (const int width, const int height);
-	    void setTitle (const char *title);
-	    void getGLVersion (unsigned int &major, unsigned int &minor);
-	    void swapBuffers ();
-	    bool process ();
-	    hxgl::input::IInput *getInputHandle ();
+	class SFML: public IWND
+	{
+	public:
+		SFML();
+		unsigned int create ( const char *title, unsigned int width, unsigned int height, bool show );
+		void destroy( );
+		void activate( unsigned int handle );
+		void show( bool visible);
+		void resize (const int width, const int height);  //STUB
+		void swapBuffers(); 
+		bool process();
 
-    private:
-	    sf::Window *wnd;
-    };
+	private:
+		sf::Window *wnd;
+	};
 
 }
 }

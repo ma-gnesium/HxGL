@@ -8,66 +8,49 @@ namespace hxgl
 {
 namespace window
 { 
-    Dummy::Dummy ()
-    {
-        _inp = new hxgl::input::Dummy;
-    }
+	Dummy::Dummy ()
+	{
+		_inp = new hxgl::input::Dummy;
+	}
 
-    Dummy::~Dummy ()
-    {
-        delete _inp;
-    }
+	Dummy::~Dummy ()
+	{
+		delete _inp;
+	}
 
+	//FIXME SUPPORT MULTIPLE WINDOWS
+	//FIXME Support specified window size
+	unsigned int Dummy::create ( const char *title, unsigned int width, unsigned int height, bool show )
+	{
+		return true;	//FIXME check if window creation was successful
+	}
 
-    void Dummy::init ()
-    {
-    }
+	void Dummy::destroy( )
+	{
 
-    void Dummy::terminate ()
-    {
-     
-    }
+	}
 
-    //FIXME SUPPORT MULTIPLE WINDOWS
-    //FIXME Support specified window size
-    bool Dummy::create()
-    {
-        return true;	//FIXME check if window creation was successful
-    }
+	void Dummy::activate( unsigned int handle )
+	{
 
-    void Dummy::show (bool isVisible)
-    {
-    }
+	}
 
-    void Dummy::resize(const int width, const int height)
-    {
-    }
+	void Dummy::show (bool isVisible)
+	{
+	}
 
-    void Dummy::setTitle (const char *title)
-    {
-    }
+	void Dummy::resize(const int width, const int height)
+	{
+	}
 
-    void Dummy::getGLVersion (unsigned int &major, unsigned int &minor)
-    {
+	void Dummy::swapBuffers ()
+	{
+	}
 
-    }
-
-    void Dummy::swapBuffers ()
-    {
-    }
-
-    bool Dummy::process ()
-    {
-        return true;
-    }
-
-    //FIXME make input an single instance per window.
-    //FIXME fix memory leak
-    input::IInput *Dummy::getInputHandle ()
-    {
-        return _inp;
-    }
-
+	bool Dummy::process ()
+	{
+		return true;
+	}
 }
 }
 

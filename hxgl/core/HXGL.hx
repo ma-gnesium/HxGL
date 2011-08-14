@@ -1,4 +1,5 @@
-/*
+/* IMPORTANT! This file is outdated, replaced by hxgl.core.GL/Window
+ *
     Rigging for externs to ease in code deployment, and prevent typing errors.
     Please never directly access externs, use this class instead.   
 	It ensures that the external functions are properly loaded and set correctly.
