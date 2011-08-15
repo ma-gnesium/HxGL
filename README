@@ -1,13 +1,45 @@
 If you're looking for the engine side of this, visit: http://github.com/sledorze/HIDE
 
+hxgl.ndll and most of the hxgl.* files are now legacy.
 
-GLES20.cpp/h is currently the only supported graphics wrapper.
+hxgl.core.Window is now the class handling graphics access.
 
-All extern calls should be done via [hxgl.core.HXGL]. Never bypass directly with Lib.load.
+Getting started:
+	Creating a window handle:
+		var wnd = hxgl.core.Window.create ("Name",width,height);
+		
+	Accessing contexts:
+		wnd.gl					//GL specific binds (JS/CPP/Java). WebGL spec.
+		wnd.display3D		//(in development) Full cross platform context
+		wnd.d3d					//(future) Directx binds (Windows)
+		
+		Standard usage will be wnd.display3D, but gl/d3d are offered
+		for platform specific features.
+	
+	Multiple windows:
+		Multiple windows are supported! Please refer below for details
+		on active window selection.
+		
+	Active windows:
+		Windows must be active to recieve the proper commands
+		wnd.activate( ); //wnd.display3D.* is now valid
+		
+		Only one window may be active at a time;
+		wndA.activate( );
+		wndB.activate( );
+		wndA.display3D.drawTriangles(...);   //Invalid! Do not do this!
+		
+	Other commands:
+		[Window].
+			close( );
+			position( x, y );
+			resize( width, height );
+			isOpen( );		//false if window no longer exists (User closed)
+			process( );		//swap buffers, process window messages, etc...
 
-Required libs for hxgl.ndll:
-	sfml-window
-	sfml-system
+Required files for for gl.ndll:
+	sfml-window.so/dll
+	sfml-system.so/dll
 
 Common Problems:
 	Windows:
@@ -23,10 +55,10 @@ NME:
 	A fix is coming.
 
 flash.display3D.*:
-    Functional, but very limited.
+    Being refactored, will be available on [Window].display3D soon.
 
-Differences:
-	Still need GLSL target. Waiting on HxSL extension.
+Shaders:
+	HxSL is not yet supported, you must manually bind and load GLSL shaders.
 	
 Compiling:
 	Use latest HaXe/HXCPP nightlies.

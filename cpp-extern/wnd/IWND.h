@@ -15,7 +15,8 @@ namespace window
 		virtual void destroy( ) = 0;
 		virtual void activate( unsigned int handle ) = 0;
 		virtual void show( bool visible) = 0;
-		virtual void resize (const int width, const int height) = 0;  //STUB
+		virtual void resize (const int width, const int height) = 0;
+		virtual void position (const int x, const int y) = 0;
 		virtual void swapBuffers() = 0; 
 		virtual bool process() = 0;
 	};

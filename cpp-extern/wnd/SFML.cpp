@@ -22,7 +22,7 @@ namespace window
 
 		if( show )
 		{
-		SFML::show( show );
+			SFML::show( show );
 		}
 
 		return handle;
@@ -48,6 +48,11 @@ namespace window
 	void SFML::resize(const int width, const int height)
 	{
 		wnd->SetSize( width, height );
+	}
+	
+	void SFML::position (const int x, const int y)
+	{
+		wnd->SetPosition( x, y );
 	}
 
 	void SFML::swapBuffers ()

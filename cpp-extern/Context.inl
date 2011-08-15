@@ -34,3 +34,12 @@ value __HXGL_resizeWindow( value width, value height )
 	return alloc_null( );	
 }
 DEFINE_PRIM( __HXGL_resizeWindow, 2 );
+
+value __HXGL_positionWindow( value x, value y )
+{
+	pf->wnd->position( 
+		val_int( x ),
+		val_int( y ) );
+	return alloc_null( );	
+}
+DEFINE_PRIM( __HXGL_positionWindow, 2 );

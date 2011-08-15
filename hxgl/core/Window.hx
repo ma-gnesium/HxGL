@@ -37,24 +37,33 @@ class Window
 			_canvas = canvas;
 			gl = _canvas.getContext( "experimental-webgl" );
 			if (null == gl) throw "Could not aquire context";
+			assertActive( );
 		}
 		
 		public function process( )
 		{
-			
+			assertActive( );
 		}
 		public function activate( )
 		{
-			
+			active = this;
 		}
 		public function resize( width:Int, height:Int )
 		{
+			assertActive( );
 			_canvas.setAttribute('width', width);
 			_canvas.setAttribute('height', height);
 		}
+		public function position( x:Int, y:Int )
+		{
+			assertActive( );
+			_canvas.setAttribute('style', 'position: absolute; left: ' + x + 'px; top:' + y + 'px;');
+		}
+		
 		public function close( )
 		{
 			cv( );
+			assertActive( );
 			js.Lib.document.body.removeChild(_canvas);
 			_canvas = null;
 		}
@@ -81,27 +90,42 @@ class Window
 			}
 			_handle = handle;
 			gl = new GL( );
+			assertActive( );
 		}
 		
 		public function process( )
 		{
 		  cv( );
-			activate( );
-			C_process( );
+			assertActive( );
+			if (!C_process( ))
+			{
+				close( );
+			}
 		}
 		public function activate( )
 		{
 			cv( );
 			C_activeWindow( _handle );
+			active = this;
+			if (this != active) trace ("not active");
 		}
 		public function resize( width:Int, height:Int )
 		{
 			cv( );
+			assertActive( );
 			C_resizeWindow( width, height );
 		}
+		public function position( x:Int, y:Int )
+		{
+			cv( );
+			assertActive( );
+			C_positionWindow( x, y );
+		}
+		
 		public function close( )
 		{
 			cv( );
+			assertActive( );
 			C_closeWindow( );
 			_handle = 0;
 		}
@@ -122,8 +146,14 @@ class Window
 		static var C_activeWindow:Dynamic = l("__HXGL_activeWindow", 1);
 		static var C_closeWindow:Dynamic = l("__HXGL_closeWindow", 0);
 		static var C_resizeWindow:Dynamic = l("__HXGL_resizeWindow", 2);
+		static var C_positionWindow:Dynamic = l("__HXGL_positionWindow", 2);
 		static function l(name:String, params:Int) return cpp.Lib.load("gl", name, params)
 	#end
 	
+	function assertActive( )
+	{
+		if (this != active) activate( );
+	}
 	public var gl:GL;
+	public static var active:Window;
 }

@@ -14,6 +14,11 @@ class ClearOnly
 				var wb = hxgl.core.Window.create( "TestB", 512, 512 );
 				wb.resize( 100, 100 );
 				
+				wa.activate( );
+				wa.position( 0, 0 );
+				wb.activate( );
+				wb.position( 100, 100 );
+				
 				var opened:Bool = false;
 				#if cpp
 				do {

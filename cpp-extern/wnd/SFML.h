@@ -22,7 +22,8 @@ namespace window
 		void destroy( );
 		void activate( unsigned int handle );
 		void show( bool visible);
-		void resize (const int width, const int height);  //STUB
+		void resize (const int width, const int height);
+		void position (const int x, const int y);
 		void swapBuffers(); 
 		bool process();
 

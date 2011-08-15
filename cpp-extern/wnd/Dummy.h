@@ -14,13 +14,14 @@ namespace window
 	public:
 		Dummy();
 		~Dummy();
-		unsigned int create ( const char *title, unsigned int width, unsigned int height, bool show ) = 0;
-		void destroy( ) = 0;
-		void activate( unsigned int handle ) = 0;
-		void show( bool visible) = 0;
-		void resize (const int width, const int height) = 0;  //STUB
-		void swapBuffers() = 0; 
-		bool process() = 0;
+		unsigned int create ( const char *title, unsigned int width, unsigned int height, bool show );
+		void destroy( );
+		void activate( unsigned int handle );
+		void show( bool visible);
+		void resize (const int width, const int height);
+		void position (const int x, const int y);
+		void swapBuffers(); 
+		bool process();
 	};
 
 }

@@ -43,6 +43,10 @@ namespace window
 	{
 	}
 
+	void Dummy::position (const int x, const int y)
+	{
+	}
+	
 	void Dummy::swapBuffers ()
 	{
 	}
