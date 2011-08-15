@@ -27,7 +27,6 @@ class BetterKeyMonitor
 	public static function onFrame (e)
 	{
 		//****KEYBOARD
-		//FIXME LOL SLOW: Proof of concept.
 		for (fld in remapFrom.keys.keys())
 		{
 			var from_kc = remapFrom.keys.get (fld);

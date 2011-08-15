@@ -1,9 +1,13 @@
 package hxgl.core;
+import hxgl.display3D.Context3D;
 
 class Window
 {
-	public static var initialized:Bool = false;
-	public static function create( id:String, ?width:Int = 800, ?height:Int = 600 ):Window
+	static var initialized:Bool = false;
+	#if flash
+	static var stages:Int = 0;
+	#end
+	public static function create( cb:Window->Void, id:String, ?width:Int = 800, ?height:Int = 600 ):Void
 	{
 		#if js
 			var canvas:Dynamic = js.Lib.document.getElementById( "hxgl-" + id );
@@ -18,7 +22,7 @@ class Window
 				canvas = js.Lib.document.getElementById( "hxgl-" + id );
 				if (null == canvas) throw "Unable to create context";
 			}		
-			return new Window (canvas);
+			cb (new Window (canvas));
 		#elseif cpp
 			if ( !initialized )
 			{
@@ -26,7 +30,20 @@ class Window
 				//IMPORTANT! Do NOT set initialized to true here!
 			}
 			var handle = C_createWindow( id, width, height, true );			
-			return new Window ( handle );
+			cb (new Window ( handle ));
+		#elseif flash
+			var s:flash.display.Stage3D = flash.Lib.current.stage.stage3Ds[0];
+			s.visible = true;
+			//FIXME This will cause all sorts of problems since context is re-created sometimes
+			s.addEventListener( flash.events.Event.CONTEXT3D_CREATE, function (e)
+			{
+				var st = e.target;
+				st.context3D.configureBackBuffer( width, height, 0, false );
+				st.context3D.setDepthTest( true, flash.display3D.Context3DCompareMode.LESS_EQUAL );
+				st.context3D.setCulling(flash.display3D.Context3DTriangleFace.BACK);
+				cb( new Window( cast e.target ) );
+			});
+			s.requestContext3D();
 		#end
 	}
 	
@@ -37,6 +54,7 @@ class Window
 			_canvas = canvas;
 			gl = _canvas.getContext( "experimental-webgl" );
 			if (null == gl) throw "Could not aquire context";
+			cross = new hxgl.cross.gl.Context( this );
 			assertActive( );
 		}
 		
@@ -70,7 +88,7 @@ class Window
 		
 		public function isOpen( )
 		{
-			return _canvas != 0;
+			return null != _canvas;
 		}
 		
 		function cv( )
@@ -90,6 +108,7 @@ class Window
 			}
 			_handle = handle;
 			gl = new GL( );
+			cross = new hxgl.cross.gl.Context( this );
 			assertActive( );
 		}
 		
@@ -148,12 +167,68 @@ class Window
 		static var C_resizeWindow:Dynamic = l("__HXGL_resizeWindow", 2);
 		static var C_positionWindow:Dynamic = l("__HXGL_positionWindow", 2);
 		static function l(name:String, params:Int) return cpp.Lib.load("gl", name, params)
+	#elseif flash
+	
+		var _stage3D:flash.display.Stage3D;
+		function new( stage3D:flash.display.Stage3D )
+		{
+			_stage3D = stage3D;
+			display3D = _stage3D.context3D;
+			cross = new hxgl.cross.flash.Context( this );
+			assertActive( );
+		}
+		
+		public function process( )
+		{
+			assertActive( );
+			display3D.present( );
+		}
+		public function activate( )
+		{
+			active = this;
+		}
+		public function resize( width:Int, height:Int )
+		{
+			assertActive( );
+			display3D.enableErrorChecking = true;
+			display3D.configureBackBuffer( width, height, 0, true );
+		}
+		public function position( x:Int, y:Int )
+		{
+			assertActive( );
+			_stage3D.x = x;
+			_stage3D.y = y;
+		}
+		
+		//FIXME Improper close, should not dispose assets.
+		public function close( )
+		{
+			cv( );
+			assertActive( );
+			display3D.dispose( );
+			_stage3D = null;
+		}
+		
+		public function isOpen( )
+		{
+			return null != _stage3D;
+		}
+		
+		function cv( )
+		{
+			if (null == _stage3D) throw "Invalid handle";
+		}
 	#end
 	
 	function assertActive( )
 	{
 		if (this != active) activate( );
 	}
-	public var gl:GL;
+	#if (cpp||js)
+	public var gl:hxgl.core.GL;
+	#elseif flash
+	public var display3D:flash.display3D.Context3D;
+	#end
+	public var cross:hxgl.cross.IContext;
 	public static var active:Window;
 }

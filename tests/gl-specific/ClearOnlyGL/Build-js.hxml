@@ -1,3 +1,0 @@
--cp ../../..
--js bin/ClearOnly.js
--main ClearOnly

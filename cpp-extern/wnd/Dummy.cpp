@@ -17,12 +17,10 @@ namespace window
 	{
 		delete _inp;
 	}
-
-	//FIXME SUPPORT MULTIPLE WINDOWS
-	//FIXME Support specified window size
+	
 	unsigned int Dummy::create ( const char *title, unsigned int width, unsigned int height, bool show )
 	{
-		return true;	//FIXME check if window creation was successful
+		return 0;
 	}
 
 	void Dummy::destroy( )

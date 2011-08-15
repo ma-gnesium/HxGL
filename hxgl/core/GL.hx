@@ -1,3 +1,8 @@
+#if !(js || cpp)
+	#error
+#end
+
+
 package hxgl.core;
 #if js
 @:native( 'WebGLRenderingContext' )
@@ -979,7 +984,6 @@ class GL
 	static function l( id:String, p:Int ) return cpp.Lib.load( 'gl', id, p )
 }
 #end
-
 
 //@@ EXTRA
 typedef View = Dynamic;

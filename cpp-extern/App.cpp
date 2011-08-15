@@ -65,7 +65,7 @@ value hxgl_init (value forceMajor, value forceMinor)
         HXGL_NOTIFY ("GLEW OK!");
     #endif
 
-    #if !(defined IPHONE || defined ANDROID) //FIXME glGetString crashes on android emulator
+    #if !(defined IPHONE || defined ANDROID) //BUG glGetString crashes on android emulator
         HXGL_NOTIFY ("Attempting to aquire opengl version");
         
         const unsigned char *glVer = glGetString(GL_VERSION);

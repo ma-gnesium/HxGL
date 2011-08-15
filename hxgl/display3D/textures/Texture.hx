@@ -9,46 +9,46 @@ import hxgl.core.HXGL;
 
 class Texture
 {
-    public function new (width:Int, height:Int, format:String, optimizeForRenderToTexture:Bool)
-    {
-        _width = width;
-        _height = height;
-        _format = format;
-        _optimizeForRenderToTexture = optimizeForRenderToTexture;
+	public function new (width:Int, height:Int, format:String, optimizeForRenderToTexture:Bool)
+	{
+		_width = width;
+		_height = height;
+		_format = format;
+		_optimizeForRenderToTexture = optimizeForRenderToTexture;
 
-		//TODO Add support for mipleve in HXGL."" function
-        _tID = HXGL.createTexture (width, height, format, optimizeForRenderToTexture);
-    }
+		//TODO Add support for miplevel
+		_tID = HXGL.createTexture (width, height, format, optimizeForRenderToTexture);
+	}
 
-    public function uploadFromByteArray (data:BytesData, byteArrayOffset:Int, ?mipLevel:Int = 0):Void
-    {
-		#if js
-			//Temporary
-			var i = 0;
-			var t:Int;
-			while (i < data.length)
-			{
-				var b:Int = data[i];
-				var g:Int = data[i+1];
-				var r:Int = data[i+2];
-				var a:Int = data[i+3];
-				data[i] = r;
-				data[i + 1] = g;
-				data[i + 2] = b;
-				data[i + 3] = a;
-				i += 4;
-			}
-		#end
+	public function uploadFromByteArray (data:BytesData, byteArrayOffset:Int, ?mipLevel:Int = 0):Void
+	{
+	#if js
+		//TODO Plan a better way to handle ARGB vs BGRA inconsitancies
+		var i = 0;
+		var t:Int;
+		while (i < data.length)
+		{
+			var b:Int = data[i];
+			var g:Int = data[i+1];
+			var r:Int = data[i+2];
+			var a:Int = data[i+3];
+			data[i] = r;
+			data[i + 1] = g;
+			data[i + 2] = b;
+			data[i + 3] = a;
+			i += 4;
+		}
+	#end
 		
-		//TODO Add support for mipleve in HXGL."" function
-		HXGL.uploadFromByteArrayTexture (_tID, data, byteArrayOffset, _width, _height);
-    }
-	
-    var _width:Int;
-    var _height:Int;
-    var _format:String;
-    var _optimizeForRenderToTexture:Bool;
-    public var _tID:Int;
+	//TODO Add support for mipleve in HXGL."" function
+	HXGL.uploadFromByteArrayTexture (_tID, data, byteArrayOffset, _width, _height);
+	}
+
+	var _width:Int;
+	var _height:Int;
+	var _format:String;
+	var _optimizeForRenderToTexture:Bool;
+	public var _tID:Int;
 }
 
 #end

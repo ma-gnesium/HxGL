@@ -8,11 +8,8 @@ namespace window
 	{
 	}
 
-	//FIXME SUPPORT MULTIPLE WINDOWS
-	//FIXME Support specified window size
 	unsigned int SFML::create ( const char *title, unsigned int width, unsigned int height, bool show )
 	{
-		//FIXME fix memory leak
 		sf::WindowSettings s;		
 		s.DepthBits = 24;
 		s.StencilBits = 8;
