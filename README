@@ -44,10 +44,10 @@ Required files for for gl.ndll:
 Common Problems:
 	Windows:
 		Window loads and immediately crashes: Compile with vstudio 2008
-		hxgl_*_* not found: Place hxgl.ndll into bin/c++
+		gl_*_* not found: Place hxgl.ndll into bin/c++
 	Linux: 
 		SFML 1.6 fails on a symbol error, no fix yet. Use SFML 1.5
-		hxgl_*_* not found: Move hxgl.ndll to /lib
+		gl_*_* not found: Move hxgl.ndll to /lib
 		        (Still failing? export LD_DEBUG=libs and run again)
 
 NME:
@@ -55,7 +55,7 @@ NME:
 	A fix is coming.
 
 flash.display3D.*:
-    Being refactored, will be available on [Window].display3D soon.
+    	Being refactored, will be available on [Window].display3D soon.
 
 Shaders:
 	HxSL is not yet supported, you must manually bind and load GLSL shaders.
