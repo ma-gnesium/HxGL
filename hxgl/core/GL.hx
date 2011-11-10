@@ -14,6 +14,7 @@ extern class GL
 	public function enable ( flag:GLEnum ):Void;
 	public function disable ( flag:GLEnum ):Void;
 	public function clearDepth ( depth:Float ):Void;
+	public function createBuffer ():Buffer;
 	public function bindBuffer ( target:GLEnum, buffer:Buffer ):Void;
 	public function bufferData ( target:GLEnum, size:Int, type:GLEnum ):Void;
 	public function bufferSubData ( target:GLEnum, offset:Int, data:View ):Void;
@@ -39,6 +40,7 @@ extern class GL
 	public function createTexture (  ):Texture;
 	public function bindTexture ( target:GLEnum, texture:Texture ):Void;
 	public function texParameteri ( target:GLEnum, a:GLEnum, b:GLEnum ):Void;
+	public function uniformMatrix4fv (locindex:Dynamic, transpose:Bool, value:Array<Float>):Void;
 	public var DEPTH_BUFFER_BIT:Int;
 	public var STENCIL_BUFFER_BIT:Int;
 	public var COLOR_BUFFER_BIT:Int;
@@ -634,6 +636,7 @@ class GL
 	public function enable ( flag:GLEnum ):Void _enable ( flag )
 	public function disable ( flag:GLEnum ):Void _disable ( flag )
 	public function clearDepth ( depth:Float ):Void _clearDepth ( depth )
+	public function createBuffer ():Buffer _createBuffer ()
 	public function bindBuffer ( target:GLEnum, buffer:Buffer ):Void _bindBuffer ( target, buffer )
 	public function bufferData ( target:GLEnum, size:Int, type:GLEnum ):Void _bufferData ( target, size, type )
 	public function bufferSubData ( target:GLEnum, offset:Int, data:View ):Void _bufferSubData ( target, offset, data )
@@ -956,6 +959,7 @@ class GL
 	static var _enable:Dynamic = l( 'enable', 1 );
 	static var _disable:Dynamic = l( 'disable', 1 );
 	static var _clearDepth:Dynamic = l( 'clearDepth', 1 );
+	static var _createBuffer:Dynamic = l( 'createBuffer', 0 );
 	static var _bindBuffer:Dynamic = l( 'bindBuffer', 2 );
 	static var _bufferData:Dynamic = l( 'bufferData', 4 );
 	static var _bufferSubData:Dynamic = l( 'bufferSubData', 4 );
