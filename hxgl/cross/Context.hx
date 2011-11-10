@@ -3,7 +3,7 @@ import hxgl.cross.data.VertexBuffer;
 import hxgl.cross.data.IndexBuffer;
 import hxgl.cross.data.Program;
 
-#if (js || cpp)
+#if js
 	import hxgl.core.GL;
 #end
 
@@ -63,10 +63,51 @@ class Context {
 			?d:Int = 0xFFFFFFFF,?m:Int = 0x0) {
 		#if flash
 			context3D.clear (r,g,b,a,d,m);
-		#elseif (js || cpp)
+		#elseif js
 			//DO GL COMMAND
 			gl.clearColor (r,g,b,a);
 			gl.clear (gl.COLOR_BUFFER_BIT);
+		#end
+	}
+
+	public static function setCulling(triangleFaceToCull:String) {
+		#if flash
+			context3D.setCulling (cast triangleFaceToCull);
+		#elseif js
+			switch (triangleFaceToCull) {
+			case "BACK":
+				gl.enable (gl.CULL_FACE);
+				gl.cullFace (gl.BACK);
+			case "FRONT":
+				gl.enable (gl.CULL_FACE);
+				gl.cullFace (gl.FRONT);
+			case "FRONT_AND_BACK":
+				gl.enable (gl.CULL_FACE);
+				gl.cullFace (gl.FRONT_AND_BACK);
+			case "NONE":
+				gl.disable (gl.CULL_FACE);
+				gl.cullFace (gl.NONE);
+			default: throw "Invalid cull mode";
+			}
+		#end
+	}
+
+	public static function setDepthTest(depthMask:Bool, passCompareMode:String) {
+		#if flash
+			context3D.setDepthTest (depthMask, cast passCompareMode);
+		#elseif js
+			gl.depthMask (depthMask);
+			switch (passCompareMode) {
+			case "ALWAYS": gl.depthFunc (gl.ALWAYS);
+			case "EQUAL": gl.depthFunc (gl.EQUAL);
+			case "GREATER": gl.depthFunc (gl.GREATER);
+			case "GREATER_EQUAL": gl.depthFunc (gl.GEQUAL);
+			case "LESS": gl.depthFunc (gl.LESS);
+			case "LESS_EQUAL": gl.depthFunc (gl.LEQUAL);
+			case "NEVER": gl.depthFunc (gl.NEVER);
+			case "NOT_EQUAL": gl.depthFunc (gl.NOTEQUAL);
+			default: throw "Invalid passCompareMode";
+			}
 		#end
 	}
 
@@ -99,7 +140,7 @@ class Context {
 		#if flash
 			return untyped new IndexBuffer (
 				context3D.createIndexBuffer (numIndices));
-		#elseif (js || cpp)
+		#elseif js
 			var id = gl.createBuffer ();
 			gl.bindBuffer (gl.ELEMENT_ARRAY_BUFFER, id);
 			gl.bufferData (gl.ELEMENT_ARRAY_BUFFER, numIndices * 2, gl.STATIC_DRAW);
@@ -176,7 +217,7 @@ class Context {
 	public static function present () {
 		#if flash
 			context3D.present ();
-		#elseif (js || cpp)
+		#elseif js
 
 		#end
 	}
