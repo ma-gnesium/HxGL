@@ -1,0 +1,7 @@
+obj/darwin64//glwrapper/GLES11.o
+obj/darwin64//glwrapper/GLES20.o
+obj/darwin64//platform/IPlatform.o
+obj/darwin64//platform/SFML.o
+obj/darwin64//GL.o
+obj/darwin64//wnd/SFML.o
+obj/darwin64//input/SFML.o

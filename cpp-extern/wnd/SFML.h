@@ -20,7 +20,6 @@ namespace window
 		SFML();
 		unsigned int create ( const char *title, unsigned int width, unsigned int height, bool show );
 		void destroy( );
-		void activate( unsigned int handle );
 		void show( bool visible);
 		void resize (const int width, const int height);
 		void position (const int x, const int y);

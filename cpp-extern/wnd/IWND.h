@@ -13,7 +13,6 @@ namespace window
 	public:
 		virtual unsigned int create ( const char *title, unsigned int width, unsigned int height, bool show ) = 0;
 		virtual void destroy( ) = 0;
-		virtual void activate( unsigned int handle ) = 0;
 		virtual void show( bool visible) = 0;
 		virtual void resize (const int width, const int height) = 0;
 		virtual void position (const int x, const int y) = 0;

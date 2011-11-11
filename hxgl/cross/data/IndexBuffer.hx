@@ -29,4 +29,27 @@ class IndexBuffer {
 	var id:Int;
 	var numIndices:Int;
 }
+#elseif cpp
+class IndexBuffer {
+	public function new (id:Int, numIndices:Int) {
+		this.id = id;
+		this.numIndices = numIndices;
+	}
+	public function upload (indices:Array<Int>, offset:Int, numInds:Int) {
+		var ibuf = new haxe.io.BytesOutput();
+
+		for (i in indices)
+		{
+			ibuf.writeUInt16 (i);
+		}
+
+		var dt = ibuf.getBytes ().getData ();
+
+		Context.gl.bindBuffer (Context.gl.ELEMENT_ARRAY_BUFFER, id);
+		Context.gl.bufferSubData (Context.gl.ELEMENT_ARRAY_BUFFER, 0, dt.length, dt);
+		Context.gl.bindBuffer (Context.gl.ELEMENT_ARRAY_BUFFER, null);
+	}
+	var id:Int;
+	var numIndices:Int;
+}
 #end

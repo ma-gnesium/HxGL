@@ -1,0 +1,150 @@
+<xml>
+<files id="haxe">
+<compilerflag value="-Iinclude"/>
+  <file name="src/hxgl/cross/Context.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/hxgl/core/GL.h"/>
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/IndexBuffer.h"/>
+   <depend name="include/hxgl/cross/data/Program.h"/>
+   <depend name="include/hxgl/cross/data/VertexBuffer.h"/>
+  </file>
+  <file name="src/Hash.cpp">
+   <depend name="include/Hash.h"/>
+   <depend name="include/Std.h"/>
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/hxgl/core/GL.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/hxgl/core/GL.h"/>
+  </file>
+  <file name="src/hxgl/shaders/VecTools.cpp">
+   <depend name="include/hxgl/shaders/VecTools.h"/>
+  </file>
+  <file name="src/cpp/Sys.cpp">
+   <depend name="include/Hash.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/cpp/Sys.h"/>
+   <depend name="include/haxe/Log.h"/>
+  </file>
+  <file name="src/haxe/io/BytesOutput.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/BytesOutput.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/haxe/io/Eof.cpp">
+   <depend name="include/haxe/io/Eof.h"/>
+  </file>
+  <file name="src/Std.cpp">
+   <depend name="include/Std.h"/>
+  </file>
+  <file name="src/hxgl/cross/data/Program.cpp">
+   <depend name="include/hxgl/core/GL.h"/>
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/Program.h"/>
+  </file>
+  <file name="src/haxe/io/Error.cpp">
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/hxgl/shaders/NormalWriter.cpp">
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/Program.h"/>
+   <depend name="include/hxgl/cross/data/VertexBuffer.h"/>
+   <depend name="include/hxgl/shaders/NormalWriter.h"/>
+  </file>
+  <file name="src/hxgl/cross/data/VertexBuffer.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesOutput.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+   <depend name="include/hxgl/core/GL.h"/>
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/VertexBuffer.h"/>
+  </file>
+  <file name="src/hxgl/shaders/MVPFun.cpp">
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/Program.h"/>
+   <depend name="include/hxgl/cross/data/VertexBuffer.h"/>
+   <depend name="include/hxgl/shaders/MVPFun.h"/>
+  </file>
+  <file name="src/IntIter.cpp">
+   <depend name="include/IntIter.h"/>
+  </file>
+  <file name="src/haxe/io/Bytes.cpp">
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/haxe/io/Output.cpp">
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+  </file>
+  <file name="src/Supercube.cpp">
+   <depend name="include/Std.h"/>
+   <depend name="include/SuperCubeGenerator.h"/>
+   <depend name="include/Supercube.h"/>
+   <depend name="include/cpp/Sys.h"/>
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/IndexBuffer.h"/>
+   <depend name="include/hxgl/cross/data/VertexBuffer.h"/>
+   <depend name="include/hxgl/shaders/MVPFun.h"/>
+  </file>
+  <file name="src/hxgl/cross/data/IndexBuffer.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesOutput.h"/>
+   <depend name="include/haxe/io/Output.h"/>
+   <depend name="include/hxgl/core/GL.h"/>
+   <depend name="include/hxgl/cross/Context.h"/>
+   <depend name="include/hxgl/cross/data/IndexBuffer.h"/>
+  </file>
+  <file name="src/StringBuf.cpp">
+   <depend name="include/StringBuf.h"/>
+  </file>
+  <file name="src/haxe/Log.cpp">
+   <depend name="include/haxe/Log.h"/>
+  </file>
+  <file name="src/haxe/io/Input.cpp">
+   <depend name="include/StringBuf.h"/>
+   <depend name="include/cpp/Lib.h"/>
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/Eof.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+   <depend name="include/haxe/io/Input.h"/>
+  </file>
+  <file name="src/cpp/Lib.cpp">
+   <depend name="include/cpp/Lib.h"/>
+  </file>
+  <file name="src/SuperCubeGenerator.cpp">
+   <depend name="include/SuperCubeGenerator.h"/>
+  </file>
+  <file name="src/haxe/io/BytesBuffer.cpp">
+   <depend name="include/haxe/io/Bytes.h"/>
+   <depend name="include/haxe/io/BytesBuffer.h"/>
+   <depend name="include/haxe/io/Error.h"/>
+  </file>
+  <file name="src/__boot__.cpp">
+  </file>
+  <file name="src/__resources__.cpp">
+  </file>
+</files>
+<files id="__lib__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__lib__.cpp">
+   <depend name="include/Supercube.h"/>
+  </file>
+</files>
+<files id="__main__">
+<compilerflag value="-Iinclude"/>
+  <file name="src/__main__.cpp">
+   <depend name="include/Supercube.h"/>
+  </file>
+</files>
+<set name="HAXE_OUTPUT" value="Supercube" />
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+</xml>

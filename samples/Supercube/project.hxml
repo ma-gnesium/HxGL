@@ -1,0 +1,16 @@
+-cp Source
+-cp ../../
+-cp ../Tools
+-main Supercube
+-debug
+
+#-js Bin/js/Supercube.js
+
+
+-swf9 Bin/flash/Supercube.swf
+-swf-version 11
+-lib format
+
+#-cpp Bin/cpp/mac
+#-D HXCPP_M64
+#-cpp Bin/cpp/windows

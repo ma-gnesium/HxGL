@@ -43,7 +43,7 @@ class NormalWriter_ extends format.hxsl.Shader {
 		}
 	};
 }
-#elseif js
+#elseif (js||cpp)
 class NormalWriter{
 
 	public function new () {

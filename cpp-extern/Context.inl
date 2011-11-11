@@ -11,14 +11,6 @@ value __HXGL_createWindow( value title, value width, value height, value show )
 }
 DEFINE_PRIM( __HXGL_createWindow, 4 );
 
-value __HXGL_activeWindow( value handle )
-{
-	pf->wnd->activate( 
-		val_int( handle ) );
-	return alloc_null( );
-}
-DEFINE_PRIM( __HXGL_activeWindow, 1 );
-
 value __HXGL_closeWindow( )
 {
 	pf->wnd->destroy( );

@@ -13,7 +13,7 @@ class Program {
 
 	var __prog:Program3D;
 }
-#elseif js
+#elseif ((js||cpp))
 class Program {
 	function new (prog:Int) {
 		this.__prog = prog;

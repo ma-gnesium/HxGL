@@ -28,4 +28,27 @@ class VertexBuffer {
 	var id:Int;
 	var __bsize:Int;
 }
+#elseif cpp
+class VertexBuffer {
+	public function new (id:Int, bsize:Int) {
+		this.id = id;
+		this.__bsize = bsize;
+	}
+	public function upload (vertices:Array<Float>, offset:Int, numVerts:Int){
+		var vbuf = new haxe.io.BytesOutput();
+
+		for (v in vertices)
+		{
+			vbuf.writeFloat (v);
+		}
+
+		var dt = vbuf.getBytes ().getData ();
+
+		Context.gl.bindBuffer (Context.gl.ARRAY_BUFFER, id);
+		Context.gl.bufferSubData (Context.gl.ARRAY_BUFFER, 0, dt.length, dt);
+		Context.gl.bindBuffer (Context.gl.ARRAY_BUFFER, null);
+	}
+	var id:Int;
+	var __bsize:Int;
+}
 #end

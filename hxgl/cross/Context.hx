@@ -3,12 +3,8 @@ import hxgl.cross.data.VertexBuffer;
 import hxgl.cross.data.IndexBuffer;
 import hxgl.cross.data.Program;
 
-#if js
+#if (js||cpp)
 	import hxgl.core.GL;
-#end
-
-#if !(js || flash)
-	#error "Only JS and Flash are supported"
 #end
 
 class Context {
@@ -26,7 +22,7 @@ class Context {
 				}
 			);
 			stage3D.requestContext3D ();
-		#elseif (js || cpp)
+		#elseif js
 			canvas = js.Lib.document.getElementById( "hxgl-out" );
 			if (null == canvas)
 			{
@@ -46,6 +42,12 @@ class Context {
 			if (null == gl) throw "Unable to create gl";
 
 			cb ();
+		#elseif cpp
+			_init ();
+			_init_window ();
+			gl = new GL( );
+			_create_window ( "[CPP-HxGL]", 512, 512, true );
+			cb ();
 		#end
 	}
 
@@ -63,16 +65,16 @@ class Context {
 			?d:Int = 0xFFFFFFFF,?m:Int = 0x0) {
 		#if flash
 			context3D.clear (r,g,b,a,d,m);
-		#elseif js
+		#elseif (cpp||js)
 			//DO GL COMMAND
 			gl.clearColor (r,g,b,a);
 			gl.clear (gl.COLOR_BUFFER_BIT);
 		#end
 	}
 
-	public static function setCulling(triangleFaceToCull:String) {
+	public static function setCulling(triangleFaceToCull) {
 		#if flash
-			context3D.setCulling (cast triangleFaceToCull);
+			context3D.setCulling (triangleFaceToCull);
 		#elseif js
 			switch (triangleFaceToCull) {
 			case "BACK":
@@ -118,6 +120,8 @@ class Context {
 			canvas.setAttribute("width", width);
 			canvas.setAttribute("height", height);
 			gl.viewport(0, 0, width, height);
+		#elseif cpp
+			gl.viewport(0,0, width, height);
 		#end
 	}
 
@@ -125,14 +129,15 @@ class Context {
 		#if flash
 			return untyped new VertexBuffer (
 				context3D.createVertexBuffer (numVertices, data32PerVertex));
-		#elseif js
+		#elseif (js||cpp)
 			var id = gl.createBuffer ();
 			gl.bindBuffer (gl.ARRAY_BUFFER, id);
 			gl.bufferData (gl.ARRAY_BUFFER, numVertices * data32PerVertex * 4, gl.STATIC_DRAW);
 			gl.bindBuffer (gl.ARRAY_BUFFER, null);
-			return untyped new VertexBuffer (
+			var vb = untyped new VertexBuffer (
 				id, data32PerVertex * 4
 			);
+			return vb;
 		#end
 	}
 
@@ -140,21 +145,22 @@ class Context {
 		#if flash
 			return untyped new IndexBuffer (
 				context3D.createIndexBuffer (numIndices));
-		#elseif js
+		#elseif (js||cpp)
 			var id = gl.createBuffer ();
 			gl.bindBuffer (gl.ELEMENT_ARRAY_BUFFER, id);
 			gl.bufferData (gl.ELEMENT_ARRAY_BUFFER, numIndices * 2, gl.STATIC_DRAW);
 			gl.bindBuffer (gl.ELEMENT_ARRAY_BUFFER, null);
-			return untyped new IndexBuffer (
+			var ib = untyped new IndexBuffer (
 				id, numIndices
 			);
+			return ib;
 		#end
 	}
 
 	public static function drawTriangles (indexBuffer:IndexBuffer, ?firstIndex:Int = 0, ?numTriangles:Int = -1) {
 		#if flash
 			context3D.drawTriangles (untyped indexBuffer.__vb, firstIndex, numTriangles);
-		#elseif js
+		#elseif (js||cpp)
 			gl.bindBuffer (gl.ELEMENT_ARRAY_BUFFER, untyped indexBuffer.id);
 			
 			if (numTriangles == -1) {
@@ -170,7 +176,7 @@ class Context {
 	public static function setVertexBufferAt (index:LOCATION, buffer:VertexBuffer, bufferOffset:Int, format:String) {
 		#if flash
 			context3D.setVertexBufferAt (index, untyped buffer.vb, bufferOffset, untyped format);
-		#elseif js
+		#elseif (js||cpp)
 			gl.bindBuffer (gl.ARRAY_BUFFER, untyped buffer.id);
 			var loc = gl.getAttribLocation (__program, index);
 			
@@ -183,14 +189,13 @@ class Context {
 				size = 3;
 			default: throw "Invalid format";
 			}
-			//throw "FIXME STRIDE";
 			gl.vertexAttribPointer (loc, size, type, false, untyped buffer.__bsize, bufferOffset*4);
 			gl.enableVertexAttribArray (loc);
 			gl.bindBuffer (gl.ARRAY_BUFFER, null);
 		#end
 	}
 
-	#if js
+	#if (js||cpp)
 	public static function __GL__setMatrix (loc:String, transpose:Bool, mat:Array<Float>) {
 		var loc = untyped gl.getUniformLocation (__program, loc);
 		gl.uniformMatrix4fv (loc, transpose, mat);	
@@ -200,7 +205,7 @@ class Context {
 	public static function createProgram ():Program {
 		#if flash
 			return untyped new Program (context3D.createProgram ());
-		#elseif js
+		#elseif (js||cpp)
 			return untyped new Program (gl.createProgram ());
 		#end
 	}
@@ -208,7 +213,7 @@ class Context {
 	public static function setProgram (program:Program) {
 		#if flash
 			context3D.setProgram (untyped program.__prog);
-		#elseif js
+		#elseif (js||cpp)
 			__program = untyped program.__prog;
 			gl.useProgram (__program);
 		#end
@@ -219,6 +224,8 @@ class Context {
 			context3D.present ();
 		#elseif js
 
+		#elseif cpp
+			_handle_frame( );
 		#end
 	}
 
@@ -227,6 +234,15 @@ class Context {
 	public static var stage3D:flash.display.Stage3D;
 	#elseif js
 	public static var canvas:Dynamic;
+	#elseif cpp
+	static var _init:Dynamic = l( '__HXGL_INIT', 0 );
+	static var _init_window:Dynamic = l( '__HXGL_INIT_WINDOW', 0 );
+	static var _create_window:Dynamic = l( '__HXGL_createWindow', 4 );
+	static var _handle_frame:Dynamic = l( '__HXGL_HANDLEFRAME', 0 );
+	static function l( id:String, p:Int ) return cpp.Lib.load( 'gl', id, p )
+	#end
+
+	#if (js||cpp)
 	public static var gl:GL;
 	public static var __program:Int;
 	#end
@@ -235,6 +251,6 @@ class Context {
 typedef LOCATION = 
 #if flash
 	UInt;
-#elseif js
+#else
 	String;
 #end

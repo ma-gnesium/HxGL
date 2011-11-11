@@ -19,6 +19,22 @@ hxgl::platform::IPlatform *pf;
 
 #include "Context.inl" //Keep context information separete
 
+GLfloat *arrayToGLfloat (value data )
+{
+    int len = val_array_size (data);
+
+    double *_data = val_array_double (data);
+    GLfloat *_fdata = new GLfloat [len]; //We only want what is useful
+    GLfloat *_fptr = _fdata;
+    for (int i=0;i<len;i++)
+    {
+        *(_fptr++) = (GLfloat)*(_data++);
+    }
+
+    return _fdata;
+}
+
+
 value __HXGL_INIT( )
 {
 	pf = hxgl::platform::IPlatform::instance;
@@ -27,6 +43,8 @@ value __HXGL_INIT( )
 			HXGL_FATAL_ERROR ("hxgl_init(): Not platform information");
 	}
 	if (0 == pf->wnd) HXGL_FATAL_ERROR ("hxgl_init(): No window handler");
+
+	HXGL_NOTIFY ("INIT OK!");
 
 	return alloc_null( );
 }
@@ -133,16 +151,16 @@ DEFINE_PRIM( bindBuffer, 2 );
 
 //data is expected to be a bytearray
 //FIXME Extend this like drawElements
-value bufferData( value target, value size, value data, value usage )
+value bufferData( value target, value size, value usage )
 {
 	glBufferData(
 		(GLenum)val_int( target ),
 		(GLsizeiptr)val_int( size ),
-		(const GLvoid *)buffer_data( val_to_buffer ( data ) ),
+		NULL,
 		(GLenum)val_int( usage ) );
 	return alloc_null( );
 }
-DEFINE_PRIM( bufferData, 4 );
+DEFINE_PRIM( bufferData, 3 );
 
 //data is expected to be a bytearray starting at desired position
 //FIXME Extend this like drawElements
@@ -152,7 +170,8 @@ value bufferSubData( value target, value offset, value size, value data )
 		(GLenum)val_int( target ),
 		(GLintptr)val_int( offset ),
 		(GLsizeiptr)val_int( size ),
-		(const GLvoid *)buffer_data( val_to_buffer ( data ) ) );
+		(const GLvoid *)buffer_data( val_to_buffer ( data ) )
+	);
 	return alloc_null( );
 }
 DEFINE_PRIM( bufferSubData, 4 );
@@ -310,34 +329,28 @@ value enableVertexAttribArray( value index )
 DEFINE_PRIM( enableVertexAttribArray, 1 );
 
 //Be very careful with this, it does not support offsets into buffers yet
-value vertexAttribPointer( value *args, int count )
+value vertexAttribPointer( value index, value size, value type, value stride, value pointer )
 {
-	enum {index,size,type,normalized,stride,pointer};
-	if (count != 6) 
-	{
-		throw "vertexAttribPointer invalid parameter length";
-	}
-
 	char *ptr = NULL;
-	if (val_is_buffer (args[pointer]))
+	if (val_is_buffer (pointer))
 	{
 		std::cout << "vertexAttribPointer does not accept data for pointer arg" << std::endl;
 		//ptr = buffer_data( val_to_buffer ( args[pointer] ) );
 	}
-	else if (val_is_int (args[pointer]))
+	else if (val_is_int (pointer))
 	{
-		ptr = ((char *)NULL + val_int(args[pointer]));
+		ptr = ((char *)NULL + val_int(pointer));
 	}
 	glVertexAttribPointer(
-		(GLuint)val_int( args[index] ),
-		(GLint)val_int( args[size] ),
-		(GLenum)val_int( args[type] ),
-		(GLboolean)val_bool( args[normalized] ),
-		(GLsizei)val_int( args[stride] ),
+		(GLuint)val_int( index ),
+		(GLint)val_int( size ),
+		(GLenum)val_int( type ),
+		(GLboolean)false,
+		(GLsizei)val_int( stride ),
 		(const GLvoid *)ptr );
 	return alloc_null( );
 }
-DEFINE_PRIM_MULT( vertexAttribPointer );
+DEFINE_PRIM( vertexAttribPointer, 5 );
 
 value cullFace( value mode )
 {
@@ -394,13 +407,26 @@ value texParameteri( value target, value pname, value param )
 DEFINE_PRIM( texParameteri, 3 );
 
 
+value getUniformLocation( value program, value name )
+{
+	GLint idx = 
+		glGetUniformLocation(
+			(GLuint)val_int( program ),
+			(const GLchar *)val_string( name )
+		);
+	return alloc_int(idx);
+}
+DEFINE_PRIM( getUniformLocation, 2 );
 
-
-
-
-
-
-
-
+value uniformMatrix4fv( value location, value transpose, value value )
+{
+	glUniformMatrix4fv(
+		(GLint)val_int (location),
+		1,
+		(GLboolean)val_bool (transpose),
+		(const GLfloat *)arrayToGLfloat (value)
+	);
+}
+DEFINE_PRIM( uniformMatrix4fv, 3 );
 
 

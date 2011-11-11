@@ -636,10 +636,10 @@ class GL
 	public function enable ( flag:GLEnum ):Void _enable ( flag )
 	public function disable ( flag:GLEnum ):Void _disable ( flag )
 	public function clearDepth ( depth:Float ):Void _clearDepth ( depth )
-	public function createBuffer ():Buffer _createBuffer ()
+	public function createBuffer ():Buffer return _createBuffer ()
 	public function bindBuffer ( target:GLEnum, buffer:Buffer ):Void _bindBuffer ( target, buffer )
 	public function bufferData ( target:GLEnum, size:Int, type:GLEnum ):Void _bufferData ( target, size, type )
-	public function bufferSubData ( target:GLEnum, offset:Int, data:View ):Void _bufferSubData ( target, offset, data )
+	public function bufferSubData ( target:GLEnum, offset:Int, size:Int, data:View ):Void _bufferSubData ( target, offset, size, data )
 	public function drawElements ( target:GLEnum, num:Int, type:GLEnum, offset:Int ):Void _drawElements ( target, num, type, offset )
 	public function createProgram (  ):Program return _createProgram (  )
 	public function createShader ( type:Int ):Shader return _createShader ( type )
@@ -655,13 +655,15 @@ class GL
 	public function getAttribLocation ( program:Program, location:String ):Dynamic return _getAttribLocation ( program, location )
 	public function disableVertexAttribArray ( locindex:Dynamic ):Void _disableVertexAttribArray ( locindex )
 	public function enableVertexAttribArray ( locindex:Dynamic ):Void _enableVertexAttribArray ( locindex )
-	public function vertexAttribPointer ( locindex:Dynamic, size:Int, type:GLEnum, normalize:Bool, stride:Int, bufferOffset:Int ):Void _vertexAttribPointer ( locindex, size, type, normalize, stride, bufferOffset )
+	public function vertexAttribPointer ( locindex:Dynamic, size:Int, type:GLEnum, normalize:Bool, stride:Int, bufferOffset:Int ):Void _vertexAttribPointer ( locindex, size, type, stride, bufferOffset )
 	public function cullFace ( flag:GLEnum ):Void _cullFace ( flag )
 	public function depthMask ( status:Bool ):Void _depthMask ( status )
 	public function depthFunc ( flag:GLEnum ):Void _depthFunc ( flag )
 	public function createTexture (  ):Texture return _createTexture (  )
 	public function bindTexture ( target:GLEnum, texture:Texture ):Void _bindTexture ( target, texture )
 	public function texParameteri ( target:GLEnum, a:GLEnum, b:GLEnum ):Void _texParameteri ( target, a, b )
+	public function getUniformLocation ( program:Program, location:String):Int return _getUniformLocation (program, location)
+	public function uniformMatrix4fv (locindex:Dynamic, transpose:Bool, value:Array<Float>):Void _uniformMatrix4fv (locindex, transpose, value)
 	public var DEPTH_BUFFER_BIT:Int;
 	public var STENCIL_BUFFER_BIT:Int;
 	public var COLOR_BUFFER_BIT:Int;
@@ -961,7 +963,7 @@ class GL
 	static var _clearDepth:Dynamic = l( 'clearDepth', 1 );
 	static var _createBuffer:Dynamic = l( 'createBuffer', 0 );
 	static var _bindBuffer:Dynamic = l( 'bindBuffer', 2 );
-	static var _bufferData:Dynamic = l( 'bufferData', 4 );
+	static var _bufferData:Dynamic = l( 'bufferData', 3 );
 	static var _bufferSubData:Dynamic = l( 'bufferSubData', 4 );
 	static var _drawElements:Dynamic = l( 'drawElements', 4 );
 	static var _createProgram:Dynamic = l( 'createProgram', 0 );
@@ -978,13 +980,15 @@ class GL
 	static var _getAttribLocation:Dynamic = l( 'getAttribLocation', 2 );
 	static var _disableVertexAttribArray:Dynamic = l( 'disableVertexAttribArray', 1 );
 	static var _enableVertexAttribArray:Dynamic = l( 'enableVertexAttribArray', 1 );
-	static var _vertexAttribPointer:Dynamic = l( 'vertexAttribPointer', 6 );
+	static var _vertexAttribPointer:Dynamic = l( 'vertexAttribPointer', 5 );
 	static var _cullFace:Dynamic = l( 'cullFace', 1 );
 	static var _depthMask:Dynamic = l( 'depthMask', 1 );
 	static var _depthFunc:Dynamic = l( 'depthFunc', 1 );
 	static var _createTexture:Dynamic = l( 'createTexture', 0 );
 	static var _bindTexture:Dynamic = l( 'bindTexture', 2 );
 	static var _texParameteri:Dynamic = l( 'texParameteri', 3 );
+	static var _getUniformLocation:Dynamic = l( 'getUniformLocation', 2 );
+	static var _uniformMatrix4fv:Dynamic = l( 'uniformMatrix4fv', 3 );
 	static function l( id:String, p:Int ) return cpp.Lib.load( 'gl', id, p )
 }
 #end

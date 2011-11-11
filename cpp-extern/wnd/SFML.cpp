@@ -13,28 +13,24 @@ namespace window
 		sf::WindowSettings s;		
 		s.DepthBits = 24;
 		s.StencilBits = 8;
-		s.AntialiasingLevel = 8;
-		unsigned int handle = (unsigned int)new sf::Window(sf::VideoMode(width,height,32), title, sf::Style::Close, s);
-		SFML::activate( handle );
+		s.AntialiasingLevel = 0;
+
+		wnd = new sf::Window(sf::VideoMode(width,height,32), title, sf::Style::Close, s);
+		wnd->SetActive( );
 
 		if( show )
 		{
 			SFML::show( show );
 		}
 
-		return handle;
+		///return handle;
+		return 0;
 	}
 
 	void SFML::destroy( )
 	{
 		wnd->Close( );
 		delete wnd;
-	}
-
-	void SFML::activate( unsigned int handle )
-	{
-		wnd = ((sf::Window *)handle);
-		wnd->SetActive( );
 	}
 
 	void SFML::show (bool isVisible)

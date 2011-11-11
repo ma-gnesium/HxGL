@@ -1,0 +1,16 @@
+-cp Source
+-cp ../../
+-cp ../tools
+-main PulsingTriangle
+-debug
+
+#-js Bin/js/PulsingTriangle.js
+
+
+#-swf9 Bin/flash/PulsingTriangle.swf
+#-swf-version 11
+#-lib format
+
+-cpp Bin/cpp/mac
+-D HXCPP_M64
+#-cpp Bin/cpp/windows
