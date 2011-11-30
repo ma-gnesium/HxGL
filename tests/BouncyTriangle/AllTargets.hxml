@@ -1,0 +1,14 @@
+-cp Source
+-cp ../HxGL
+-main Main
+-swf9 Bin/Main.swf
+-swf-version 11
+-lib format
+-debug
+
+--next
+-cp Source
+-cp ../HxGL
+-main Main
+-js Bin/Main.js
+-debug

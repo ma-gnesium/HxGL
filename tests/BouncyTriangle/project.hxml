@@ -1,0 +1,11 @@
+-cp Source
+-cp ../..
+-main Main
+
+
+#-swf9 Bin/Main.swf
+#-swf-version 11
+#-lib format
+#-debug
+
+-js Bin/Main.js
