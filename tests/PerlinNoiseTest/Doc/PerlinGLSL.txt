@@ -1,0 +1,134 @@
+THIS HAS NOT BEEN TESTED!
+
+--VERTEX--
+
+attribute vec3 pos;
+
+varying vec3 perlinPos;
+
+uniform vec3 delta;
+uniform float scale;
+
+void main () {
+    gl_Position = vec4 (pos, 1.0);
+    perlinPos = ([(pos.x + 1) * 0.5, 1 - (pos.y + 1) * 0.5, 0] + delta) * scale;
+}
+
+
+--FRAGMENT
+
+#ifdef GL_ES
+    precision highp float;
+#endif
+
+varying vec3 perlinPos;
+
+uniform sampler2D permut;
+uniform sampler2D g;
+
+void main () {
+    vec3 pos = perlinPos;
+    float tot = 0;
+    float per = 1.0;
+    for (k in 0...2) {
+        tot += gradient (permut, g, pos) * per;
+        per *= 0.5;
+        pos *= 2;
+    }
+    float n = (tot + 1) * 0.5;
+    gl_FragColor = vec4 (n, n, n, 1);
+}
+
+float gradperm (sampler2D g, float v, vec3 pp) {
+    return dot((texture (g, v).xyz * 2 - 1), pp);
+}
+
+vec3 fade (vec3 t) {
+    return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+float gradient (sampler2D permut, sampler2D g, vec3 pos) {
+    vec3 p = fract (pos);
+    vec3 i = pos - p;
+    vec3 f = fade (p);
+    float one = 1 / 256;
+    i *= one;
+    vec3 a = texture(permut, i.xy);
+    return lerp(
+        lerp(
+            lerp( gradperm(g, a.x, p), gradperm(g, a.z, p + vec3( -1, 0, 0) ), f.x),
+            lerp( gradperm(g, a.y, p + vec3(0, -1, 0) ), gradperm(g, a.w, p + vec3( -1, -1, 0) ), f.x),
+            f.y
+        ),
+        lerp(
+            lerp( gradperm(g, a.x + one, p + vec3(0, 0, -1) ), gradperm(g, a.z + one, p + vec3( -1, 0, -1) ), f.x),
+            lerp( gradperm(g, a.y + one, p + vec3(0, -1, -1) ), gradperm(g, a.w + one, p + vec3( -1, -1, -1) ), f.x),
+            f.y
+        ),
+        f.z
+    );
+}
+
+
+-- FIN --
+
+
+//@@@@@@ HAXE REFERENCE
+
+var input : {
+    pos : Float3,
+};
+
+var perlinPos : Float3;
+
+function vertex(delta : Float3, scale : Float) {
+    out = pos.xyzw;
+    perlinPos = ([(pos.x + 1) * 0.5, 1 - (pos.y + 1) * 0.5, 0] + delta) * scale;
+}
+
+function gradperm( g : Texture, v : Float, pp : Float3 ) {
+    return (g.get(v,single,nearest,wrap).xyz * 2 - 1).dot(pp);
+}
+
+function lerp( x : Float, y : Float, v : Float ) {
+    return x * (1 - v) + y * v;
+}
+
+function fade( t : Float3 ) : Float3 {
+    return t * t * t * (t * (t * 6 - 15) + 10);
+}
+
+function gradient( permut : Texture, g : Texture, pos : Float3 ) {
+    var p = pos.frc();
+    var i = pos - p;
+    var f = fade(p);
+    var one = 1 / 256;
+    i *= one;
+    var a = permut.get(i.xy, nearest, wrap) + i.z;
+    return lerp(
+        lerp(
+            lerp( gradperm(g, a.x, p), gradperm(g, a.z, p + [ -1, 0, 0] ), f.x),
+            lerp( gradperm(g, a.y, p + [0, -1, 0] ), gradperm(g, a.w, p + [ -1, -1, 0] ), f.x),
+            f.y
+        ),
+        lerp(
+            lerp( gradperm(g, a.x + one, p + [0, 0, -1] ), gradperm(g, a.z + one, p + [ -1, 0, -1] ), f.x),
+            lerp( gradperm(g, a.y + one, p + [0, -1, -1] ), gradperm(g, a.w + one, p + [ -1, -1, -1] ), f.x),
+            f.y
+        ),
+        f.z
+    );
+}
+
+function fragment( permut : Texture, g : Texture) {
+    var pos = perlinPos;
+    var tot = 0;
+    var per = 1.0;
+    for( k in 0...2 ) {
+        tot += gradient(permut, g, pos) * per;
+        per *= 0.5;
+        pos *= 2;
+    }
+    var n = (tot + 1) * 0.5;
+    out = [n, n, n, 1];
+}
