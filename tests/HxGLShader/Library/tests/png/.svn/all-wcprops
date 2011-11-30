@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/svn/!svn/ver/62/trunk/tests/png
+END
+project.hxp
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/61/trunk/tests/png/project.hxp
+END
+run.bat
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/61/trunk/tests/png/run.bat
+END
+Test.hx
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/62/trunk/tests/png/Test.hx
+END
+project.hxml
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/61/trunk/tests/png/project.hxml
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/173/trunk/tests/all
+END
+all.hxml
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/173/trunk/tests/all/all.hxml
+END
+all.hxproj
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/173/trunk/tests/all/all.hxproj
+END
+params.hxml
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/173/trunk/tests/all/params.hxml
+END

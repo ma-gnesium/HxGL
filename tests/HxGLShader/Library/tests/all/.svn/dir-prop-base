@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 23
+*.js
+*.n
+*.swf
+php
+cpp
+
+END

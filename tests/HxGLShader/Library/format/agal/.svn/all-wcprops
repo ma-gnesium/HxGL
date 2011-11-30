@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/193/trunk/format/agal
+END
+Data.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/186/trunk/format/agal/Data.hx
+END
+Compiler.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/193/trunk/format/agal/Compiler.hx
+END
+Writer.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/189/trunk/format/agal/Writer.hx
+END
+Tools.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/188/trunk/format/agal/Tools.hx
+END

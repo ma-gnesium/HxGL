@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/193/trunk/format/hxsl
+END
+Shader.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/188/trunk/format/hxsl/Shader.hx
+END
+Data.hx
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/193/trunk/format/hxsl/Data.hx
+END
+Compiler.hx
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/193/trunk/format/hxsl/Compiler.hx
+END
+Parser.hx
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/188/trunk/format/hxsl/Parser.hx
+END
+Build.hx
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/190/trunk/format/hxsl/Build.hx
+END
