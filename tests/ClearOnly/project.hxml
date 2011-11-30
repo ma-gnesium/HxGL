@@ -1,0 +1,4 @@
+-cp ../.. 
+-swf9 bin/flash/Application.swf
+-swf-version 11
+-main ClearOnly
