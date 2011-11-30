@@ -1,6 +1,0 @@
--debug 
--D android
--cp ../..
--cp ../tools
--cpp bin
--main SCubeTest
