@@ -11,7 +11,7 @@ class ClearOnly
         Context.configureBackBuffer (100, 100, 0);
         Context.move (5, 5);
         
-        var t = new haxe.Timer (1000);
+                var t = new haxe.Timer (1000);
         t.run = update;
     }
 
