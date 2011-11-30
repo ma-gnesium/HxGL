@@ -54,15 +54,15 @@ float gradient (sampler2D permut, sampler2D g, vec3 pos) {
     float one = 1 / 256;
     i *= one;
     vec3 a = texture(permut, i.xy);
-    return lerp(
-        lerp(
-            lerp( gradperm(g, a.x, p), gradperm(g, a.z, p + vec3( -1, 0, 0) ), f.x),
-            lerp( gradperm(g, a.y, p + vec3(0, -1, 0) ), gradperm(g, a.w, p + vec3( -1, -1, 0) ), f.x),
+    return mix(
+        mix(
+            mix( gradperm(g, a.x, p), gradperm(g, a.z, p + vec3( -1, 0, 0) ), f.x),
+            mix( gradperm(g, a.y, p + vec3(0, -1, 0) ), gradperm(g, a.w, p + vec3( -1, -1, 0) ), f.x),
             f.y
         ),
-        lerp(
-            lerp( gradperm(g, a.x + one, p + vec3(0, 0, -1) ), gradperm(g, a.z + one, p + vec3( -1, 0, -1) ), f.x),
-            lerp( gradperm(g, a.y + one, p + vec3(0, -1, -1) ), gradperm(g, a.w + one, p + vec3( -1, -1, -1) ), f.x),
+        mix(
+            mix( gradperm(g, a.x + one, p + vec3(0, 0, -1) ), gradperm(g, a.z + one, p + vec3( -1, 0, -1) ), f.x),
+            mix( gradperm(g, a.y + one, p + vec3(0, -1, -1) ), gradperm(g, a.w + one, p + vec3( -1, -1, -1) ), f.x),
             f.y
         ),
         f.z
