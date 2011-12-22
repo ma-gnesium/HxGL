@@ -62,13 +62,14 @@ class Context {
 
 	public static function clear (
 			?r:Float=0.0,?g:Float=0.0,?b:Float=0.0,?a:Float=1.0,
-			?d:Int = 0xFFFFFFFF,?m:Int = 0x0) {
+			?d:Float = 0xFFFFFFFF, ?s:Int = 0, ?m:Int = 0xFFFFFFFF) {
 		#if flash
-			context3D.clear (r,g,b,a,d,m);
+			context3D.clear (r,g,b,a,d,s,m);
 		#elseif (cpp||js)
 			//DO GL COMMAND
 			gl.clearColor (r,g,b,a);
-			gl.clear (gl.COLOR_BUFFER_BIT);
+			gl.clearDepth (d);
+			gl.clear (gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		#end
 	}
 
@@ -96,8 +97,9 @@ class Context {
 
 	public static function setDepthTest(depthMask:Bool, passCompareMode:String) {
 		#if flash
-			context3D.setDepthTest (depthMask, cast passCompareMode);
+			context3D.setDepthTest (depthMask, cast passCompareMode.toLowerCase());
 		#elseif js
+			gl.enable(gl.DEPTH_TEST);
 			gl.depthMask (depthMask);
 			switch (passCompareMode) {
 			case "ALWAYS": gl.depthFunc (gl.ALWAYS);
@@ -113,15 +115,15 @@ class Context {
 		#end
 	}
 
-	public static function configureBackBuffer (width:Int, height:Int, aa:Int) {
+	public static function configureBackBuffer(width:Int, height:Int, aa:Int, ?enableDepthAndStencilBuffers:Bool = false) {
 		#if flash
-			context3D.configureBackBuffer (width, height, aa, false);
+			context3D.configureBackBuffer (width, height, aa, enableDepthAndStencilBuffers);
 		#elseif js
 			canvas.setAttribute("width", width);
 			canvas.setAttribute("height", height);
 			gl.viewport(0, 0, width, height);
 		#elseif cpp
-			gl.viewport(0,0, width, height);
+			gl.viewport(0, 0, width, height);
 		#end
 	}
 
