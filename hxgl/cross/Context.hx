@@ -16,9 +16,9 @@ class Context {
 				function (_){
 					context3D = stage3D.context3D;
 					context3D.enableErrorChecking = true;
-					cb ();
 					context3D.setCulling (flash.display3D.Context3DTriangleFace.NONE);
 					context3D.setDepthTest (false, flash.display3D.Context3DCompareMode.NEVER);
+					cb ();
 				}
 			);
 			stage3D.requestContext3D ();
@@ -73,9 +73,9 @@ class Context {
 		#end
 	}
 
-	public static function setCulling(triangleFaceToCull) {
+	public static function setCulling(triangleFaceToCull:String) {
 		#if flash
-			context3D.setCulling (triangleFaceToCull);
+			context3D.setCulling (cast triangleFaceToCull.toLowerCase());
 		#elseif js
 			switch (triangleFaceToCull) {
 			case "BACK":
